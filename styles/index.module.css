@@ -1,0 +1,51 @@
+.navbar{
+    @apply px-[30px]  md:px-[50px] h-[70px] w-full flex justify-between inset-0 m-auto bg-white
+}
+.navbarLogo{
+    @apply flex flex-row gap-2 h-[40px] justify-center items-center inset-0 my-auto
+}
+.navbarLogo :last-child{
+    @apply hidden md:flex h-[20px] justify-center items-center
+}
+.navbarList{
+    @apply hidden md:flex  gap-5 md:justify-center md:items-center h-full
+}
+.navbarRightSide{
+    @apply flex justify-center items-center gap-[20px]
+}
+.navbarRightSide section,  .navbarRightSide section div{
+    @apply flex
+}
+.currentNavbarList{
+    @apply text-[#008EEF] font-semibold justify-center items-center rounded-[20px] p-[4px_10px] bg-[#F6FCFF] my-[10px];
+}
+.navbarListDiv{
+    border-image: linear-gradient( to right, #008EEF, #008EEF , #008EEF) 0 0 1 0;
+    border-width: 2px;
+}
+.navbarHomePage :first-child p{
+    @apply text-[#52616B] font-semibold  justify-center items-center
+}
+.hideAndShow{
+    @apply hidden md:flex
+}
+.heroImageDiv{
+    @apply w-[100%] h-[20vh] md:h-[40vh] object-contain bg-cover overflow-hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.heroAbsolute{
+    @apply absolute mt-10 md:mt-28 ml-[7vw] md:ml-[5vw] backdrop-blur-lg p-[5px_8px] rounded-md
+}
+.heroAbsolute p{
+     @apply md:text-white text-xs
+}
+.heroPurpleBox{
+    @apply flex bg-[#8F47F4] text-white font-bold border-[1px] border-white w-[30px] h-[30px]
+    justify-center items-center
+}
+.boxSection{
+    @apply flex justify-around items-center px-[5px] py-[5px]
+}

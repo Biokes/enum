@@ -12,3 +12,17 @@ export interface CohortGroup{
 export interface UserDetails{
     username: string
 }
+export interface Cohort{
+    name:string,
+    description:string,
+    avatar: StaticImageData | string,
+    startDate:Date,
+    endDate:Date,
+    program:string,
+    id:number,
+    dateCreated:Date,
+    numberOfLearners:number
+}
+export interface ProviderProps{
+    children: ReactNode
+}

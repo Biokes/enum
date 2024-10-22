@@ -30,14 +30,14 @@
     @apply hidden md:flex
 }
 .heroImageDiv{
-    @apply w-[100%] h-[20vh] md:h-[40vh] object-contain bg-cover overflow-hidden;
+    @apply w-[100%] h-[20vh] md:h-[20vh] object-contain bg-cover overflow-hidden;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
 .heroAbsolute{
-    @apply absolute mt-10 md:mt-28 ml-[7vw] md:ml-[5vw] backdrop-blur-lg p-[5px_8px] rounded-md
+    @apply absolute my-7 md:mt-8 ml-[7vw] md:ml-[5vw] backdrop-blur-lg md:backdrop-blur-0 p-[5px_8px] rounded-md
 }
 .heroAbsolute p{
      @apply md:text-white text-xs
@@ -48,4 +48,38 @@
 }
 .boxSection{
     @apply flex justify-around items-center px-[5px] py-[5px]
+}
+.boxSection p{
+    @apply text-xs
+}
+.groupPack{
+    @apply w-full md:w-[200px] px-[20px] md:px-0 md:ml-[50px]
+}
+.groupPack div{
+    @apply h-[40px] flex items-start p-[10px_5px]
+}
+.groupPack div:first-child:hover,
+.groupPack div:first-child:active,
+.groupPack div:last-child:hover,
+.groupPack div:last-child:active {
+    color: #008EEF;
+}
+.cohortsDiv{
+    @apply flex gap-x-20 mt-[20px] md:mt-[50px] flex-col md:flex-row
+}
+.footer{
+    @apply h-[60px] md:hidden w-full flex justify-around items-center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.footer section{
+    @apply flex justify-center items-center flex-col
+}
+.footer section :first-child{
+    @apply w-[30px] h-[30px]
+}
+.footer section p:hover{
+    @apply text-[#008eef]
+}
+.footer section p{
+    @apply text-xs
 }

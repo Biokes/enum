@@ -15,7 +15,7 @@ export default function Footer(){
             </section>
             <section>
                 <Image src={briefCase} alt={''}/>
-                <p>Workspace</p>
+                <p className={'text-[#008EEf]'}>Workspace</p>
             </section>
             <section>
                 <Image src={book} alt={''}/>

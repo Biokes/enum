@@ -1,25 +1,13 @@
 'use client';
-import { CohortGroup } from "@/interfaces/CreateCohortProps";
+import { CohortGroup } from "@/interfaces/interfaces";
 import CohortIcon from '@/assets/user.png';
 import briefcase from '@/assets/briefcase.svg';
 import users from '@/assets/users.svg';
 import openedBook from '@/assets/book-open.svg';
 import Image from 'next/image';
 import styles from '@/styles/index.module.css';
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    FormControl,
-    IconButton,
-    InputLabel,
-    MenuItem,
-    Select, SelectChangeEvent,
-    TextField,
-    useMediaQuery
-} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton,
+    MenuItem, Select, SelectChangeEvent, TextField, useMediaQuery} from "@mui/material";
 import React, { useState } from "react";
 import { CloseIcon } from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import Empty from '@/assets/empty.png';

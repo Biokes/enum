@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import enum_logo from '../../assets/enum_logo.png'
 import styles from '@/styles/index.module.css'
-import {CreateCohortProps} from '@/interfaces/CreateCohortProps'
+import {Interfaces} from '@/interfaces/interfaces'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Badge from '@mui/material/Badge';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -11,9 +11,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {useState} from "react";
 import enumText from '../../assets/enumText.png';
 import Link from 'next/link'
-import human from '@/assets/Ellipse 131.png'
+import human from '@/assets/Ellipse 131.png';
 
-export default function Navbar({props}:CreateCohortProps){
+export default function Navbar({props}:Interfaces){
     const list = [
         ['Home','/home'],
         ['Workspace','/workspace'],
@@ -21,7 +21,7 @@ export default function Navbar({props}:CreateCohortProps){
     ]
     const styleText= 'flex justify-center items-center text';
     const getNumberOfNotification =0;
-    const username='Obianuju';
+    const username='O';
     const [isOpen, setOpen] = useState<boolean>(false)
     return (
         <div className={styles.navbar}>
@@ -51,9 +51,17 @@ export default function Navbar({props}:CreateCohortProps){
                         <Image src={human} width={35} height={25} alt={''}/>
                         <div className={styles.hideAndShow}>
                             <p className={`${styleText} ${styles.hideAndShow}`}>{username}</p>
-                            <div className={`${styleText} ${styles.hideAndShow}`} onClick={() => setOpen(!isOpen)}>
-                                {isOpen ? <ExpandMoreIcon/> : <KeyboardArrowUpIcon/>}
-                            </div>
+
+                                {isOpen ?
+                                    <div className={`${styleText} ${styles.hideAndShow}`}
+                                         onClick={() => setOpen(!isOpen)}>
+                                        <ExpandMoreIcon/>
+                                    </div>
+                                    :
+                                    <div className={`${styleText} ${styles.hideAndShow}`}
+                                         onClick={() => setOpen(!isOpen)}>
+                                        <KeyboardArrowUpIcon/>
+                                    </div>}
                         </div>
                     </div>
                     <div className={styles.hideAndShow}>

@@ -34,11 +34,11 @@ export default function Cohorts() {
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
-                <DialogContent>
-                    <TextField label="Create Cohort" variant="outlined" fullWidth />
-                    <TextField label="Description" multiline rows={5} variant="outlined" fullWidth />
-                    <TextField label="Program" variant="outlined" fullWidth />
-                </DialogContent>
+                {/*<DialogContent>*/}
+                {/*    <TextField label="Create Cohort" variant="outlined" fullWidth />*/}
+                {/*    <TextField label="Description" multiline rows={5} variant="outlined" fullWidth />*/}
+                {/*    <TextField label="Program" variant="outlined" fullWidth />*/}
+                {/*</DialogContent>*/}
                 <DialogActions>
                     <Button variant='outlined' onClick={() => setOpen(false)}>Cancel</Button>
                     <Button variant='contained'>Create Cohort</Button>

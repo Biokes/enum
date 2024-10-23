@@ -9,19 +9,19 @@ import AppsIcon from '@mui/icons-material/Apps';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {useState} from "react";
-import enumText from '../../assets/enumText.png';
+import enumText from '../../assets/enumText.svg';
 import Link from 'next/link'
 import human from '@/assets/Ellipse 131.png';
 
 export default function Navbar({props}:Interfaces){
     const list = [
         ['Home','/home'],
-        ['Workspace','/workspace'],
+        ['Workspace','/'],
         ['Resources Library', '/resource']
     ]
     const styleText= 'flex justify-center items-center text';
     const getNumberOfNotification =0;
-    const username='O';
+    const username='Onowomano';
     const [isOpen, setOpen] = useState<boolean>(false)
     return (
         <div className={styles.navbar}>

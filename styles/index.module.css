@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap');
+.arima{
+    font-family: "Arima", system-ui;
+}
 .navbar{
     @apply px-[30px]  md:px-[50px] h-[70px] w-full flex justify-between inset-0 m-auto bg-white
 }
@@ -13,6 +17,7 @@
 .navbarRightSide{
     @apply flex justify-center items-center gap-[20px]
 }
+
 .navbarRightSide section,  .navbarRightSide section div{
     @apply flex
 }
@@ -65,7 +70,7 @@
     color: #008EEF;
 }
 .cohortsDiv{
-    @apply flex gap-x-20 mt-[20px] md:mt-[50px] flex-col md:flex-row
+    @apply flex gap-x-10 mt-[20px] flex-col md:flex-row
 }
 .footer{
     @apply h-[60px] md:hidden w-full flex justify-around items-center;
@@ -82,4 +87,8 @@
 }
 .footer section p{
     @apply text-xs
+}
+.dropBoxText{
+    font-family: sans-serif ,'Dm sans';
+    @apply text-[10px] font-thin text-gray-500
 }

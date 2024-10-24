@@ -14,7 +14,6 @@ import Empty from '@/assets/empty.png';
 import {RootState} from "@/redux/store";
 import {useSelector} from "react-redux";
 import {format} from 'date-fns';
-// import {Accept, useDropzone} from "react-dropzone";
 import {DialogComponent} from "@/components/createCohort/dialogComponent";
 
 export default function Cohorts() {
@@ -86,7 +85,7 @@ export default function Cohorts() {
                         label="Enter your input" variant="outlined"
                         value={inputValue} onChange={handleInputChange}
                         sx={{
-                            width:'120px'
+                            width:'200px',height:'50px'
                         }}
                         slotProps={{
                             input: {
@@ -182,9 +181,6 @@ export default function Cohorts() {
             <DialogComponent
                 isOpen={isOpen}
                 setOpen={setOpen}
-                // getRootProps={getRootProps}
-                // isDragActive={isDragActive}
-                // getInputProps={getInputProps}
             />
         );
     }

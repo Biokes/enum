@@ -92,3 +92,15 @@
     font-family: sans-serif ,'Dm sans';
     @apply text-[10px] font-thin text-gray-500
 }
+.mapCohortDiv{
+    @apply flex w-full gap-[20px] flex-col overflow-y-auto md:w-full md:gap-y-[10px]
+}
+.mapCohortDivInner1{
+    @apply flex justify-between w-full
+}
+.mapCohortDivSection1{
+    @apply border-[0.5px] border-[#323131] rounded-md md:h-[44px] md:w-[440px] flex items-center pr-[5px]
+}
+.mapCohortDiv :last-child{
+    @apply gap-y-[15px] flex overflow-y-auto
+}

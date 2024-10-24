@@ -264,7 +264,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
                                         here...</Typography>
                                 ) : (
                                     <div className={'flex flex-col justify-center items-center'}>
-                                        <Image src={infoIcon} alt='' height={50} width={50}/>
+                                        <Image src={infoIcon} alt='' height={30} width={30}/>
                                         <section className='flex justify-center items-center  gap-[5px]'>
                                             <Typography variant="body2" color="textSecondary">
                                                 drag an image
@@ -281,7 +281,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
                         </div>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => {
+                        <Button  sx={{ texTransform:'none'}} onClick={() => {
                             setOpen(false)
                         }}>
                             Cancel
@@ -290,7 +290,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
                             type="submit"
                             disabled={!formValid}
                             variant="contained"
-                            sx={{padding: '10px',fontSize:'small'}}
+                            sx={{padding: '10px',fontSize:'small', texTransform:'none'}}
                         >
                             Create Cohort
                         </Button>

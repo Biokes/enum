@@ -21,31 +21,13 @@ export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);
     useEffect(()=>{
     },[isOpen])
-
-    // const onDrop = useCallback((acceptedFiles: File[]) => {
-    //     if (acceptedFiles.length > 0) {
-    //         const file = acceptedFiles[acceptedFiles.length-1];
-    //         const imageUrl = URL.createObjectURL(file);
-    //         setData((prevData) => ({
-    //             ...prevData,
-    //             avatar: imageUrl,
-    //         }));
-    //     }
-    // }, []);
-    // const accept: Accept = {
-    //     'image/*': []
-    // };
-    // const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    //     onDrop,
-    //     accept,
-    // });
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const isMdScreen = useMediaQuery('(min-width: 768px)');
     const [inputValue, setInputValue] = useState<string>('');
-    // const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
+    const numberOfCohorts = useSelector((state :RootState)=>state.cohorts).length
     const handleClick = (index: number) => {
         setSelectedIndex(index);
     };
@@ -60,59 +42,69 @@ export default function Cohorts() {
            </div>
        )
     };
+
     const Instructors = () => {
         return (
-            <div className={'flex justify-center items-center flex-col gap-2 md:gap-5 w-full'}>
-                <div className={'m-[10px] md:m-[30px]'}>
-                    <Image src={Empty} alt={''} />
+            <div className={'flex justify-center items-center flex-col gap-2 md:gap-5 w-full md:ml-[-300px]'}>
+                <div className={'m-[10px] md:m-[10px]'}>
+                    <Image src={Empty} alt={''}/>
                 </div>
                 <div className={'flex justify-center items-center flex-col gap-3'}>
                     <p className={'font-semibold text-sm'}>Empty Space</p>
                     <p className={'text-sm md:text-xs px-[30px] md:px-0 text-center'}>
                         No cohort has been created yet, let&#39;s get started by clicking the button below
                     </p>
-                    <Button variant='contained' onClick={() => setOpen(true)} sx={{fontSize:'extra-small'}}>Create a Cohort</Button>
+                    <Button variant='contained' onClick={() => setOpen(true)} sx={{fontSize: 'small',textTransform:'none'}}>Create
+                        a Cohort
+                    </Button>
                 </div>
             </div>
         );
     };
-    const MapCohorts = ()=>{
-        const cohorts:Cohort[] = storeState
+    const MapCohorts = () => {
+        const cohorts: Cohort[] = storeState
         return (
-            <div className={'flex flex-col gap-[20px] overflow-y-auto md:w-full md:gap-y-[30px]'}>
-                <div className={'h-[60px]'}>
-                    <TextField
-                        label="Enter your input" variant="outlined"
-                        value={inputValue} onChange={handleInputChange}
-                        sx={{
-                            width:'200px',height:'50px'
-                        }}
-                        slotProps={{
-                            input: {
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <SearchIcon />
-                                    </InputAdornment>
-                                ),
-                            },
-                        }}
-                    />
+            <div className={styles.mapCohortDiv}>
+                <div className={styles.mapCohortDivInner1}>
+                    <section className={styles.mapCohortDivSection1}>
+                        <SearchIcon style={{width: '32px', height: '32px', border: 'none'}}/>
+                        <input type="text" style={{outline: 'none', width: '90%', height: '30px'}}/>
+                    </section>
                     <section>
-                        <Button variant={'contained'}>Create a cohort</Button>
+                        <Button variant={'contained'} sx={{
+                                    background: '#008EEF',
+                                    color: '#ffffff',
+                                    textTransform: 'none',
+                                    fontWeight: 'thin',
+                                    fontSize: 'small',
+                                    width: '155px',
+                                    height: '40px'
+                                }} onClick={() => setOpen(true)}>
+                            Create a cohort
+                        </Button>
                         <Button  endIcon={<MoreVertIcon />} variant={'outlined'}
-                           sx={{color:'#008EEF', background:'#ffffff'}}>
+                           sx={{color:'#008EEF', background:'#ffffff',height:'40px',overflow:'none',
+                               fontWeight:'thin',fontSize:'small',textTransform:'none'}}>
                             more actions
                         </Button>
                     </section>
                 </div>
-                <div className={'gap-y-[15px]'}>
+                <div>
                     {
                         cohorts.map((cohort,index)=>(
-                            <div key={index} className={'py-[10px] shadow-[0_4px_10px_2px] bg-white flex'}>
-                              <section>
+                            <div key={index} className={'py-[10px] shadow-[0_4px_10px_2px] flex w-full'}>
+                              <section className={'flex'}>
                                   {typeof cohort.avatar === 'string' ? (
-                                      <Image src={cohort.avatar} alt="" width={50} height={50} className={'rounded-md'}/>
-                                  ) : (<Image src={cohort.avatar.src} alt="" width={50} height={50}/>)}
+                                          <div className={'contain w-[30px] h-[30px] object-cover rounded-md'}>
+                                              <Image src={cohort.avatar} alt="" width={30} height={30}/>
+                                          </div>
+                                      ) :
+                                      (
+                                          <div className={'contain w-[30px] h-[30px] object-cover rounded-md'}>
+                                              <Image src={cohort.avatar.src} alt="" width={30} height={30}/>
+                                          </div>
+                                      )
+                                  }
                                   <div>
                                       <section>
                                           <p>{cohort.name}</p>
@@ -134,29 +126,15 @@ export default function Cohorts() {
             </div>
         )
     }
-    const CreateCohortDialog = () => {
-        const numberOfCohorts =storeState.length
-        return (
-            <div className={'flex flex-col md:ml-[100px]'}>
-                {
-                    numberOfCohorts===0?
-                        <div className={'md:ml-[-300px]'}>
-                            <Instructors/>
-                        </div>
-                        :
-                        <MapCohorts/>
-                }
-            </div>
-        );
-    };
     const groups: CohortGroup[] = [
-        { image: users, text: 'Cohorts', component: <CreateCohortDialog/> },
+        { image: users, text: 'Cohorts', component: numberOfCohorts ===0? <Instructors/> : <MapCohorts/>},
         { image: briefcase, text: 'Instructors', component: <Instructors /> },
         { image: CohortIcon, text: 'Learners', component: <Instructors /> },
         { image: openedBook, text: 'Programs', component: <Instructors /> }
     ];
+
     const SmallScreenComponent=()=> (
-        <div className={'flex flex-col'}>
+        <div className={'flex flex-col md:hidden'}>
             <p className={'text-xs w-full'}>Switch between tabs</p>
             <FormControl sx={{width: '80vw'}}>
                 <Select labelId="my-select-label" value={selectedIndex} onChange={handleSelectChange}
@@ -178,10 +156,7 @@ export default function Cohorts() {
     )
     const Dialog_Component = ()=> {
         return (
-            <DialogComponent
-                isOpen={isOpen}
-                setOpen={setOpen}
-            />
+            <DialogComponent isOpen={isOpen} setOpen={setOpen}/>
         );
     }
 
@@ -196,11 +171,13 @@ export default function Cohorts() {
                         </div>
                     ))
                 ) : (
-                    <SmallScreenComponent/>
+                    <div className={'md:hidden'}>
+                        < SmallScreenComponent/>
+                    </div>
                 )}
             </div>
             <section className={'w-full px-[20px] flex md:flex-col justify-center'}>
-                <p className={` font-semibold hidden ${selectedIndex === 0 ? 'md:flex pt-[15px]' : ''}`}>Cohorts</p>
+                <p className={` font-semibold hidden md:flex my-[10px] pt-[10px] mb-[30px]`}>{groups[selectedIndex].text}</p>
                 <div className={'w-full flex justify-center items-center'}>
                     {groups[selectedIndex].component}
                 </div>

@@ -45,7 +45,7 @@ export default function Cohorts() {
 
     const Instructors = () => {
         return (
-            <div className={'flex justify-center items-center flex-col gap-2 md:gap-5 w-full md:ml-[-300px]'}>
+            <div className={'flex justify-center items-center flex-col gap-2 md:gap-5 w-full md:ml-[-30%]'}>
                 <div className={'m-[10px] md:m-[10px]'}>
                     <Image src={Empty} alt={''}/>
                 </div>

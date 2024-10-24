@@ -10,7 +10,8 @@ export interface CohortGroup{
     component: ReactNode
 }
 export interface UserDetails{
-    username: string
+    username: string,
+    clickedCohortIndex:number
 }
 export interface Cohort{
     name:string,

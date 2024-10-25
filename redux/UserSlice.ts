@@ -3,17 +3,17 @@ import {UserDetails} from '@/interfaces/interfaces'
 
 const initialState:UserDetails ={
     username:'Onowomano',
-    clickedCohortIndex:0
+    clickedCohortIndex:-1
 }
 export const UserSlice = createSlice({
     name:'user',
     initialState,
     reducers:{
         setUsername(state,action:PayloadAction<string>){
-            initialState.username = action.payload;
+            state.username = action.payload;
         },
         setClickedCohortIndex(state, action:PayloadAction<number>){
-            initialState.clickedCohortIndex = action.payload
+            state.clickedCohortIndex = action.payload
         }
     }
 })

@@ -15,12 +15,11 @@ import human from '@/assets/Ellipse 131.png';
 
 export default function Navbar({props}:Interfaces){
     const list = [
-        ['Home','/home'],
+        ['Home','/'],
         ['Workspace','/'],
-        ['Resources Library', '/resource']
+        ['Resources Library', '/']
     ]
     const styleText= 'flex justify-center items-center text';
-    const getNumberOfNotification =0;
     const username='Onowomano';
     const [isOpen, setOpen] = useState<boolean>(false)
     return (
@@ -43,7 +42,7 @@ export default function Navbar({props}:Interfaces){
                 }
             </ul>
             <div className={styles.navbarRightSide}>
-                <Badge badgeContent={getNumberOfNotification}>
+                <Badge badgeContent={0}>
                     <NotificationsNoneIcon/>
                 </Badge>
                 <section>
@@ -51,22 +50,15 @@ export default function Navbar({props}:Interfaces){
                         <Image src={human} width={35} height={25} alt={''}/>
                         <div className={styles.hideAndShow}>
                             <p className={`${styleText} ${styles.hideAndShow}`}>{username}</p>
-
                                 {isOpen ?
-                                    <div className={`${styleText} ${styles.hideAndShow}`}
-                                         onClick={() => setOpen(!isOpen)}>
-                                        <ExpandMoreIcon/>
-                                    </div>
+                                    // className={`${styleText} ${styles.hideAndShow}
+                                        <ExpandMoreIcon sx={{display:'none'}} onClick={() => {setOpen(!isOpen)}}/>
                                     :
-                                    <div className={`${styleText} ${styles.hideAndShow}`}
-                                         onClick={() => setOpen(!isOpen)}>
-                                        <KeyboardArrowUpIcon/>
-                                    </div>}
+                                        <KeyboardArrowUpIcon sx={{display:'none'}} onClick={()=>{setOpen(!isOpen)}}/>
+                                    }
                         </div>
                     </div>
-                    <div className={styles.hideAndShow}>
-                        <AppsIcon sx={{width: '35px', height: '35px', color: '#008EEF'}}/>
-                    </div>
+                    <AppsIcon sx={{width: '35px', height: '35px', color: '#008EEF', display:'hidden'}}/>
                 </section>
 
             </div>

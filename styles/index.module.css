@@ -22,7 +22,8 @@
     @apply flex
 }
 .currentNavbarList{
-    @apply text-[#008EEF] font-semibold justify-center items-center rounded-[20px] p-[4px_10px] bg-[#F6FCFF] my-[10px];
+    @apply text-[#008EEF] font-semibold justify-center items-center
+    rounded-[20px] p-[4px_10px] bg-[#F6FCFF] my-[10px];
 }
 .navbarListDiv{
     border-image: linear-gradient( to right, #008EEF, #008EEF , #008EEF) 0 0 1 0;
@@ -42,7 +43,7 @@
 }
 
 .heroAbsolute{
-    @apply absolute my-7 md:mt-8 ml-[7vw] md:ml-[5vw] backdrop-blur-lg md:backdrop-blur-0 p-[5px_8px] rounded-md
+    @apply absolute my-7 md:mt-8 ml-[7vw] md:ml-[5vw] backdrop-blur-md p-[5px_8px] rounded-md
 }
 .heroAbsolute p{
      @apply md:text-white text-xs
@@ -93,16 +94,16 @@
     @apply text-[10px] font-thin text-gray-500
 }
 .mapCohort{
-    @apply flex gap-[10px] flex-col w-[100%] md:gap-y-[5px] md:mt-[-110px] h-[380px] relative
+    @apply flex gap-[10px] flex-col w-[100%] md:gap-y-[5px] lg:h-[300px] relative
 }
 .mapCohortDivInner1{
-    @apply flex justify-between w-full
+    @apply justify-between w-full hidden md:flex
 }
 .mapCohortDivSection1{
     @apply border-[1px] border-[#323131] rounded-md md:h-[44px] md:w-[35%] flex items-center pr-[5px]
 }
 .mapCohortsCreated{
-    @apply gap-[20px] flex flex-col overflow-y-auto h-[100%] p-[10px];
+    @apply gap-[20px] flex flex-col overflow-y-auto p-[10px] md:max-h-[380px];
 
 }
 .mappedCohortsContainer{

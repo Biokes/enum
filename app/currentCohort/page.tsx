@@ -6,7 +6,7 @@ import ViewCohort from "@/components/curentCohort/viewCohort";
 
 export default function CurrentCohort(){
     return (
-        <div>
+        <div className={'md:min-h-[100vh]'}>
             <div className={'flex flex-col justify-between h-[100vh] md:h-[100vh] bg-white'}>
                 <div>
                     <Navbar props={1}/>

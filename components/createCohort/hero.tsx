@@ -16,9 +16,9 @@ export default function Hero() {
                     <div className={styles.heroPurpleBox}>S</div>
                     <p>Semicolon Africa</p>
                 </section>
-                <Button sx={{ backgroundColor:'#ffffff',color:'#020202',
-                    paddingInline:'15px',fontSize:{xs:'small',md:'medium', textTransform:'none'}}}>
-                    View Profile <ArrowForwardIcon />
+                <Button sx={{ backgroundColor:'#ffffff',color:'#020202',textTransform:'none',
+                    paddingInline:'15px',fontSize:'small'}}>
+                    View Profile <ArrowForwardIcon sx={{width :'16px', height:'16px',marginLeft:'10px'}}/>
                 </Button>
             </div>
         </div>

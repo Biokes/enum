@@ -16,7 +16,7 @@ export interface UserDetails{
 export interface Cohort{
     name:string,
     description:string,
-    avatar: StaticImageData | string,
+    avatar: StaticImageData,
     startDate:Date | null,
     endDate:Date | null,
     program:string,

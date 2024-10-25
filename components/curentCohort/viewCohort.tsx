@@ -22,15 +22,16 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import FeedIcon from '@mui/icons-material/Feed';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HelpCircle from '@/assets/help-circle.png';
 import Heart from '@/assets/heart.png';
 import Reply from '@/assets/message-circle.png'
 
 export default  function ViewCohort(){
     const selector = useSelector((rootState:RootState)=>rootState.user)
+    const cohorts = useSelector((state:RootState)=> state.cohorts)
     const selectedCohort = selector.clickedCohortIndex
     const smallTextStyles = 'text-xs font-thin dmSans';
-    const allCohorts : string | null = sessionStorage.getItems('cohorts')
     const Instructors =()=>(
         <div>
             <p className={'dateCreated'}>2 Instructors</p>
@@ -60,6 +61,7 @@ export default  function ViewCohort(){
                         <p className={smallTextStyles}>Henley Business School • Chief Designer</p>
                     </section>
                 </section>
+
                 <div className={smallTextStyles}>
                     Morire taught Donald Trump in Kindergarten. She has 25
                     years experience teaching presidents design related courses.
@@ -72,8 +74,7 @@ export default  function ViewCohort(){
             </div>
         </div>
     )
-    const data = allCohorts ? JSON.parse(allCohorts) : []
-    const currentCohort: Cohort = data[selectedCohort];
+    const currentCohort: Cohort = cohorts[selectedCohort];
     const [component, setComponent] = useState<ReactNode>(<Instructors/>)
     const [popUp, setPopUp] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -99,11 +100,12 @@ export default  function ViewCohort(){
     // )
     const Top= ()=> (
         <div>
-            <Link className={'md:w-[64px] md:h-[24px] md:mt-[40px]'} href={'/createCohort'}> Back</Link>
+            <Link className={'md:w-[64px] md:h-[24px] md:mt-[40px]'} href={'/createCohort'}>
+                Back  <ArrowBackIcon/>
+            </Link>
             <div>
                 <section>
-                    <Image
-                        src={typeof currentCohort.avatar === 'string' ? currentCohort.avatar : currentCohort.avatar.src}
+                    <Image src={cohorts[selectedCohort].avatar.src}
                         width={59} height={59} className='object-cover object-center rounded-md' alt={''}/>
                     <div>
                         <p className={'md:h-[31px]'} style={{fontFamily: 'Dm sans'}}>{currentCohort.name}</p>
@@ -111,7 +113,9 @@ export default  function ViewCohort(){
                     </div>
                 </section>
                 <div>
-                    <Button sx={{textTransform: 'none', fontWeight: 'thin', fontSize: 'small',}}>
+                    <Button sx={{textTransform: 'none', fontWeight: 'thin',
+                        fontSize: 'small', background:'#008EEF',borderRadius:'10px'
+                    }}>
                         Add Learners
                     </Button>
                     <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
@@ -141,7 +145,6 @@ export default  function ViewCohort(){
     ]
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
-        //if(module .name!== searchTerm){module.setStyle('hidden')}
     };
     const Left=()=>(
         <div>

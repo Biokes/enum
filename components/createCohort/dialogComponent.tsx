@@ -18,7 +18,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Accept, useDropzone } from "react-dropzone";
 import { Cohort } from "@/interfaces/interfaces";
-import { useDispatch } from '@/redux/store';
+import { useDispatch } from 'react-redux';
 import { saveCohort } from "@/redux/cohortSlice";
 
 export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen: (value: (((prevState: boolean) => boolean) | boolean)) => void; }) => {
@@ -128,9 +128,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
 
     useEffect(() => {
         setFormSubmitted(false);
-        // formSubmitted = false;
-    }, [data, startDate, endDate]);
-
+    }, [data, startDate, endDate, formSubmitted]);
     return (
         <>
             <Dialog open={isOpen} sx={{ height: '921px', width: '631px', padding: '45px 40px', margin: 'auto' }}>

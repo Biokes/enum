@@ -20,8 +20,6 @@ export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);
     const selector = useSelector((state:RootState)=> state)
     const cohortsSaved: Cohort[] = selector.cohorts
-    useEffect(()=>{
-    },[isOpen, cohortsSaved])
     const [popUp,setPopUp]= useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const isMdScreen = useMediaQuery('(min-width: 768px)');
@@ -40,7 +38,7 @@ export default function Cohorts() {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    },[]);
+    },[isOpen, cohortsSaved]);
     const Instructors = () => {
         return (
             <div className={'flex justify-center items-center mt-[100px] ' +
@@ -105,16 +103,15 @@ export default function Cohorts() {
         </div>
 
     )
-    const MapCohorts = () => {
-        return (
-                <div className={styles.mapCohort}>
-                    <InputAndActionsBar/>
-                    <div>
-                        <MapCohortsSaved/>
-                    </div>
+    const MapCohorts = () =>
+        (
+            <div className={styles.mapCohort}>
+                <InputAndActionsBar/>
+                <div>
+                    <MapCohortsSaved/>
                 </div>
+            </div>
         )
-    };
 
     const groups: CohortGroup[] = [
         {image: users, text: 'Cohorts', component: cohortsSaved.length === 0 ? <Instructors/> : <MapCohorts/>},

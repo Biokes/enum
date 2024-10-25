@@ -1,12 +1,11 @@
 'use client'
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
 import {RootState} from "@/redux/store";
 import {Cohort, Course,CohortRigthProps} from "@/interfaces/interfaces";
-import Link from "next/link";
 import Image from 'next/image'
 import {Button, TextField} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import React, {ReactNode, useState} from "react";
+import React, {ReactNode, useEffect, useRef, useState} from "react";
 import styles from "@/styles/index.module.css";
 import Image1 from '@/assets/unsplash_4_hFxTsmaO4.png'
 import Image2 from '@/assets/unsplash_BbSBf5uv50A.png'
@@ -26,12 +25,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HelpCircle from '@/assets/help-circle.png';
 import Heart from '@/assets/heart.png';
 import Reply from '@/assets/message-circle.png'
+import {setClickedCohortIndex} from "@/redux/UserSlice";
 
 export default  function ViewCohort(){
     const selector = useSelector((rootState:RootState)=>rootState.user)
     const cohorts = useSelector((state:RootState)=> state.cohorts)
     const selectedCohort = selector.clickedCohortIndex
     const smallTextStyles = 'text-xs font-thin dmSans';
+    const dispatch = useDispatch()
     const Instructors =()=>(
         <div>
             <p className={'dateCreated'}>2 Instructors</p>
@@ -78,31 +79,47 @@ export default  function ViewCohort(){
     const [component, setComponent] = useState<ReactNode>(<Instructors/>)
     const [popUp, setPopUp] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [style, setStyles] = useState<string>('')
     const moreActions = () => {
         setPopUp(!popUp)
     }
+    const popupRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+                setPopUp(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    },[]);
+    const handleClick= ()=>{
+        dispatch(setClickedCohortIndex(-1))
+    }
     const PopUp = () => (
-        <div className={styles.moreActionsPopUp}>
-            <p>Manage polls</p>
+        <div className={`${styles.moreActionsPopUp} ${styles}`} ref={popupRef}>
+            <p onClick={()=>{setStyles('hidden')}}>Manage polls</p>
             <p>view Learners</p>
             <p>Schedule an Event </p>
             <p>Make an Announcement</p>
         </div>
     );
-    // const InnerPopUp=()=> (
-    //     <div className={styles.moreActionsPopUp}>
-    //         <p>Publish Poll</p>
-    //         <p>Schedule a quiz</p>
-    //         <p>Schedule an Event </p>
-    //         <p>Make an Announcement</p>
-    //         <p>Share a resource</p>
-    //     </div>
-    // )
+    const InnerPopUp=()=> (
+        <div className={`${styles.moreActionsPopUp} ${style===''?'hidden':'flex'}`} ref={popupRef}>
+            <p>Publish Poll</p>
+            <p>Schedule a quiz</p>
+            <p>Schedule an Event </p>
+            <p>Make an Announcement</p>
+            <p>Share a resource</p>
+        </div>
+    )
     const Top= ()=> (
         <div>
-            <Link className={'md:w-[64px] md:h-[24px] md:mt-[40px]'} href={'/createCohort'}>
+            <p className={'md:w-[64px] md:h-[24px] md:mt-[40px]'} onClick={handleClick}>
                 Back  <ArrowBackIcon/>
-            </Link>
+            </p>
             <div>
                 <section>
                     <Image src={cohorts[selectedCohort].avatar.src}
@@ -126,6 +143,7 @@ export default  function ViewCohort(){
                         more actions
                     </Button>
                     {popUp && (<PopUp/>)}
+                    {popUp && (<InnerPopUp/>)}
                 </div>
             </div>
 

@@ -11,7 +11,6 @@ export default function CurrentCohort(){
                 <div>
                     <Navbar props={1}/>
                     <Hero/>
-                    <ViewCohort/>
                 </div>
                 <Footer/>
             </div>

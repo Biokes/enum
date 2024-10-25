@@ -11,9 +11,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React, {useEffect, useState} from "react";
 import Empty from '@/assets/empty.png';
-import {RootState} from "@/redux/store";
-import {setCohorts} from '@/redux/cohortSlice'
-import {useDispatch, useSelector} from "react-redux";
+import {getCohortsSaved, setCohorts} from '@/redux/cohortSlice'
+import {useDispatch} from "@/redux/store";
 import MapCohortsSaved from './cohortMapper';
 import {DialogComponent} from "@/components/createCohort/dialogComponent";
 
@@ -29,7 +28,8 @@ export default function Cohorts() {
     const [popUp,setPopUp]= useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const isMdScreen = useMediaQuery('(min-width: 768px)');
-    const numberOfCohorts = useSelector((state :RootState)=>state.cohorts).length
+    const numberOfCohorts = dispatch(getCohortsSaved()).payload
+    console.log(numberOfCohorts)
     const handleClick = (index: number) => {setSelectedIndex(index)};
     const handleSelectChange = (event: SelectChangeEvent<number>) => {
         setSelectedIndex(Number(event.target.value));

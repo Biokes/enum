@@ -18,8 +18,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Accept, useDropzone } from "react-dropzone";
 import { Cohort } from "@/interfaces/interfaces";
-import { useDispatch } from 'react-redux';
-import { createCohort } from "@/redux/cohortSlice";
+import { useDispatch } from '@/redux/store';
+import { saveCohort } from "@/redux/cohortSlice";
 
 export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen: (value: (((prevState: boolean) => boolean) | boolean)) => void; }) => {
     const [nameError, setNameError] = useState<string>('');
@@ -82,7 +82,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
     const handleCreateCohort = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (validate(data)) {
-            dispatch(createCohort(data));
+            dispatch(saveCohort(data));
             console.log('Cohort created successfully', data);
             setOpen(false);
         }
@@ -128,6 +128,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
 
     useEffect(() => {
         setFormSubmitted(false);
+        // formSubmitted = false;
     }, [data, startDate, endDate]);
 
     return (
@@ -226,14 +227,14 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
                                 cursor: 'pointer',
                                 mt: 1,
                                 backgroundColor: '#eaf5fa',
-                                height: '100px',  // Set a fixed height to maintain consistency
-                                overflow: 'hidden' // Ensure overflow is hidden
+                                height: '100px',
+                                overflow: 'hidden'
                             }}>
                                 <Image
                                     src={imagePreview}
                                     alt=""
-                                    layout="fill"  // Use layout="fill" for the image to cover the box
-                                    objectFit="cover" // This ensures the image covers the entire box
+                                    layout="fill"
+                                    objectFit="cover" //
                                     style={{borderRadius: '8px'}}
                                 />
                                 <input
@@ -275,67 +276,6 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
                                 )}
                             </Box>
                         )}
-
-                        {/*{*/}
-                        {/*    imagePreview ? (*/}
-                        {/*    <Box onClick={handleImageClick} sx={{*/}
-                        {/*        border: '2px dashed lightblue',*/}
-                        {/*        borderRadius: '8px',*/}
-                        {/*        textAlign: 'center',*/}
-                        {/*        padding: '20px',*/}
-                        {/*        cursor: 'pointer',*/}
-                        {/*        mt: 1,*/}
-                        {/*        backgroundColor: '#eaf5fa',*/}
-                        {/*        position: 'relative'*/}
-                        {/*    }}>*/}
-                        {/*        <Image*/}
-                        {/*            src={imagePreview}*/}
-                        {/*            alt=""*/}
-                        {/*            height={50}*/}
-                        {/*            width={50}*/}
-                        {/*            style={{borderRadius: '8px', overflow: 'hidden'}}*/}
-                        {/*        />*/}
-                        {/*        <input*/}
-                        {/*            type="file"*/}
-                        {/*            accept="image/*"*/}
-                        {/*            ref={fileInputRef}*/}
-                        {/*            onChange={handleFileChange}*/}
-                        {/*            style={{display: 'none'}}*/}
-                        {/*        />*/}
-                        {/*    </Box>*/}
-                        {/*) : (*/}
-                        {/*    <Box {...getRootProps()} onClick={handleImageClick} sx={{*/}
-                        {/*        border: '2px dashed lightblue',*/}
-                        {/*        borderRadius: '8px',*/}
-                        {/*        textAlign: 'center',*/}
-                        {/*        padding: '20px',*/}
-                        {/*        cursor: 'pointer',*/}
-                        {/*        mt: 1,*/}
-                        {/*        backgroundColor: '#eaf5fa',*/}
-                        {/*        display: 'flex',*/}
-                        {/*        flexDirection: 'column',*/}
-                        {/*        alignItems: 'center',*/}
-                        {/*        justifyContent: 'center',*/}
-                        {/*        height: '100px',*/}
-                        {/*        backgroundSize: 'contain'*/}
-                        {/*    }}>*/}
-                        {/*        <input {...getInputProps()} ref={fileInputRef} style={{display: 'none', height: '50px'}}/>*/}
-                        {/*        {isDragActive ? (*/}
-                        {/*            <Typography variant="body2" color="textSecondary">Drop the image*/}
-                        {/*                here...</Typography>*/}
-                        {/*        ) : (*/}
-                        {/*            <div className={'flex flex-col justify-center items-center'}>*/}
-                        {/*                <Image src={infoIcon} alt='' height={30} width={30}/>*/}
-                        {/*                <section className='flex justify-center items-center  gap-[5px]'>*/}
-                        {/*                    <Typography variant="body2" color="textSecondary">*/}
-                        {/*                        drag an image*/}
-                        {/*                    </Typography>*/}
-                        {/*                    <p className={'text-sm text-blue-400'}>choose file</p>*/}
-                        {/*                </section>*/}
-                        {/*            </div>*/}
-                        {/*        )}*/}
-                        {/*    </Box>*/}
-                        {/*)}*/}
                         <div className={'flex gap-[10px] pt-[10px]'}>
                             <Image src={info} alt={''} width={12} height={12} />
                             <p className={'text-xs text-gray-700'}>You can add this later.</p>

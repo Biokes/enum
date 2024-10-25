@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { useEffect, useState } from "react";
 import { setClickedCohortIndex } from "@/redux/UserSlice";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from "@/redux/store";
 interface MapCohortProps {
     cohorts: Cohort[];
 }
@@ -45,7 +45,8 @@ export default function MapCohortsSaved({ cohorts: initialCohorts }: MapCohortPr
                             {typeof cohort.avatar === 'string' ?
                                 <Image src={cohort.avatar} alt="" width={59} height={59} />
                                 :
-                                <Image src={cohort.avatar.src} alt="" width={59} height={59} className="object-cover object-center" />
+                                <Image src={cohort.avatar.src} alt="" width={59} height={59}
+                                       className="object-cover object-center" />
                             }
                         </div>
                         <section className={'md:h-[44px] flex flex-col justify-center items-start'}>

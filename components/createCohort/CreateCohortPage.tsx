@@ -5,7 +5,7 @@ import Cohorts from "@/components/createCohort/cohorts";
 import Footer from "@/components/createCohort/footer";
 export default function CreateCohortPage(){
     return (
-        <div className={'flex flex-col justify-between h-[100vh] md:h-[100vh] bg-white'}>
+        <div className={'flex flex-col justify-between h-[100%] max-h-[100px] bg-white'}>
             <div>
                 <Navbar props={1}/>
                 <Hero/>

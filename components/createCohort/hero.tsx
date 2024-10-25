@@ -17,7 +17,7 @@ export default function Hero() {
                     <p>Semicolon Africa</p>
                 </section>
                 <Button sx={{ backgroundColor:'#ffffff',color:'#020202',
-                    paddingInline:'15px',fontSize:{xs:'small',md:'medium'}}}>
+                    paddingInline:'15px',fontSize:{xs:'small',md:'medium', textTransform:'none'}}}>
                     View Profile <ArrowForwardIcon />
                 </Button>
             </div>

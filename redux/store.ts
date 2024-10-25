@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import userReducers from './UserSlice'
+import { TypedUseSelectorHook, useDispatch as originalUseDispatch, useSelector as originalUseSelector } from 'react-redux';
 import cohortReducers from './cohortSlice'
 
 export const store = configureStore({
@@ -10,3 +11,5 @@ export const store = configureStore({
 });
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+export const useDispatch = () => originalUseDispatch<AppDispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = originalUseSelector;

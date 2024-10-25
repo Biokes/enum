@@ -27,3 +27,12 @@ export interface Cohort{
 export interface ProviderProps{
     children: ReactNode
 }
+export interface Course{
+    name:string,
+    image:StaticImageData,
+    modules:number
+}
+export interface CohortRigthProps {
+    text:string,
+    component:ReactNode
+}

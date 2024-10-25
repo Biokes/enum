@@ -9,7 +9,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { useEffect, useState } from "react";
 import { setClickedCohortIndex } from "@/redux/UserSlice";
 import { useDispatch } from 'react-redux';
-import { setCohorts } from "@/redux/cohortSlice";
 interface MapCohortProps {
     cohorts: Cohort[];
 }
@@ -17,28 +16,8 @@ interface MapCohortProps {
 export default function MapCohortsSaved({ cohorts: initialCohorts }: MapCohortProps) {
     const dispatch = useDispatch();
     const [cohorts, setCohortsState] = useState<Cohort[]>(initialCohorts);
-    const cohortSaved = sessionStorage.getItem('cohorts');
 
-    useEffect(() => {
-        if (cohortSaved) {
-            try {
-                const savedCohorts = JSON.parse(cohortSaved);
-                if (Array.isArray(savedCohorts)) {
-                    console.log('Array is not empty')
-                    setCohortsState(savedCohorts);
-                } else {
-                    console.log("Parsed cohorts are not an array:", savedCohorts);
-                }
-            } catch (error) {
-                const data :Cohort[] = []
-                setCohortsState(data)
-                console.log(error)
-            }
-        }
-    }, [cohortSaved]);
-
-    useEffect(() => {
-        dispatch(setCohorts());
+    useEffect(()=>{
         const predictedData: string|null = sessionStorage.getItem('cohorts')
         setCohortsState(predictedData ? JSON.parse(predictedData) : null);
         console.log('Data gotten :', cohorts)
@@ -58,8 +37,9 @@ export default function MapCohortsSaved({ cohorts: initialCohorts }: MapCohortPr
 
     return (
         <div className={styles.mapCohortsCreated}>
-            {Array.isArray(cohorts) && cohorts.map((cohort, index) => (
-                <Link key={index} className={styles.mappedCohortsContainer} onClick={() => viewCohort(index)} href={'/currentCohort'}>
+            {cohorts.map((cohort, index) => (
+                <Link key={index} className={styles.mappedCohortsContainer}
+                      onClick={() => viewCohort(index)} href={'/currentCohort'}>
                     <section className={'flex gap-x-[20px] items-center justify-center'}>
                         <div className="w-[59px] h-[59px] overflow-hidden rounded-md">
                             {typeof cohort.avatar === 'string' ?

@@ -299,15 +299,15 @@ export default  function ViewCohort(){
         </div>
     )
     const Forum =()=>(
-        <section>
-            <div>
+        <section className={'h-[365px] py-[20px] pl-[30px] gap-[20px]'}>
+            <div className={'flex gap-[20px] '}>
                 <Button variant={'outlined'} sx={{
                     "&:hover": {
                         borderColor: '#008EEF',
                     },
                     textTransform: 'none',
-                    padding: '10px',
-                    borderRadius: '10px',
+                    padding: '3px 5px',
+                    borderRadius: '15px',
                     border: '1px solid #656464'
                 }}>All </Button>
                 <Button variant={'outlined'} sx={{
@@ -315,8 +315,8 @@ export default  function ViewCohort(){
                         borderColor: '#008EEF',
                     },
                     textTransform: 'none',
-                    padding: '10px',
-                    borderRadius: '10px',
+                    padding: '3px 5px',
+                    borderRadius: '15px',
                     border: '1px solid #656464'
                 }}>Post </Button>
                 <Button variant={'outlined'} sx={{
@@ -324,19 +324,19 @@ export default  function ViewCohort(){
                         borderColor: '#008EEF',
                     },
                     textTransform: 'none',
-                    padding: '10px',
-                    borderRadius: '10px',
+                    padding: '3px 5px',
+                    borderRadius: '15px',
                     border: '1px solid #656464'
                 }}>Questions </Button>
             </div>
             <div>
                 <section>
-                    <div>
-                        <Image src={Image7} alt={''} height={59} width={59}
+                    <div className={'flex items-center gap-[10px]'}>
+                        <Image src={Image7} alt={''} height={40} width={40}
                                className='object-cover object-center rounded-lg'/>
-                        <p>Chukwudi Brutus</p>
+                        <p className={'text-sm font-bold'}>Chukwudi Brutus</p>
                     </div>
-                    <div>
+                    <div className={'border-[1px] rounded '}>
                         <div>
                             <Image src={HelpCircle} alt={''} width={16} height={16}/>
                             <p className={'h-[16px]'}>What are the best tools or methods for the empathize phase ?</p>
@@ -348,7 +348,7 @@ export default  function ViewCohort(){
                         <div>
                             <p>Dec. 12, 2021. 9am</p>
                         </div>
-                        <footer>
+                        <footer className={`flex flex-col justify-between ${styles.footer}`}>
                             <div className={'flex gap-[15px]'}>
                                 <div className={'flex gap-[12px]'}>
                                     <Image src={Heart} alt={''} height={12} width={12}/>
@@ -365,7 +365,7 @@ export default  function ViewCohort(){
                 </section>
                 <section>
                     <div>
-                        <Image src={Image8} alt={''} height={59} width={59}
+                        <Image src={Image8} alt={''} height={40} width={40}
                                className='object-cover object-center rounded-lg'/>
                         <p>Chukwudi Brutus</p>
                     </div>

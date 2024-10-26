@@ -44,7 +44,7 @@ export default function Cohorts() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     },[isOpen, cohortsSaved]);
-    const Instructors = () => {
+    const EmptyCohort = () => {
         return (
             <div className={'flex justify-center items-center mt-[100px] ' +
                 'md:mt-[100px] md:mr-[15%] flex-col gap-2 md:gap-5 w-full'}>
@@ -119,10 +119,10 @@ export default function Cohorts() {
         )
 
     const groups: CohortGroup[] = [
-        {image: users, text: 'Cohorts', component: cohortsSaved.length === 0 ? <Instructors/> : <MapCohorts/>},
-        {image: briefcase, text: 'Instructors', component: <Instructors/>},
-        {image: CohortIcon, text: 'Learners', component: <Instructors/>},
-        {image: openedBook, text: 'Programs', component: <Instructors/>}
+        {image: users, text: 'Cohorts', component: cohortsSaved.length === 0 ? <EmptyCohort/> : <MapCohorts/>},
+        {image: openedBook, text: 'Programs', component: <EmptyCohort/>},
+        {image: briefcase, text: 'Instructors', component: <EmptyCohort/>},
+        {image: CohortIcon, text: 'Learners', component: <EmptyCohort/>}
     ];
 
     const SmallScreenComponent = () => (

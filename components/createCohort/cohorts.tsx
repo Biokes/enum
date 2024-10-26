@@ -27,7 +27,6 @@ export default function Cohorts() {
     const isMdScreen = useMediaQuery('(min-width: 768px)');
     const handleClick = (index: number) => {
         setSelectedIndex(index)
-        console.log('Cohort saved :',cohortsSaved[index])
         dispatch(setClickedCohort(cohortsSaved[index]))
     };
     const handleSelectChange = (event: SelectChangeEvent<number>) => {

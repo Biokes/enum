@@ -28,9 +28,9 @@ import Reply from '@/assets/message-circle.png'
 import {setClickedCohortIndex} from "@/redux/UserSlice";
 
 export default  function ViewCohort(){
-    const selector = useSelector((rootState:RootState)=>rootState.user)
-    const cohorts = useSelector((state:RootState)=> state.cohorts)
-    const selectedCohort = selector.clickedCohortIndex
+    // const selector = useSelector((rootState:RootState)=>rootState.user)
+    // const cohorts = useSelector((state:RootState)=> state.cohorts)
+    // const selectedCohort = selector.clickedCohortIndex
     const smallTextStyles = 'text-xs font-thin dmSans';
     const dispatch = useDispatch()
     const currentCohort: Cohort = useSelector((rootState: RootState) => rootState.user.clickedCohort);
@@ -49,16 +49,9 @@ export default  function ViewCohort(){
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [currentCohort]);
     const handleClick = () => {
         dispatch(setClickedCohortIndex(-1))
-    }
-    const getCurrentImage = (cohort: Cohort) => {
-        if (typeof cohort.avatar === "string") {
-            return cohorts[selectedCohort].avatar
-        } else {
-            return cohort.avatar.src;
-        }
     }
     const PopUp = () => (
         <div className={`${styles.moreActionsPopUp} ${styles}`} ref={popupRef}>
@@ -130,8 +123,9 @@ export default  function ViewCohort(){
             </div>
             <div className={'flex md:h-[80px] justify-between items-center md:px-[60px]'}>
                 <section className={'flex gap-[10px]'}>
-                    <Image src={getCurrentImage(currentCohort)}
-                        width={59} height={59} className='object-cover object-center rounded-md' alt={''}/>
+                    <Image src={typeof currentCohort.avatar === 'string' ?
+                        currentCohort.avatar : currentCohort.avatar.src}
+                    width={50} height={59} className='object-contain object-center rounded-md' alt={''}/>
                     <div>
                         <p className={'md:h-[31px] w-[50px] text-black overflow-ellipsis text-bold capitalize'}
                            style={{fontFamily: 'Dm sans'}}>

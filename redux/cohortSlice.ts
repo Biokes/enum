@@ -8,9 +8,7 @@ const cohortSlice = createSlice({
     initialState,
     reducers: {
         saveCohort(state, action:PayloadAction<Cohort>) {
-            console.log('cohorts about to be saved as : ',action.payload)
             state.push(action.payload)
-            console.log('cohorts saved as : ',state)
         },
     },
 

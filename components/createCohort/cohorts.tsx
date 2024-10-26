@@ -13,22 +13,25 @@ import React, {useEffect, useState, useRef} from "react";
 import Empty from '@/assets/empty.png';
 import {RootState} from "@/redux/store";
 import {DialogComponent} from "@/components/createCohort/dialogComponent";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import MapCohortsSaved from "@/components/createCohort/cohortMapper";
+import {setClickedCohort} from "@/redux/UserSlice";
 
 export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);
     const selector = useSelector((state:RootState)=> state)
     const cohortsSaved: Cohort[] = selector.cohorts
     const [popUp,setPopUp]= useState(false);
+    const dispatch = useDispatch()
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const isMdScreen = useMediaQuery('(min-width: 768px)');
     const handleClick = (index: number) => {
         setSelectedIndex(index)
-
+        console.log('Cohort saved :',cohortsSaved[index])
+        dispatch(setClickedCohort(cohortsSaved[index]))
     };
     const handleSelectChange = (event: SelectChangeEvent<number>) => {
-        setSelectedIndex(Number(event.target.value));
+        setSelectedIndex(Number(event.target.value))
     };
     const popupRef = useRef<HTMLDivElement>(null);
     useEffect(() => {

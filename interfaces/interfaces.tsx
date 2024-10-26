@@ -28,7 +28,7 @@ export interface Course{
     image:StaticImageData,
     modules:number
 }
-export interface CohortRigthProps {
+export interface CohortRightProps {
     text:string,
     component:ReactNode
 }

@@ -109,7 +109,7 @@ export default function MapCohortsSaved() {
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [cohortsSaved]);
+    }, [cohortsSaved, cohortsState]);
     const dispatch = useDispatch();
     const viewCohort = (index: number) => {
         dispatch(setClickedCohortIndex(index));

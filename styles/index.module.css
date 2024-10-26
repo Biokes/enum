@@ -191,7 +191,23 @@
 .articles div p:hover{
     @apply text-blue-400
 }
-.footer{
+.questionPack{
+    @apply border-[1px] rounded p-[7px] h-[150px] gap-[5px] flex flex-col justify-between
+}
+.forumFooter{
     border-image: linear-gradient( to right, #bababa, #bababa) 1 0 0 0;
     border-width: 1px;
+    @apply px-[10px]
+}
+.forumDate{
+    @apply font-extralight text-gray-300
+}
+.forumHeader{
+    @apply flex gap-[5px] items-center
+}
+.forumHeader p{
+    @apply h-[16px] font-bold text-blue-950 text-center
+}
+.comment{
+    @apply font-thin text-sm
 }

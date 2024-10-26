@@ -1,7 +1,7 @@
 'use client'
 import {useSelector,useDispatch} from "react-redux";
 import {RootState} from "@/redux/store";
-import {Cohort, Course,CohortRigthProps} from "@/interfaces/interfaces";
+import {Cohort, Course,CohortRightProps} from "@/interfaces/interfaces";
 import Image from 'next/image'
 import {Button} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -97,7 +97,7 @@ export default  function ViewCohort(){
                             <p className={smallTextStyles}>Henley Business School • Chief Designer</p>
                         </section>
                     </section>
-                    <div className={` dmSans h-[70px] text-xs`}>
+                    <div className={`dmSans h-[70px] text-xs`}>
                         Morire taught Donald Trump in Kindergarten. She has 25
                         years experience teaching presidents design related courses.
                         She has a PhD in Education management and is a member of
@@ -135,9 +135,9 @@ export default  function ViewCohort(){
                     <div>
                         <p className={'md:h-[31px] w-[50px] text-black overflow-ellipsis text-bold capitalize'}
                            style={{fontFamily: 'Dm sans'}}>
-                            {cohorts[selectedCohort].name}
+                            {currentCohort.name}
                         </p>
-                        <p className={'overflow-ellipsis w-[100px]'}>{cohorts[selectedCohort].program}</p>
+                        <p className={'overflow-ellipsis w-[100px]'}>{currentCohort.program}</p>
                     </div>
                 </section>
                 <div >
@@ -299,56 +299,64 @@ export default  function ViewCohort(){
         </div>
     )
     const Forum =()=>(
-        <section className={'h-[365px] py-[20px] pl-[30px] gap-[20px]'}>
-            <div className={'flex gap-[20px] '}>
+        <section className={'h-[365px] py-[10px_20px] gap-[20px]'}>
+            <div className={'flex gap-[20px] p-[10px]'}>
                 <Button variant={'outlined'} sx={{
-                    "&:hover": {
-                        borderColor: '#008EEF',
-                    },
+                    borderColor: '#008EEF',
+                    color:'#008EEF',
                     textTransform: 'none',
+                    backgroundColor:'#aecae1',
                     padding: '3px 5px',
+                    cursor:'pointer',
                     borderRadius: '15px',
-                    border: '1px solid #656464'
+                    border: '1px solid #008EEF'
                 }}>All </Button>
                 <Button variant={'outlined'} sx={{
                     "&:hover": {
-                        borderColor: '#008EEF',
+                        borderColor: '#aecae1',
+                        color:'#008EEF'
                     },
                     textTransform: 'none',
                     padding: '3px 5px',
+                    cursor:'pointer',
+                    color: '#151515',
                     borderRadius: '15px',
-                    border: '1px solid #656464'
+                    border: '1px solid #151515'
                 }}>Post </Button>
                 <Button variant={'outlined'} sx={{
                     "&:hover": {
-                        borderColor: '#008EEF',
+                        borderColor: '#aecae1',
+                        color:'#008EEF'
                     },
                     textTransform: 'none',
                     padding: '3px 5px',
+                    cursor:'pointer',
                     borderRadius: '15px',
-                    border: '1px solid #656464'
+                    color: '#151515',
+                    border: '1px solid #151515'
                 }}>Questions </Button>
             </div>
-            <div>
-                <section>
-                    <div className={'flex items-center gap-[10px]'}>
+            <div className={'flex flex-col md:h-[310px] gap-[10px] overflow-y-auto '}>
+                <section className={'gap-[10px] mt-[5px] flex flex-col justify-between'}>
+                    <div className={'flex items-center gap-[10px] pt-[5px]'}>
                         <Image src={Image7} alt={''} height={40} width={40}
                                className='object-cover object-center rounded-lg'/>
                         <p className={'text-sm font-bold'}>Chukwudi Brutus</p>
                     </div>
-                    <div className={'border-[1px] rounded '}>
-                        <div>
-                            <Image src={HelpCircle} alt={''} width={16} height={16}/>
-                            <p className={'h-[16px]'}>What are the best tools or methods for the empathize phase ?</p>
+                    <div className={styles.questionPack}>
+                        <div className={styles.forumHeader}>
+                            <Image src={HelpCircle} alt={''} width={18} height={18}/>
+                            <p>What are the best tools or methods for the empathize phase ?</p>
                         </div>
-                        <p>I really like how engaging this classroom is.
+                        <p className={styles.comment}>
+                            I really like how engaging this classroom is.
                             The instructors have made all the necessary resources available
                             and we just have to go through them.
                         </p>
                         <div>
-                            <p>Dec. 12, 2021. 9am</p>
+                            <p className={styles.forumDate}>Dec. 12, 2021. 9am</p>
                         </div>
-                        <footer className={`flex flex-col justify-between ${styles.footer}`}>
+                        <footer className={`flex justify-between ${styles.forumFooter}`}>
                             <div className={'flex gap-[15px]'}>
                                 <div className={'flex gap-[12px]'}>
                                     <Image src={Heart} alt={''} height={12} width={12}/>
@@ -363,26 +371,26 @@ export default  function ViewCohort(){
                         </footer>
                     </div>
                 </section>
-                <section>
-                    <div>
+                <section className={'gap-[10px] mt-[5px] flex flex-col justify-between'}>
+                    <div className={'flex items-center gap-[10px] pt-[5px]'}>
                         <Image src={Image8} alt={''} height={40} width={40}
                                className='object-cover object-center rounded-lg'/>
-                        <p>Chukwudi Brutus</p>
+                        <p className={'text-sm font-bold'}>Ambrose Nwankwo</p>
                     </div>
-                    <div>
-                        <div>
-                            <Image src={HelpCircle} alt={''} width={16} height={16}/>
-                            <p className={'h-[16px]'}>Can Affinity Diagramming be used during the Ideate Phase?</p>
+                    <div className={styles.questionPack}>
+                        <div className={styles.forumHeader}>
+                            <Image src={HelpCircle} alt={''} width={18} height={18}/>
+                            <p>What are the best tools or methods for the empathize phase ?</p>
                         </div>
-                        <p>
+                        <p className={styles.comment}>
                             I really like how engaging this classroom is.
-                            The instructors have made all the necessary resources
-                            available and we just have to go through them.
+                            The instructors have made all the necessary resources available
+                            and we just have to go through them.
                         </p>
                         <div>
-                            <p>Dec. 12, 2021. 9am</p>
+                            <p className={styles.forumDate}>Dec. 12, 2021. 9am</p>
                         </div>
-                        <footer>
+                        <footer className={`flex justify-between ${styles.forumFooter}`}>
                             <div className={'flex gap-[15px]'}>
                                 <div className={'flex gap-[12px]'}>
                                     <Image src={Heart} alt={''} height={12} width={12}/>
@@ -397,36 +405,35 @@ export default  function ViewCohort(){
                         </footer>
                     </div>
                 </section>
-
             </div>
         </section>
 
     )
-    const RightSubDivisions: CohortRigthProps[] = [
+    const RightSubDivisions: CohortRightProps[] = [
         {text: 'instructors', component: <Instructors/>},
         {text: 'Modules', component: <Modules/>},
         {text: 'Course Information', component: <CourseOverview/>},
         {text: 'Forum', component: <Forum/>}
     ]
-    const [current , setCurrent] = useState<number>(0);
+    const [current, setCurrent] = useState<number>(0);
     const Right = () => (
-            <section className={'border border-gray-300 rounded-md md:w-[600px] lg:w-[800px]'}>
-                <div className={styles.listDiv}>
-                    {RightSubDivisions.map((data, index) => (
-                            <p key={index} onClick={() => {
-                                setComponent(data.component);
-                                setCurrent(index)
-                            }}
-                               className={`capitalize p-[8px]  ${current===index?`currentP ${styles.navbarListDiv}`
-                                   :styles.navbarHomePage}`}>
-                                {data.text}
-                            </p>
-                    ))}
-                </div>
-                <div className={'ml-[10px]'}>
-                    {component}
-                </div>
-            </section>
+        <section className={'border border-gray-300 rounded-md md:w-[600px] lg:w-[800px]'}>
+            <div className={styles.listDiv}>
+                {RightSubDivisions.map((data, index) => (
+                    <p key={index} onClick={() => {
+                        setComponent(data.component);
+                        setCurrent(index)
+                    }}
+                       className={`capitalize p-[8px]  ${current === index ? `currentP ${styles.navbarListDiv}`
+                           : styles.navbarHomePage}`}>
+                        {data.text}
+                    </p>
+                ))}
+            </div>
+            <div className={'ml-[10px]'}>
+                {component}
+            </div>
+        </section>
     )
     return (
         <div>

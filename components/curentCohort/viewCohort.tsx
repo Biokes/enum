@@ -69,10 +69,10 @@ export default  function ViewCohort(){
         </div>
     );
     const Instructors =()=>(
-        <div>
-            <p className={`text-bold text-lg ${styles.dmSans} flex my-[10px] mx-[30px]`}>2 Instructors</p>
-            <div className={'flex flex-col justify-around items-center gap-[20px] '}>
-                <section className={'flex flex-col border rounded-md px-[20px] py-[10px] gap-[20px] justify-center'}>
+        <div className={'h-[356px] flex flex-col justify-evenly pr-[10px]'}>
+            <p className={`text-bold text-lg ${styles.dmSans} my-[10px]`}>2 Instructors</p>
+            <div className={'flex flex-col justify-evenly items-center gap-[10px]'}>
+                <section className={'flex flex-col border rounded-md px-[10px] py-[5px] gap-[10px] justify-center mr-[2px]'}>
                     <section className={'flex gap-[10px]'}>
                         <Image src={Image5} alt={''} width={30} height={30}
                                className='object-cover object-center rounded-lg'/>
@@ -88,7 +88,7 @@ export default  function ViewCohort(){
                         faculty at the Henley Business School.
                     </div>
                 </section>
-                <section className={'flex flex-col border rounded-md px-[20px] py-[10px] gap-[20px] justify-center'}>
+                <section className={'flex flex-col border rounded-md px-[10px] py-[5px] gap-[10px] justify-center mr-[2px]'}>
                     <section className={'flex gap-[10px]'}>
                         <Image src={Image6} alt={''} width={30} height={30}
                                className='object-cover object-center rounded'/>
@@ -124,10 +124,11 @@ export default  function ViewCohort(){
     )
     const Top= ()=> (
         <div className={'flex flex-col md:mb-[10px]'}>
-            <p className={'md:w-[64px] md:h-[24px] md:mt-[10px] ml-[40px]'} onClick={handleClick}>
-                <ArrowBackIcon sx={{width:'15px',height:'15px'}}/> Back
-            </p>
-            <div className={'flex md:h-[80px] justify-between items-center md:px-[20px]'}>
+            <div className={'md:w-[64px] flex justify-center gap-[5px] items-center md:h-[24px] md:mt-[10px] ml-[60px]'} onClick={handleClick}>
+                <ArrowBackIcon sx={{width:'15px',height:'15px'}}/>
+                <p>Back</p>
+            </div>
+            <div className={'flex md:h-[80px] justify-between items-center md:px-[60px]'}>
                 <section className={'flex gap-[10px]'}>
                     <Image src={getCurrentImage(currentCohort)}
                         width={59} height={59} className='object-cover object-center rounded-md' alt={''}/>
@@ -227,7 +228,7 @@ export default  function ViewCohort(){
 
     )
     const Modules =()=>(
-        <div className={'flex'}>
+        <div className={'flex '}>
             <section className={styles.modules}>
                 <p>Module 1</p>
                 <p>Extra module</p>
@@ -242,8 +243,8 @@ export default  function ViewCohort(){
                 <p>Module 10</p>
             </section>
             <section className={styles.modulesSection2}>
-                <div className={'flex justify-between items-center'}>
-                    <p className={'text-blue-300 text-sm uppercase'}>Session 1</p>
+                <div className={'flex justify-between items-center px-[20px]'}>
+                    <p className={'hover:text-blue-300 text-sm uppercase'}>Session 1</p>
                     <RemoveIcon sx={{'& hover':{color: '#008eef'}}}/>
                 </div>
                 <div className={styles.articles}>

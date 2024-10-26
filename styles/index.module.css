@@ -158,14 +158,13 @@
     @apply font-thin md:my-[7px] text-xs
 }
 .modules{
-    @apply md:h-full overflow-y-auto md:w-[200px] flex flex-col px-[10px] border-l-[1px]
+    @apply md:h-[355px] overflow-y-auto md:w-[200px] flex flex-col px-[10px] border-r-[1px] gap-y-[10px] py-[20px]
 }
 .modules p{
-    @apply flex h-[30px] md:justify-center md:items-center text-sm
-           font-thin capitalize md:w-[160px] overflow-ellipsis hover:font-bold
+    @apply max-h-[80px] h-[100px] font-thin capitalize md:w-[110px] overflow-ellipsis hover:font-bold
 }
 .modulesSection2{
-    @apply flex flex-col overflow-y-auto border-r-[1px] h-full px-[20px]
+    @apply flex flex-col overflow-y-auto border-r-[1px] h-[355px] px-[20px] w-[100%] py-[20px]
 }
 .articles section{
     @apply flex justify-between items-center h-[70px] px-[10px];
@@ -178,12 +177,16 @@
 .articles section div p{
     @apply font-thin capitalize
 }
+.articles section div{
+    @apply flex flex-col justify-center items-start gap-[10px]
+}
 .articles section article{
     @apply flex gap-[5px]
 }
-.articles div{
+.articles>div{
     @apply h-[50px] flex justify-between items-center;
     border-image: linear-gradient( to right, #bababa, #bababa) 0 0 1 0;
+    border-width: 1px;
 }
 .articles div p:hover{
     @apply text-blue-400

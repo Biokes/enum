@@ -3,7 +3,7 @@ import {useSelector,useDispatch} from "react-redux";
 import {RootState} from "@/redux/store";
 import {Cohort, Course,CohortRigthProps} from "@/interfaces/interfaces";
 import Image from 'next/image'
-import {Button, TextField} from "@mui/material";
+import {Button} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, {ReactNode, useEffect, useRef, useState} from "react";
 import styles from "@/styles/index.module.css";
@@ -33,58 +33,13 @@ export default  function ViewCohort(){
     const selectedCohort = selector.clickedCohortIndex
     const smallTextStyles = 'text-xs font-thin dmSans';
     const dispatch = useDispatch()
-    const Instructors =()=>(
-        <div>
-            <p className={'dateCreated'}>2 Instructors</p>
-            <div>
-                <section>
-                    <section className={'flex gap-[10px]'}>
-                        <Image src={Image5} alt={''} width={59} height={59}
-                               className='object-cover object-center rounded-lg'/>
-                        <section className={'flex flex-col'}>
-                            <p className={'ThickDmSansFont'}>Olamide Adebisi, Ph.D. </p>
-                            <p className={smallTextStyles}>Henley Business School • Head Professor </p>
-                        </section>
-                    </section>
-                    <div className={smallTextStyles}>
-                        Olamide taught Donald Trump in Kindergarten. She has 25 years
-                        experience teaching presidents design related courses.
-                        She has a PhD in Education management and is a member of
-                        faculty at the Henley Business School.
-                    </div>
-                </section>
-
-                <section className={'flex gap-[10px]'}>
-                    <Image src={Image6} alt={''} width={59} height={59}
-                           className='object-cover object-center rounded-lg'/>
-                    <section className={'flex flex-col'}>
-                        <p className={'ThickDmSansFont'}>Morire Johnson Alausa</p>
-                        <p className={smallTextStyles}>Henley Business School • Chief Designer</p>
-                    </section>
-                </section>
-
-                <div className={smallTextStyles}>
-                    Morire taught Donald Trump in Kindergarten. She has 25
-                    years experience teaching presidents design related courses.
-                    She has a PhD in Education management and is a member of
-                    faculty at the Henley Business School.Morire taught Donald
-                    Trump in Kindergarten. She has 25 years experience teaching
-                    presidents design related courses. She has a PhD in Education
-                    management and is a member of faculty at the Henley Business School.
-                </div>
-            </div>
-        </div>
-    )
-    const currentCohort: Cohort = cohorts[selectedCohort];
-    const [component, setComponent] = useState<ReactNode>(<Instructors/>)
+    const currentCohort: Cohort = useSelector((rootState: RootState) => rootState.user.clickedCohort);
     const [popUp, setPopUp] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [style, setStyles] = useState<string>('')
-    const moreActions = () => {
-        setPopUp(!popUp)
-    }
     const popupRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
+
+    useEffect(() =>{
         const handleClickOutside = (event: MouseEvent) => {
             if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
                 setPopUp(false);
@@ -94,9 +49,16 @@ export default  function ViewCohort(){
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    },[]);
-    const handleClick= ()=>{
+    }, []);
+    const handleClick = () => {
         dispatch(setClickedCohortIndex(-1))
+    }
+    const getCurrentImage = (cohort: Cohort) => {
+        if (typeof cohort.avatar === "string") {
+            return cohorts[selectedCohort].avatar
+        } else {
+            return cohort.avatar.src;
+        }
     }
     const PopUp = () => (
         <div className={`${styles.moreActionsPopUp} ${styles}`} ref={popupRef}>
@@ -106,6 +68,51 @@ export default  function ViewCohort(){
             <p>Make an Announcement</p>
         </div>
     );
+    const Instructors =()=>(
+        <div>
+            <p className={`text-bold text-lg ${styles.dmSans} flex my-[10px] mx-[30px]`}>2 Instructors</p>
+            <div className={'flex flex-col justify-around items-center gap-[20px] '}>
+                <section className={'flex flex-col border rounded-md px-[20px] py-[10px] gap-[20px] justify-center'}>
+                    <section className={'flex gap-[10px]'}>
+                        <Image src={Image5} alt={''} width={30} height={30}
+                               className='object-cover object-center rounded-lg'/>
+                        <section className={'flex flex-col justify-center'}>
+                            <p className={`${styles.dmSans} text-lg font-bold`}>Olamide Adebisi, Ph.D. </p>
+                            <p className={smallTextStyles}>Henley Business School • Head Professor </p>
+                        </section>
+                    </section>
+                    <div className={`font-thin dmSans h-[60px] text-sm`}>
+                        Olamide taught Donald Trump in Kindergarten. She has 25 years
+                        experience teaching presidents design related courses.
+                        She has a PhD in Education management and is a member of
+                        faculty at the Henley Business School.
+                    </div>
+                </section>
+                <section className={'flex flex-col border rounded-md px-[20px] py-[10px] gap-[20px] justify-center'}>
+                    <section className={'flex gap-[10px]'}>
+                        <Image src={Image6} alt={''} width={30} height={30}
+                               className='object-cover object-center rounded'/>
+                        <section className={'flex flex-col justify-center'}>
+                            <p className={`${styles.dmSans} text-lg font-bold`}>Morire Johnson Alausa</p>
+                            <p className={smallTextStyles}>Henley Business School • Chief Designer</p>
+                        </section>
+                    </section>
+                    <div className={` dmSans h-[70px] text-xs`}>
+                        Morire taught Donald Trump in Kindergarten. She has 25
+                        years experience teaching presidents design related courses.
+                        She has a PhD in Education management and is a member of
+                        faculty at the Henley Business School.Morire taught Donald
+                        Trump in Kindergarten. She has 25 years experience teaching
+                        presidents design related courses. She has a PhD in Education
+                        management and is a member of faculty at the Henley Business School.
+                    </div>
+                </section>
+            </div>
+        </div>
+    )
+    const moreActions = () => {
+        setPopUp(!popUp)
+    }
     const InnerPopUp=()=> (
         <div className={`${styles.moreActionsPopUp} ${style===''?'hidden':'flex'}`} ref={popupRef}>
             <p>Publish Poll</p>
@@ -116,23 +123,26 @@ export default  function ViewCohort(){
         </div>
     )
     const Top= ()=> (
-        <div>
-            <p className={'md:w-[64px] md:h-[24px] md:mt-[40px]'} onClick={handleClick}>
-                Back  <ArrowBackIcon/>
+        <div className={'flex flex-col md:mb-[10px]'}>
+            <p className={'md:w-[64px] md:h-[24px] md:mt-[10px] ml-[40px]'} onClick={handleClick}>
+                <ArrowBackIcon sx={{width:'15px',height:'15px'}}/> Back
             </p>
-            <div>
-                <section>
-                    <Image src={cohorts[selectedCohort].avatar.src}
+            <div className={'flex md:h-[80px] justify-between items-center md:px-[20px]'}>
+                <section className={'flex gap-[10px]'}>
+                    <Image src={getCurrentImage(currentCohort)}
                         width={59} height={59} className='object-cover object-center rounded-md' alt={''}/>
                     <div>
-                        <p className={'md:h-[31px]'} style={{fontFamily: 'Dm sans'}}>{currentCohort.name}</p>
-                        <p className={''}>{currentCohort.program}</p>
+                        <p className={'md:h-[31px] w-[50px] text-black overflow-ellipsis text-bold capitalize'}
+                           style={{fontFamily: 'Dm sans'}}>
+                            {cohorts[selectedCohort].name}
+                        </p>
+                        <p className={'overflow-ellipsis w-[100px]'}>{cohorts[selectedCohort].program}</p>
                     </div>
                 </section>
-                <div>
-                    <Button sx={{textTransform: 'none', fontWeight: 'thin',
-                        fontSize: 'small', background:'#008EEF',borderRadius:'10px'
-                    }}>
+                <div >
+                    <Button sx={{textTransform: 'none', fontWeight: 'thin',marginRight:'10px',
+                        fontSize: 'small', background:'#008EEF', color:'#ffffff'
+                    }} variant={'contained'}>
                         Add Learners
                     </Button>
                     <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
@@ -149,6 +159,7 @@ export default  function ViewCohort(){
 
         </div>
     )
+    const [component, setComponent] = useState<ReactNode>(<Instructors/>)
     const courses:Course[] = [
         {name:'Design Thinking',image:Image1 ,modules:12},
         {name:'Java',image:Image2 ,modules:8},
@@ -165,25 +176,24 @@ export default  function ViewCohort(){
         setSearchTerm(event.target.value);
     };
     const Left=()=>(
-        <div>
-            <TextField
-                variant="outlined"
+        <div className={'gap-[20px] flex flex-col items-center'}>
+            <input
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={handleSearchChange}
-                sx={{width:'408px',textTransform:'none', height:'38px',borderRadius:'8px',borderWidth:'1px'}}
+                className="w-[90%] h-[40px] text-base rounded border border-gray-300 mt-[10px]"
             />
-            <div className={''}>
-                <p className={''}>9 courses</p>
-                <div>
+            <div className={'md:border md:border-gray-300 md:rounded md:w-[450px] mx-[20px] flex flex-col'}>
+                <p className={'capitalize text-semibold p-[10px_0_5px_20px]'}>9 courses</p>
+                <div className={'md:max-h-[500px] lg:max-h-[300px] overflow-y-auto border-1 rounded-md border-gray-200 p-[20px] md:mb-[10px]'}>
                     {
-                        courses.map((course, index)=>(
-                            <div key={index}>
-                                <Image src={course.image.src} alt={''} width={59}
-                                       height={59} className='object-contain object-center rounded-md'/>
-                                <section>
-                                    <p>{course.name}</p>
-                                    <p>{course.modules} modules</p>
+                        courses.map((course, index) => (
+                            <div key={index} className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] hover:border-blue-400'}>
+                                <Image src={course.image.src} alt={''} width={59} height={59}
+                                       className='object-contain object-center rounded-md'/>
+                                <section className={'flex flex-col justify-center'}>
+                                    <p className={'ThickDmSansFont overflow-ellipsis md:max-w-[300px]'}>{course.name}</p>
+                                    <p className={'text-sm font-semibold'}>{course.modules} modules</p>
                                 </section>
                             </div>
                         ))
@@ -193,20 +203,20 @@ export default  function ViewCohort(){
         </div>
 
     )
-    const CourseInformation=()=>(
-        <section >
-            <div>
-                <p>Course Overview</p>
-                <p>This course examines important issues in corporate finance
+    const CourseOverview = () => (
+        <section className={'md:pl-[30px] flex md:flex-col md:justify-around'}>
+            <div className={'my-[20px] w-full'}>
+                <p className={'font-bold my-[20px]'}>Course Overview</p>
+                <p className={'text-sm '}>This course examines important issues in corporate finance
                     from the perspectives of financial managers who make important
                     investment decisions and financing decisions. This course
                     incorporates an element of financial modelling in teaching
                     and assessments.
                 </p>
             </div>
-            <div>
-                <p>Learning Outcome</p>
-                <p>What  you are expected to know after this course</p>
+            <div className={styles.learningOutcome}>
+                <p className={'font-bold my-[10px]'}>Learning Outcome</p>
+                <p className={'font-thin'}>What you are expected to know after this course</p>
                 <li>Understand various forms of market imperfections and their implications for financial managers</li>
                 <li>Understand various forms of market imperfections and their implications for financial managers</li>
                 <li>Generate a valuation range for a project or a company</li>
@@ -217,8 +227,8 @@ export default  function ViewCohort(){
 
     )
     const Modules =()=>(
-        <div>
-            <section>
+        <div className={'flex'}>
+            <section className={styles.modules}>
                 <p>Module 1</p>
                 <p>Extra module</p>
                 <p>Module 2</p>
@@ -231,21 +241,21 @@ export default  function ViewCohort(){
                 <p>Module 9</p>
                 <p>Module 10</p>
             </section>
-            <section>
-                <div>
-                    <p>Session 1</p>
-                    <RemoveIcon sx={{color: 'blue'}}/>
+            <section className={styles.modulesSection2}>
+                <div className={'flex justify-between items-center'}>
+                    <p className={'text-blue-300 text-sm uppercase'}>Session 1</p>
+                    <RemoveIcon sx={{'& hover':{color: '#008eef'}}}/>
                 </div>
-                <div>
+                <div className={styles.articles}>
                     <section>
                         <div>
                             <p>Introduction to module</p>
-                            <AccessTimeIcon sx={{'& hover': {color:'#008eef'}}}/>
+                            <article>
+                                <AccessTimeIcon sx={{'& hover': {color: '#008eef'}}}/>
+                                <p>3 mins</p>
+                            </article>
                         </div>
-                        <article>
-                            <VideocamIcon sx={{'& hover': {color:'#008eef'}}}/>
-                            <p>3 mins</p>
-                        </article>
+                        <VideocamIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </section>
                     <section>
                         <div>
@@ -267,22 +277,22 @@ export default  function ViewCohort(){
                         </div>
                         <MicNoneIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </section>
-                    <section>
+                    <div>
                         <p className={'dateCreated'}>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
-                    </section>
-                    <section>
+                    </div>
+                    <div>
                         <p className={'dateCreated'}>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
-                    </section>
-                    <section className={'dateCreated'}>
+                    </div>
+                    <div className={'dateCreated'}>
                         <p>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
-                    </section>
-                    <section className={'dateCreated'}>
+                    </div>
+                    <div className={'dateCreated'}>
                         <p>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
-                    </section>
+                    </div>
                 </div>
             </section>
         </div>
@@ -393,30 +403,34 @@ export default  function ViewCohort(){
     )
     const RightSubDivisions: CohortRigthProps[] = [
         {text: 'instructors', component: <Instructors/>},
-        {text: 'Course Information', component: <CourseInformation/>},
         {text: 'Modules', component: <Modules/>},
+        {text: 'Course Information', component: <CourseOverview/>},
         {text: 'Forum', component: <Forum/>}
     ]
+    const [current , setCurrent] = useState<number>(0);
     const Right = () => (
-        <div>
-            <section>
-                <div>
+            <section className={'border border-gray-300 rounded-md md:w-[600px] lg:w-[800px]'}>
+                <div className={styles.listDiv}>
                     {RightSubDivisions.map((data, index) => (
-                        <p key={index} onClick={() => {
-                            setComponent(data.component)
-                        }}>{data.text}</p>
+                            <p key={index} onClick={() => {
+                                setComponent(data.component);
+                                setCurrent(index)
+                            }}
+                               className={`capitalize p-[8px]  ${current===index?`currentP ${styles.navbarListDiv}`
+                                   :styles.navbarHomePage}`}>
+                                {data.text}
+                            </p>
                     ))}
                 </div>
-                <div>
+                <div className={'ml-[10px]'}>
                     {component}
                 </div>
             </section>
-        </div>
     )
     return (
         <div>
             <Top/>
-            <section className={'md:flex'}>
+            <section className={'md:flex justify-center px-[30px] mb-[20px]'}>
                 <Left/>
                 <Right/>
             </section>

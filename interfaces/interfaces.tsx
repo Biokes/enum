@@ -9,14 +9,10 @@ export interface CohortGroup{
     text:string,
     component: ReactNode
 }
-export interface UserDetails{
-    username: string,
-    clickedCohortIndex:number
-}
 export interface Cohort{
     name:string,
     description:string,
-    avatar: StaticImageData,
+    avatar: StaticImageData | string,
     startDate:Date | null,
     endDate:Date | null,
     program:string,
@@ -35,4 +31,9 @@ export interface Course{
 export interface CohortRigthProps {
     text:string,
     component:ReactNode
+}
+export interface UserDetails{
+    username: string,
+    clickedCohortIndex:number,
+    clickedCohort:Cohort
 }

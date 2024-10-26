@@ -123,13 +123,20 @@ export default function MapCohortsSaved() {
             <p>Make an announcement</p>
         </div>
     );
+    const getImage = (cohort: Cohort) => {
+        if (typeof cohort.avatar === "string") {
+            return cohortsState[cohort.id].avatar;
+        } else {
+            return cohort.avatar.src;
+        }
+    };
     return (
         <div className={`${isNextPage ? 'hidden' : styles.mapCohortsCreated}`}>
             {cohortsState.map((cohort, index) => (
                 <div key={index} className={styles.mappedCohortsContainer} onClick={() => viewCohort(index)}>
                     <section className={'flex gap-x-[20px] items-center justify-center'}>
                         <div className="w-[59px] h-[59px] overflow-hidden rounded-md">
-                            <Image src={cohort.avatar.src} alt="" width={59} height={59}
+                            <Image src={getImage(cohort)} alt="" width={59} height={59}
                                    className="object-cover object-center" />
                         </div>
                         <section className={'md:h-[44px] flex flex-col justify-center items-start'}>

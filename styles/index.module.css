@@ -26,8 +26,14 @@
     rounded-[20px] p-[4px_10px] bg-[#F6FCFF] my-[10px];
 }
 .navbarListDiv{
-    border-image: linear-gradient( to right, #008EEF, #008EEF , #008EEF) 0 0 1 0;
+    border-image: linear-gradient( to right, #008EEF , #008EEF) 0 0 1 0;
     border-width: 2px;
+}
+.listDiv{
+    @apply flex gap-[10px] py-[10px] items-center pl-[30px] border-b-[1px]  md:w-full
+}
+.currentP{
+    @apply text-[#52616B] font-semibold  justify-center items-center
 }
 .navbarHomePage :first-child p{
     @apply text-[#52616B] font-semibold  justify-center items-center
@@ -144,4 +150,41 @@
 }
 .dmSans{
     font-family: 'Dm sans';
+}
+.learningOutcome{
+    @apply w-full
+}
+.learningOutcome li{
+    @apply font-thin md:my-[7px] text-xs
+}
+.modules{
+    @apply md:h-full overflow-y-auto md:w-[200px] flex flex-col px-[10px] border-l-[1px]
+}
+.modules p{
+    @apply flex h-[30px] md:justify-center md:items-center text-sm
+           font-thin capitalize md:w-[160px] overflow-ellipsis hover:font-bold
+}
+.modulesSection2{
+    @apply flex flex-col overflow-y-auto border-r-[1px] h-full px-[20px]
+}
+.articles section{
+    @apply flex justify-between items-center h-[70px] px-[10px];
+    border-image: linear-gradient( to right, #bababa, #bababa) 0 0 1 0;
+    border-width: 1px;
+}
+.articles section article p{
+    @apply text-xs font-thin
+}
+.articles section div p{
+    @apply font-thin capitalize
+}
+.articles section article{
+    @apply flex gap-[5px]
+}
+.articles div{
+    @apply h-[50px] flex justify-between items-center;
+    border-image: linear-gradient( to right, #bababa, #bababa) 0 0 1 0;
+}
+.articles div p:hover{
+    @apply text-blue-400
 }

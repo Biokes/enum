@@ -23,7 +23,10 @@ export default function Cohorts() {
     const [popUp,setPopUp]= useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const isMdScreen = useMediaQuery('(min-width: 768px)');
-    const handleClick = (index: number) => {setSelectedIndex(index)};
+    const handleClick = (index: number) => {
+        setSelectedIndex(index)
+
+    };
     const handleSelectChange = (event: SelectChangeEvent<number>) => {
         setSelectedIndex(Number(event.target.value));
     };

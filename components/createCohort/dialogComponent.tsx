@@ -83,7 +83,6 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
         event.preventDefault();
         if (validate(data)) {
             dispatch(saveCohort(data));
-            console.log('Cohort created successfully', data);
             setOpen(false);
         }
     };
@@ -124,7 +123,8 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
     };
 
     const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-    const formValid = data.name && data.description && data.program && startDate && endDate && !nameError && !descriptionError && !programError && !startDateError && !endDateError;
+    const formValid = data.name && data.description && data.program && startDate && endDate &&
+        !nameError && !descriptionError && !programError && !startDateError && !endDateError;
 
     useEffect(() => {
         setFormSubmitted(false);
@@ -232,7 +232,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
                                     src={imagePreview}
                                     alt=""
                                     layout="fill"
-                                    objectFit="cover" //
+                                    objectFit="cover"
                                     style={{borderRadius: '8px'}}
                                 />
                                 <input

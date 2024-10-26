@@ -14,17 +14,14 @@ export default function CreateCohortPage(){
     useEffect(()=>{
         setIndex(clickedCohortIndex)
     },[clickedCohortIndex])
+    const createdCohortsCount :number = useSelector((state:RootState)=>state.cohorts.length)
+    const shouldShowCohorts = index === -1 || createdCohortsCount === 0;
     return (
         <div className={'flex flex-col justify-between bg-white min-h-[100vh]'}>
             <div>
                 <Navbar props={1}/>
                 <Hero/>
-                <div className={`${index === -1 ? 'flex' : 'hidden'}`}>
-                    <Cohorts/>
-                </div>
-                <div className={`${index !== -1 ? 'hidden' : 'flex'}`}>
-                    <ViewCohort/>
-                </div>
+                {shouldShowCohorts ? <Cohorts /> : <ViewCohort />}
             </div>
            <Footer/>
         </div>

@@ -15,6 +15,5 @@ const cohortSlice = createSlice({
     },
 
 });
-
 export const { saveCohort } = cohortSlice.actions;
 export default cohortSlice.reducer;

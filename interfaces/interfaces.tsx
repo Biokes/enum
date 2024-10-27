@@ -37,3 +37,10 @@ export interface UserDetails{
     clickedCohortIndex:number,
     clickedCohort:Cohort
 }
+export interface InstructorData{
+    name:string,
+    email:string,
+    instructor:number,
+    active:boolean,
+    deleted:boolean
+}

@@ -16,6 +16,7 @@ import {DialogComponent} from "@/components/createCohort/dialogComponent";
 import {useSelector, useDispatch} from "react-redux";
 import MapCohortsSaved from "@/components/createCohort/cohortMapper";
 import {setClickedCohort} from "@/redux/UserSlice";
+import Instructor from "@/components/instructor/EmptyInstructor";
 
 export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);
@@ -121,12 +122,12 @@ export default function Cohorts() {
     const groups: CohortGroup[] = [
         {image: users, text: 'Cohorts', component: cohortsSaved.length === 0 ? <EmptyCohort/> : <MapCohorts/>},
         {image: openedBook, text: 'Programs', component: <EmptyCohort/>},
-        {image: briefcase, text: 'Instructors', component: <EmptyCohort/>},
+        {image: briefcase, text: 'Instructors', component: <Instructor/>},
         {image: CohortIcon, text: 'Learners', component: <EmptyCohort/>}
     ];
 
     const SmallScreenComponent = () => (
-        <div className={'flex flex-col md:hidden ml-[3%]'}>
+        <div className={'flex flex-col md:hidden ml-[1%] mt-[-30px]'}>
             <div className={'h-[50px]'}></div>
             <p className={'text-xs w-full ml-[5px]'}>Switch between tabs</p>
             <FormControl sx={{width: '85vw'}}>
@@ -134,7 +135,7 @@ export default function Cohorts() {
                         displayEmpty sx={{width: '100%'}}>
                     {groups.map((item, index) => (
                         <MenuItem key={index} value={index} sx={{
-                            display: 'flex', justifyContent: 'center',
+                            display: 'flex', justifyContent: 'start',
                             alignItems: 'center', paddingInline: '10px'
                         }}>
                             <div className={'flex gap-[10px] mt-[-20px]'}>

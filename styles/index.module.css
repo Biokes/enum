@@ -195,9 +195,16 @@
     @apply border-[1px] rounded p-[7px] h-[150px] gap-[5px] flex flex-col justify-between
 }
 .forumFooter{
-    border-image: linear-gradient( to right, #bababa, #bababa) 1 0 0 0;
+    border-image: linear-gradient( to right, #bababa, #bababa) 0 0  1 0;
     border-width: 1px;
-    @apply px-[10px]
+}
+.forumFooterInners{
+    border-image: linear-gradient( to right, #bababa, #bababa) 0 0  1 0;
+    border-width: 1px;
+    @apply  items-center h-[50px] justify-between px-[10px] flex
+}
+.forumFooterInners p{
+    @apply w-[150px] items-start pl-[10px] uppercase;
 }
 .forumDate{
     @apply font-extralight text-gray-300
@@ -210,4 +217,7 @@
 }
 .comment{
     @apply font-thin text-sm
+}
+.organization{
+    @apply flex gap-[10px] justify-center items-center border-[1px] drop-shadow-lg px-[10px] rounded-md py-[5px];
 }

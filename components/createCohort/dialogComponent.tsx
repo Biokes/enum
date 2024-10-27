@@ -131,7 +131,7 @@ export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen:
     }, [data, startDate, endDate, formSubmitted]);
     return (
         <>
-            <Dialog open={isOpen} sx={{ height: '921px', width: '631px', padding: '45px 40px', margin: 'auto' }}>
+            <Dialog open={isOpen} sx={{ height: '800px', width: '631px', padding: '45px 40px', margin: 'auto' }}>
                 <DialogTitle id='dialog-title'>
                     Create a cohort
                     <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>

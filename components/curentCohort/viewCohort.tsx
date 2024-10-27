@@ -350,7 +350,7 @@ export default  function ViewCohort(){
                         <div>
                             <p className={styles.forumDate}>Dec. 12, 2021. 9am</p>
                         </div>
-                        <footer className={`flex justify-between ${styles.forumFooter}`}>
+                        <footer className={`flex justify-between ${styles.forumFooter} px-[10px]`}>
                             <div className={'flex gap-[15px]'}>
                                 <div className={'flex gap-[12px]'}>
                                     <Image src={Heart} alt={''} height={12} width={12}/>
@@ -384,7 +384,7 @@ export default  function ViewCohort(){
                         <div>
                             <p className={styles.forumDate}>Dec. 12, 2021. 9am</p>
                         </div>
-                        <footer className={`flex justify-between ${styles.forumFooter}`}>
+                        <footer className={`flex justify-between ${styles.forumFooter} px-[10px]`}>
                             <div className={'flex gap-[15px]'}>
                                 <div className={'flex gap-[12px]'}>
                                     <Image src={Heart} alt={''} height={12} width={12}/>

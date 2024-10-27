@@ -3,7 +3,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import React from "react";
 import {useState} from "react";
 import styles from '@/styles/index.module.css';
-import {InstructorData, Organization} from "@/interfaces/interfaces";
+import {Course, InstructorData, Organization} from "@/interfaces/interfaces";
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import avatar from '@/assets/imageAvatar.png'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
@@ -14,17 +14,25 @@ import blueRidge from '@/assets/blueRidge.png'
 import henley from '@/assets/henley.png'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CloseIcon from "@mui/icons-material/Close";
+import Image1 from "@/assets/unsplash_4_hFxTsmaO4.png";
+import Image2 from "@/assets/unsplash_BbSBf5uv50A.png";
+import Image3 from "@/assets/unsplash_fIq0tET6llw.png";
+import Image4 from "@/assets/unsplash_gbNuQfm9hTE.png";
+import {setHeroText} from "@/redux/UserSlice";
+import {useDispatch} from 'react-redux';
 
 export default function Instructor() {
     const [invite,setInvite] = useState<boolean>(false)
     const [invitation, setInvitation] = useState<boolean>(false)
     const [data,setData] = useState('');
     const [popup, setPopUp] = useState(false)
+    const [assignedInstructor,setAssignInstructor] = useState(false)
     const semicolonOrg:Organization = {image: semicolon, orgName:'Semicolon'}
     const beansOrg:Organization = {image: beans,orgName:'N/A'}
     const henleyOrg:Organization = {image: henley, orgName:'Henley Business School'}
     const andelaOrg:Organization = {image: blueRidge, orgName:'Andela'}
     const [isOpen, setOpen] = useState(false)
+    const dispatch = useDispatch()
     const instructorsData: InstructorData[] = [
         {name:'jame nwankwo',email: 'james',instructor:0,active:true,deleted:false,course:'Design thinking',dateAdded:'12 Aug, 2021',organization:henleyOrg},
         {name:'great ndabia',email: 'james',instructor:0,active:true,deleted:false ,course:'Design thinking',dateAdded:'13 Aug, 2021',organization:beansOrg},
@@ -81,11 +89,114 @@ export default function Instructor() {
             </DialogActions>
         </Dialog>
     )
-    const PopUp =()=>(
+    const SmallAssignInstructor=()=>(
+        <div className={'md:hidden w-[80vw] md:w-[400px]'}>
+            <p>Assign Instructor to Course</p>
+            <p>select a course</p>
+            <input type="text" placeholder={'search for a course'}/>
+            {/*//h-[300px] overflow-y-auto*/}
+            <div className={'flex gap-[20px] border-[1px] hover:border-blue-400 hover:bg-blue-200 p-[5px]'}>
+                <div>
+                    <Image src={''} alt={''} width={50} height={50} className={'object-center object-cover'}/>
+                </div>
+                <div className={`flex flex-col`}>
+                    <p>Design Thinking</p>
+                    <div>
+                        <div className={'flex gap-[5px] justify-center'}>
+                            <p className={'text-sm'}>5 Classes</p>
+                            <WorkOutlineIcon/>
+                        </div>
+                        <div className={'flex gap-[5px] justify-center'}>
+                            <p className={'text-sm'}>22 Learners</p>
+                            <WorkOutlineIcon/>
+                        </div>
+                    </div>
+                    <div className={'flex gap-[5px] justify-center'}>
+                        <p className={'text-sm'}>0 Instructor</p>
+                        <WorkOutlineIcon/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+    const courses:Course[] = [
+        {name:'Design Thinking',image:Image1 ,modules:12},
+        {name:'Java',image:Image2 ,modules:8},
+        {name:'UX Writer',image:Image3 ,modules:9},
+        {name:'Business Management & Africa studies',image:Image4 ,modules:10},
+        {name:'Design Thinking',image:Image1 ,modules:12},
+        {name:'Java',image:Image2 ,modules:8},
+        {name:'UX Writer',image:Image3 ,modules:9},
+        {name:'Business Management & Africa studies',image:Image4 ,modules:10},
+        {name:'Java',image:Image2 ,modules:10},
+
+    ]
+    const LargeAssignInstructor=()=>{
+        return (
+            <div className={'hidden md:flex'}>
+                <Dialog open={assignedInstructor}>
+                    <DialogTitle>
+                        Assign Instructor To Cohort
+                        <IconButton style={{ float: 'right' }} onClick={() => setPopUp(false)}>
+                            <CloseIcon />
+                        </IconButton>
+                    </DialogTitle>
+                    <DialogContent>
+                        <div
+                            className={'md:max-h-[500px] overflow-y-auto '}>
+                            {
+                                courses.map((course, index) => (
+                                    <div key={index}
+                                         className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] hover:border-blue-400'}>
+                                        <Image src={course.image.src} alt={''} width={59} height={59}
+                                               className='object-contain object-center rounded-md'/>
+                                        <section className={'flex flex-col justify-center'}>
+                                            <p className={'ThickDmSansFont overflow-ellipsis md:max-w-[300px]'}>{course.name}</p>
+                                            <div className={'flex gap-[12px]'}>
+                                                <section>
+                                                    <p className={'text-xs'}>5 Classes </p>
+                                                    <WorkOutlineIcon/>
+                                                </section>
+                                                <section>
+                                                    <p className={'text-xs'}>5 Classes </p>
+                                                    <WorkOutlineIcon/>
+                                                </section>
+                                                <section>
+                                                    <p className={'text-xs'}>5 Classes </p>
+                                                    <WorkOutlineIcon/>
+                                                </section>
+                                            </div>
+                                        </section>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant={'outlined'} sx={{textTransform:'none'}}>
+                            Cancel
+                        </Button>
+                        <Button variant={'contained'} sx={{textTransform:'none'}} onClick={()=>{
+                            dispatch(setHeroText('instructor successfully assigned to course'))
+                            setAssignInstructor(false)
+                        }}>
+                            Assign
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        )
+    }
+    const assignInstructor = () => {
+        setAssignInstructor(true)
+    }
+    const PopUp = () => (
         <div>
-            <p>Assign Instructors</p>
+            <p onClick={assignInstructor}>Assign Instructors</p>
             <p onClick={showDialog}>Remove Instructors</p>
             <DialogComponent/>
+            <SmallAssignInstructor/>
+            <LargeAssignInstructor/>
         </div>
     )
     // const EmptyState = () =>(
@@ -161,7 +272,7 @@ export default function Instructor() {
                                     <p className={`font-thin text-lg`}>{data.active && !data.deleted ? 'Active' : 'Pending'}</p>
                                 </div>
                                 <section className={'flex justify-between items-center'}>
-                                <p>{data.dateAdded}</p>
+                                    <p>{data.dateAdded}</p>
                                     <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center'} onClick={popUp}>
                                         <MoreVertIcon sx={{width: '15px', height: '40px'}}/>
                                     </div>
@@ -198,8 +309,9 @@ export default function Instructor() {
                                     <p className={`${data.deleted? 'hidden':'text-gray-400 text-sm'}`}>{data.active? 'Active': 'Pending'}</p>
                                 </div>
                             </div>
-                            <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center'}>
+                            <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center'} onClick={popUp}>
                                 <MoreVertIcon sx={{width:'15px', height:'40px'}}/>
+                                {popup&&(<PopUp/>)}
                             </div>
                         </div>
                     ))
@@ -213,18 +325,26 @@ export default function Instructor() {
                 <p className={`${styles.ThickDmSansFont}`}>Invite Instructors</p>
                 <input placeholder={'Email'} value={data} type={'text'}
                        onChange={(e)=>{setData(e.target.value)}}
-                       className={'w-[80vw] md:w-[300px] mh:h-[50px] rounded border-[1px] border-gray-300 pl-[20px]'}/>
+                       className={'w-[80vw] md:w-[300px] h-[30px] mh:h-[50px] rounded border-[1px] border-gray-300 pl-[20px]'}/>
             </div>
-            <Button disabled={!data} onClick={()=>{setInvitation(false)}}>Send Invite</Button>
+            <Button disabled={!data} sx={{width:{
+                sm:'150px',md:'200px'
+                }}} variant={'contained'} onClick={()=>{setInvitation(false)}}>Send Invite</Button>
         </div>
     )
     return (
-        <div className={`${invitation?'mt-[50px] ml-[20px] md:ml-0 md:mt-0' :''}md:mt-[30px] md:w-[100%]`}>
-            <div className={`${invitation ?'hidden':''}`}>
-                <Invite/>
+        <div>
+            <div className={!assignedInstructor ?`${invitation ? 'mt-[50px] ml-[20px] md:ml-0 md:mt-0' : ''} md:mt-[30px] md:w-[100%]`:'hidden'}>
+                <div className={`${invitation ? 'hidden' : ''}`}>
+                    <Invite/>
+                </div>
+                {!invitation ? <DataMapper/> : <Invitation/>}
+                <DialogComponent/>
             </div>
-            {!invitation ? <DataMapper/>:<Invitation/> }
-            <DialogComponent/>
+            <div className={assignedInstructor?'':'hidden'}>
+
+            </div>
         </div>
+
     )
 }

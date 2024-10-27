@@ -10,10 +10,13 @@ import {RootState} from "@/redux/store";
 
 export default function CreateCohortPage(){
     const clickedCohortIndex= useSelector((state:RootState)=> state.user.clickedCohortIndex)
+    const heroText = useSelector((state:RootState)=>state.user.heroText)
+    const [text, setText] = useState<string>('')
     const [index, setIndex] = useState<number>(clickedCohortIndex);
     useEffect(()=>{
+        setText(heroText)
         setIndex(clickedCohortIndex)
-    },[clickedCohortIndex])
+    },[clickedCohortIndex,heroText])
     const createdCohortsCount :number = useSelector((state:RootState)=>state.cohorts.length)
     const shouldShowCohorts = index === -1 || createdCohortsCount === 0;
     return (
@@ -21,6 +24,9 @@ export default function CreateCohortPage(){
             <div>
                 <Navbar props={1}/>
                 <Hero/>
+                <p className={text?'text-sm justify-center items-center h-[30px] w-full bg-green-700 text-white':'hidden'}>
+                    {text}
+                </p>
                 {shouldShowCohorts ? <Cohorts /> : <ViewCohort />}
             </div>
            <Footer/>

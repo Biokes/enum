@@ -14,7 +14,8 @@ const initialState:UserDetails ={
         id:0,
         dateCreated:new Date(),
         numberOfLearners:25
-    }
+    },
+    heroText:''
 }
 export const UserSlice = createSlice({
     name:'user',
@@ -28,8 +29,11 @@ export const UserSlice = createSlice({
         },
         setClickedCohort(state, action:PayloadAction<Cohort>){
             state.clickedCohort = action.payload
+        },
+        setHeroText(state, action:PayloadAction<string>){
+            state.heroText = action.payload
         }
     }
 })
-export const {setUsername,setClickedCohortIndex,setClickedCohort} = UserSlice.actions;
+export const {setUsername,setHeroText,setClickedCohortIndex,setClickedCohort} = UserSlice.actions;
 export default UserSlice.reducer;

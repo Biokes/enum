@@ -35,7 +35,8 @@ export interface CohortRightProps {
 export interface UserDetails{
     username: string,
     clickedCohortIndex:number,
-    clickedCohort:Cohort
+    clickedCohort:Cohort,
+    heroText: string
 }
 export interface Organization{
     image:StaticImageData,

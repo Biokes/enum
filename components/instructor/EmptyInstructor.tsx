@@ -52,11 +52,13 @@ export default function Instructor() {
         setOpen(true)
     }
     const DialogComponent=()=>(
-        <Dialog open={popup}  sx={{
-            '& .MuiBackdrop-root': {
-                backgroundColor: 'transparent',
-            },
-        }}>
+        <Dialog open={isOpen}
+                // sx={{
+                //     '& .MuiBackdrop-root': {
+                //         backgroundColor: 'transparent',
+                //     },
+                // }}
+        >
             <DialogTitle >
                 Delete Instructor
                 <IconButton style={{ float: 'right' }} onClick={() => setPopUp(false)}>
@@ -90,14 +92,14 @@ export default function Instructor() {
         </Dialog>
     )
     const SmallAssignInstructor=()=>(
-        <div className={'md:hidden w-[80vw] md:w-[400px]'}>
+        <div className={assignedInstructor?'md:hidden w-[80vw] md:w-[400px]':'hidden'}>
             <p>Assign Instructor to Course</p>
             <p>select a course</p>
             <input type="text" placeholder={'search for a course'}/>
             {/*//h-[300px] overflow-y-auto*/}
             <div className={'flex gap-[20px] border-[1px] hover:border-blue-400 hover:bg-blue-200 p-[5px]'}>
                 <div>
-                    <Image src={''} alt={''} width={50} height={50} className={'object-center object-cover'}/>
+                    <Image src={Image1} alt={''} width={50} height={50} className={'object-center object-cover'}/>
                 </div>
                 <div className={`flex flex-col`}>
                     <p>Design Thinking</p>
@@ -133,7 +135,7 @@ export default function Instructor() {
     ]
     const LargeAssignInstructor=()=>{
         return (
-            <div className={'hidden md:flex'}>
+            <div className={assignedInstructor?'hidden md:flex':'hidden'}>
                 <Dialog open={assignedInstructor}>
                     <DialogTitle>
                         Assign Instructor To Cohort
@@ -262,7 +264,8 @@ export default function Instructor() {
                                     <div className={'flex justify-center items-center'}>
                                         <Image alt='' src={data.organization.image} width={18} height={18}/>
                                     </div>
-                                    <p className="capitalize w-[100px] text-sm text-ellipsis overflow-hidden whitespace-nowrap">{data.organization.orgName}</p>
+                                    <p className="capitalize w-[100px] text-sm text-ellipsis overflow-hidden whitespace-nowrap">
+                                        {data.organization.orgName}</p>
                                 </section>
                                 <section className={'flex'}>
                                     <p>Design Thinking</p>
@@ -273,7 +276,8 @@ export default function Instructor() {
                                 </div>
                                 <section className={'flex justify-between items-center'}>
                                     <p>{data.dateAdded}</p>
-                                    <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center'} onClick={popUp}>
+                                    <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center'}
+                                         onClick={popUp}>
                                         <MoreVertIcon sx={{width: '15px', height: '40px'}}/>
                                     </div>
                                     {popup&&(<PopUp/>)}

@@ -114,27 +114,26 @@ export default  function ViewCohort(){
     )
     const Top= ()=> (
         <div className={'flex flex-col md:mb-[10px]'}>
-            <div className={'md:w-[64px] flex justify-center gap-[5px] items-center md:h-[24px] md:mt-[10px] ml-[60px]'} onClick={handleClick}>
-                <ArrowBackIcon sx={{width:'15px',height:'15px'}}/>
+            <div className={'flex gap-[10px] md:h-[24px] md:ml-[60px] my-[10px] ml-[5%]'} onClick={handleClick}>
+                <ArrowBackIcon sx={{width:'15px',height:'15px',marginTop:'5px'}}/>
                 <p>Back</p>
             </div>
-            <div className={'flex md:h-[80px] justify-between items-center md:px-[60px]'}>
+            <div className={'h-[100px] flex md:h-[80px] justify-between items-center md:px-[60px] px-[20px]'}>
                 <section className={'flex gap-[10px]'}>
                     <Image src={typeof currentCohort.avatar === 'string' ?
                         currentCohort.avatar : currentCohort.avatar.src}
-                    width={50} height={59} className='object-contain object-center rounded-md' alt={''}/>
-                    <div>
-                        <p className={'md:h-[31px] w-[50px] text-black overflow-ellipsis text-bold capitalize'}
+                    width={50} height={50} className='object-contain object-center rounded-md' alt={''}/>
+                    <div className={'flex justify-center items-start flex-col'}>
+                        <p className={'md:h-[31px] md:text-md text-black overflow-ellipsis text-bold capitalize'}
                            style={{fontFamily: 'Dm sans'}}>
                             {currentCohort.name}
                         </p>
-                        <p className={'overflow-ellipsis w-[100px]'}>{currentCohort.program}</p>
+                        <p className={'overflow-hidden text-ellipsis whitespace-nowrap w-[100px]'}>{currentCohort.program}</p>
                     </div>
                 </section>
-                <div >
+                <div className={'flex md:flex-col'}>
                     <Button sx={{textTransform: 'none', fontWeight: 'thin',marginRight:'10px',
-                        fontSize: 'small', background:'#008EEF', color:'#ffffff'
-                    }} variant={'contained'}>
+                        fontSize: 'small', background:'#008EEF', color:'#ffffff'}} variant={'contained'}>
                         Add Learners
                     </Button>
                     <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
@@ -173,14 +172,15 @@ export default  function ViewCohort(){
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="w-[90%] h-[40px] text-base rounded border border-gray-300 mt-[10px]"
+                className="w-[90%] h-[40px] pl-[20px] text-base rounded border border-gray-300 mt-[10px]"
             />
-            <div className={'md:border md:border-gray-300 md:rounded md:w-[450px] mx-[20px] flex flex-col'}>
+            <div className={'md:border md:border-gray-300 md:rounded w-full md:w-[450px] mx-[20px] flex flex-col'}>
                 <p className={'capitalize text-semibold p-[10px_0_5px_20px]'}>9 courses</p>
-                <div className={'md:max-h-[500px] lg:max-h-[300px] overflow-y-auto border-1 rounded-md border-gray-200 p-[20px] md:mb-[10px]'}>
+                <div className={'md:max-h-[500px] lg:max-h-[300px] overflow-y-auto border-1 ' +
+                    'rounded-md border-gray-200 md:p-[20px] md:mb-[10px] gap-[20px]'}>
                     {
                         courses.map((course, index) => (
-                            <div key={index} className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] hover:border-blue-400'}>
+                            <div key={index} className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] gap-[15px] hover:border-blue-400 rounded'}>
                                 <Image src={course.image.src} alt={''} width={59} height={59}
                                        className='object-contain object-center rounded-md'/>
                                 <section className={'flex flex-col justify-center'}>
@@ -196,7 +196,7 @@ export default  function ViewCohort(){
 
     )
     const CourseOverview = () => (
-        <section className={'md:pl-[30px] flex md:flex-col md:justify-around'}>
+        <section className={'md:pl-[30px] flex flex-row gap-[10px] md:gap-0 md:flex-col md:justify-around'}>
             <div className={'my-[20px] w-full'}>
                 <p className={'font-bold my-[20px]'}>Course Overview</p>
                 <p className={'text-sm '}>This course examines important issues in corporate finance
@@ -327,7 +327,7 @@ export default  function ViewCohort(){
                     border: '1px solid #151515'
                 }}>Questions </Button>
             </div>
-            <div className={'flex flex-col md:h-[310px] gap-[10px] overflow-y-auto '}>
+            <div className={'flex flex-col md:h-[310px] gap-[10px] md:overflow-y-auto '}>
                 <section className={'gap-[10px] mt-[5px] flex flex-col justify-between'}>
                     <div className={'flex items-center gap-[10px] pt-[5px]'}>
                         <Image src={Image7} alt={''} height={40} width={40}
@@ -410,7 +410,7 @@ export default  function ViewCohort(){
     const Right = () => (
         <section className={'border border-gray-300 rounded-md md:w-[600px] lg:w-[800px]'}>
             <div className={styles.listDiv}>
-                {RightSubDivisions.map((data, index) => (
+                    {RightSubDivisions.map((data, index) => (
                     <p key={index} onClick={() => {
                         setComponent(data.component);
                         setCurrent(index)
@@ -429,7 +429,7 @@ export default  function ViewCohort(){
     return (
         <div>
             <Top/>
-            <section className={'md:flex justify-center px-[30px] mb-[20px]'}>
+            <section className={'md:flex justify-center md:px-[30px] mb-[20px]'}>
                 <Left/>
                 <Right/>
             </section>

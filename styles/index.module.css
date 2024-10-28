@@ -110,11 +110,12 @@
     @apply border-[1px] border-[#323131] rounded-md md:h-[44px] md:w-[35%] flex items-center pr-[5px]
 }
 .mapCohortsCreated{
-    @apply gap-[20px] flex flex-col overflow-y-auto p-[10px] md:max-h-[380px];
+    @apply gap-[20px] my-[20px] md:mt-0 flex flex-col overflow-y-auto p-[10px] md:max-h-[380px];
 
 }
 .mappedCohortsContainer{
-    @apply flex justify-between items-center md:mx-[1%] h-[92px] md:px-[5px] md:my-[2px] shadow-md;
+    @apply flex justify-between rounded-xl items-center px-[10px] md:mx-[5px] h-[95px] md:px-[5px]
+    md:my-[2px] shadow-md focus:border-[#557794] hover:border-[#557794] border-[1px];
 }
 .cohortName{
     font-weight: 450;
@@ -122,8 +123,8 @@
     font-size: 16px;
     line-height: 22px;
     max-width: 250px;
-
     text-overflow: ellipsis;
+    @apply md:text-lg md:font-bold
 }
 .dateCreated{
     font-weight: 400;

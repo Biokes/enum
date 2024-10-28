@@ -45,7 +45,7 @@ export default function MapCohortsSaved() {
     );
     const getImage = (cohort: Cohort) => {
         if (typeof cohort.avatar === "string") {
-            return cohortsState[cohort.id].avatar;
+            return cohort.avatar;
         } else {
             return cohort.avatar.src;
         }
@@ -71,7 +71,7 @@ export default function MapCohortsSaved() {
                         </section>
                     </section>
                     <div className={'flex gap-[10px]'}>
-                        <p className={styles.dateCreated}>Created {format(cohort.dateCreated, 'dd MMM, yyyy')}</p>
+                        <p className={` hidden md:flex ${styles.dateCreated}`}>Created {format(cohort.dateCreated, 'dd MMM, yyyy')}</p>
                         <MoreVertIcon onClick={togglePopUp} sx={{ hover: { backgroundColor: 'gray', borderRadius: '25%' } }} />
                         {isPopUp && <PopUp />}
                     </div>

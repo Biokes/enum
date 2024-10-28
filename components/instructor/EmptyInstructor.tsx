@@ -64,11 +64,7 @@ export default function Instructor() {
     }
     const DialogComponent=()=>(
         <Dialog open={isOpen}
-                sx={{
-                    '& .MuiBackdrop-root': {
-                        backgroundColor: 'transparent',
-                    },
-                }}
+                className={'bg-opacity-80 bg-[#557790] inset-0 z-2'}
         >
             <DialogTitle >
                 Delete Instructor
@@ -99,7 +95,6 @@ export default function Instructor() {
             <p>Assign Instructor to Course</p>
             <p>select a course</p>
             <input type="text" placeholder={'search for a course'}/>
-            {/*//h-[300px] overflow-y-auto*/}
             <div className={'flex flex-col gap-[20px] py-[10px] justify-center mx-auto'}>
                 {courses.map((data,index)=> (
                     <div key={index}

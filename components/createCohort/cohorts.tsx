@@ -12,11 +12,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Empty from '@/assets/empty.png';
 import { RootState } from "@/redux/store";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import { DialogComponent } from "@/components/createCohort/dialogComponent";
 import { useSelector, useDispatch } from "react-redux";
 import MapCohortsSaved from "@/components/createCohort/cohortMapper";
 import { setClickedCohort } from "@/redux/UserSlice";
 import Instructor from "@/components/instructor/EmptyInstructor";
+import CreateCohortModal from "@/components/curentCohort/smallScreenDialog";
 
 export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);
@@ -147,10 +147,7 @@ export default function Cohorts() {
             </FormControl>
         </div>
     )
-
-    const Dialog_Component = () => (
-            <DialogComponent isOpen={isOpen} setOpen={setOpen}/>
-        )
+    const close=()=> setOpen(false)
     return (
         <div className={styles.cohortsDiv}>
             <div className={styles.groupPack}>
@@ -175,9 +172,7 @@ export default function Cohorts() {
                     {groups[selectedIndex].component}
                 </div>
             </section>
-            <div className={'hidden md:flex'}>
-                <Dialog_Component/>
-            </div>
+            <CreateCohortModal isOpen={isOpen} onClose={close}/>
         </div>
     )
 }

@@ -83,13 +83,14 @@
     @apply h-[60px] md:hidden w-full flex justify-around items-center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
-.footer section{
+.footer div{
     @apply flex justify-center items-center flex-col
 }
-.footer section :first-child{
+.footer div :first-child{
     @apply w-[30px] h-[30px]
 }
-.footer section p:hover{
+
+.footer div p:hover,.footer div :first-child:hover{
     @apply text-[#008eef]
 }
 .footer section p{
@@ -141,7 +142,7 @@
     position:absolute;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     gap: 30px;
-    @apply bg-white md:m-[-15px_50px_10px_0] md:w-[200px] rounded-md gap-x-[10px] px-[10px]
+    @apply bg-white md:m-[-5px_55px_10px_0] md:w-[200px] rounded-md gap-x-[10px] px-[10px]
 }
 .moreActionsPopUp >p{
     @apply hover:border-[1px] hover:border-[#ededed] text-xs my-[10px] cursor-pointer hover:bg-blue-100
@@ -204,7 +205,7 @@
     @apply  items-center h-[50px] justify-between px-[10px] flex
 }
 .forumFooterInners p{
-    @apply w-[150px] items-start pl-[10px] uppercase;
+    @apply w-[20%] items-start pl-[10px] uppercase;
 }
 .forumDate{
     @apply font-extralight text-gray-300
@@ -220,4 +221,27 @@
 }
 .organization{
     @apply flex gap-[10px] justify-center items-center border-[1px] drop-shadow-lg px-[10px] rounded-md py-[5px];
+}
+.svg:first-child,.footer section :first-child{
+    color: #008eef;
+}
+.svg{
+    @apply flex
+}
+.popup{
+    position:absolute;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    gap: 30px;
+    @apply bg-white md:m-[-100px_55px_10px_0] md:w-[70px] rounded-md gap-x-[5px] px-[10px]
+}
+.popup >p{
+    @apply hover:border-[1px] hover:border-[#ededed] text-xs my-[10px] cursor-pointer hover:bg-blue-100
+    hover:rounded-md p-[5px_10px];
+    border:1px solid transparent;
+}
+.sectionStyles{
+    @apply flex gap-[12px]
+}
+.sectionStyles section{
+    @apply flex gap-[3px] justify-center
 }

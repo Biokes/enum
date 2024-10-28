@@ -1,11 +1,12 @@
 import {StaticImageData} from "next/image";
 import {ReactNode} from "react";
+import {SvgIconComponent} from "@mui/icons-material";
 
 export interface Interfaces {
     props:number
 }
 export interface CohortGroup{
-    image:StaticImageData,
+    image:SvgIconComponent ,
     text:string,
     component: ReactNode
 }

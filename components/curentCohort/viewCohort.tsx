@@ -28,9 +28,6 @@ import Reply from '@/assets/message-circle.png'
 import {setClickedCohortIndex} from "@/redux/UserSlice";
 
 export default  function ViewCohort(){
-    // const selector = useSelector((rootState:RootState)=>rootState.user)
-    // const cohorts = useSelector((state:RootState)=> state.cohorts)
-    // const selectedCohort = selector.clickedCohortIndex
     const smallTextStyles = 'text-xs font-thin dmSans';
     const dispatch = useDispatch()
     const currentCohort: Cohort = useSelector((rootState: RootState) => rootState.user.clickedCohort);

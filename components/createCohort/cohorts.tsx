@@ -1,9 +1,8 @@
 'use client';
 import {Cohort, CohortGroup} from "@/interfaces/interfaces";
-import CohortIcon from '@/assets/user.png';
-import briefcase from '@/assets/briefcase.svg';
-import users from '@/assets/users.svg';
-import openedBook from '@/assets/book-open.svg';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import Image from 'next/image';
 import styles from '@/styles/index.module.css';
 import {Button, FormControl, MenuItem, Select, SelectChangeEvent, useMediaQuery} from "@mui/material";
@@ -12,6 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React, {useEffect, useState, useRef} from "react";
 import Empty from '@/assets/empty.png';
 import {RootState} from "@/redux/store";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {DialogComponent} from "@/components/createCohort/dialogComponent";
 import {useSelector, useDispatch} from "react-redux";
 import MapCohortsSaved from "@/components/createCohort/cohortMapper";
@@ -50,7 +50,7 @@ export default function Cohorts() {
             <div className={'flex justify-center items-center mt-[100px] ' +
                 'md:mt-[100px] md:mr-[15%] flex-col gap-2 md:gap-5 w-full'}>
                 <div className={'m-[10px] md:m-[10px]'}>
-                    <Image src={Empty} alt={''}/>
+                    <Image src={Empty} alt={''} className={'w-[100px] h-auto md:w-[200px]'} />
                 </div>
                 <div className={'flex justify-center items-center flex-col gap-3'}>
                     <p className={'font-semibold text-sm'}>Empty Space</p>
@@ -120,10 +120,10 @@ export default function Cohorts() {
         )
 
     const groups: CohortGroup[] = [
-        {image: users, text: 'Cohorts', component: cohortsSaved.length === 0 ? <EmptyCohort/> : <MapCohorts/>},
-        {image: openedBook, text: 'Programs', component: <EmptyCohort/>},
-        {image: briefcase, text: 'Instructors', component: <Instructor/>},
-        {image: CohortIcon, text: 'Learners', component: <EmptyCohort/>}
+        {image: <PeopleAltIcon  className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }} />, text: 'Cohorts', component: cohortsSaved.length === 0 ? <EmptyCohort/> : <MapCohorts/>},
+        {image: <MenuBookIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>, text: 'Programs', component: <EmptyCohort/>},
+        {image: <WorkOutlineIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>, text: 'Instructors', component: <Instructor/>},
+        {image: <PermIdentityIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>, text: 'Learners', component: <EmptyCohort/>}
     ];
 
     const SmallScreenComponent = () => (
@@ -136,10 +136,10 @@ export default function Cohorts() {
                     {groups.map((item, index) => (
                         <MenuItem key={index} value={index} sx={{
                             display: 'flex', justifyContent: 'start',
-                            alignItems: 'center', paddingInline: '10px'
+                            alignItems: 'center', paddingInline: '10px',
                         }}>
                             <div className={'flex gap-[10px] mt-[-20px]'}>
-                                <Image src={item.image} alt=""/>
+                                <div className={`mt-[-5px] ${selectedIndex === index ? styles.svg : ''}`}>{item.image}</div>
                                 <p>{item.text}</p>
                             </div>
                         </MenuItem>
@@ -161,7 +161,9 @@ export default function Cohorts() {
                 {  isMdScreen ? (groups.map((item, index)=>(
                         <div key={index} onClick={() => handleClick(index)}
                              className={`flex gap-[20px] my-[10px] ${selectedIndex === index ? 'bg-blue-100 rounded-lg  p-[20px]' : 'pl-[30px]'}`}>
-                            <Image src={item.image} alt=""/>
+                            <div className={selectedIndex === index ? styles.svg : ''}>
+                                {item.image}
+                            </div>
                             <p className={`${selectedIndex === index ? 'text-blue-400' : 'text-black'}`}>{item.text}</p>
                         </div>
                     ))
@@ -177,7 +179,12 @@ export default function Cohorts() {
                     {groups[selectedIndex].component}
                 </div>
             </section>
-            <Dialog_Component/>
+            <div className={'hidden md:flex'}>
+                <Dialog_Component/>
+            </div>
+            <div className={isOpen ? 'md:hidden':'hidden'}>
+
+            </div>
         </div>
     );
 }

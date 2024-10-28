@@ -42,8 +42,8 @@ export default function Navbar({props}:Interfaces){
                 }
             </ul>
             <div className={styles.navbarRightSide}>
-                <Badge badgeContent={0}>
-                    <NotificationsNoneIcon/>
+                <Badge badgeContent={0}  sx={{'& .MuiBadge-dot': {backgroundColor: 'blue',}}}>
+                    <NotificationsNoneIcon />
                 </Badge>
                 <section>
                     <div className={'gap-[20px]'}>
@@ -51,14 +51,13 @@ export default function Navbar({props}:Interfaces){
                         <div className={styles.hideAndShow}>
                             <p className={`${styleText} ${styles.hideAndShow}`}>{username}</p>
                                 {isOpen ?
-                                    // className={`${styleText} ${styles.hideAndShow}
-                                        <ExpandMoreIcon sx={{display:'none'}} onClick={() => {setOpen(!isOpen)}}/>
+                                        <ExpandMoreIcon sx={{display:{xs:'none',md:'flex'}}} onClick={() => {setOpen(!isOpen)}}/>
                                     :
-                                        <KeyboardArrowUpIcon sx={{display:'none'}} onClick={()=>{setOpen(!isOpen)}}/>
+                                        <KeyboardArrowUpIcon sx={{display: {xs:'none',md:'flex'}}} onClick={()=>{setOpen(!isOpen)}}/>
                                     }
                         </div>
                     </div>
-                    <AppsIcon sx={{width: '35px', height: '35px', color: '#008EEF', display:'hidden'}}/>
+                    <AppsIcon sx={{width: '35px', height: '35px', color: '#008EEF', display:{xs:'none',md:'flex'}}}/>
                 </section>
 
             </div>

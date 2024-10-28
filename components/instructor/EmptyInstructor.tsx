@@ -8,10 +8,12 @@ import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import avatar from '@/assets/imageAvatar.png'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import GroupIcon from '@mui/icons-material/Group';
 import beans from '@/assets/beans.png'
 import semicolon from '@/assets/semicolon.png'
 import blueRidge from '@/assets/blueRidge.png'
 import henley from '@/assets/henley.png'
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CloseIcon from "@mui/icons-material/Close";
 import Image1 from "@/assets/unsplash_4_hFxTsmaO4.png";
@@ -23,6 +25,7 @@ import {useDispatch} from 'react-redux';
 
 export default function Instructor() {
     const [invite,setInvite] = useState<boolean>(false)
+    const [popupStates, setPopupStates] = useState<boolean[]>(Array(instructorsData.length).fill(false));
     const [invitation, setInvitation] = useState<boolean>(false)
     const [data,setData] = useState('');
     const [popup, setPopUp] = useState(false)
@@ -33,6 +36,13 @@ export default function Instructor() {
     const andelaOrg:Organization = {image: blueRidge, orgName:'Andela'}
     const [isOpen, setOpen] = useState(false)
     const dispatch = useDispatch()
+    const togglePopup = (index: number) => {
+        setPopupStates((prev) => {
+            const newState = [...prev];
+            newState[index] = !newState[index];
+            return newState;
+        });
+    };
     const instructorsData: InstructorData[] = [
         {name:'jame nwankwo',email: 'james',instructor:0,active:true,deleted:false,course:'Design thinking',dateAdded:'12 Aug, 2021',organization:henleyOrg},
         {name:'great ndabia',email: 'james',instructor:0,active:true,deleted:false ,course:'Design thinking',dateAdded:'13 Aug, 2021',organization:beansOrg},
@@ -47,21 +57,22 @@ export default function Instructor() {
     ]
     const popUp= ()=>{
         setPopUp(true)
+        setInvite(invite)
     }
     const showDialog= ()=>{
         setOpen(true)
     }
     const DialogComponent=()=>(
         <Dialog open={isOpen}
-                // sx={{
-                //     '& .MuiBackdrop-root': {
-                //         backgroundColor: 'transparent',
-                //     },
-                // }}
+                sx={{
+                    '& .MuiBackdrop-root': {
+                        backgroundColor: 'transparent',
+                    },
+                }}
         >
             <DialogTitle >
                 Delete Instructor
-                <IconButton style={{ float: 'right' }} onClick={() => setPopUp(false)}>
+                <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
@@ -73,19 +84,11 @@ export default function Instructor() {
             </DialogContent>
             <DialogActions sx={{width:'100%'}}>
                 <Button variant={'text'}  sx={{ texTransform:'none',fontWeight:'bold',color:'black'}}
-                        onClick={() => {setPopUp(false)}}>
+                        onClick={() => {setOpen(false)}}>
                     Cancel
                 </Button>
-                <Button variant={'contained'} sx={{backgroundColor:'red',text:'white',fontWeight:'bold'}} onClick={()=>{
-                    if(isOpen){
-                        setOpen(false);
-                        setInvite(invite)
-                    }
-                    else{
-                        setOpen(false)
-                    }
-                    setPopUp(false)
-                }}>
+                <Button variant={'contained'} sx={{backgroundColor:'red',text:'white',fontWeight:'bold'}}
+                        onClick={()=>{setOpen(false)}}>
                     Delete
                 </Button>
             </DialogActions>
@@ -97,55 +100,64 @@ export default function Instructor() {
             <p>select a course</p>
             <input type="text" placeholder={'search for a course'}/>
             {/*//h-[300px] overflow-y-auto*/}
-            <div className={'flex gap-[20px] border-[1px] hover:border-blue-400 hover:bg-blue-200 p-[5px]'}>
-                <div>
-                    <Image src={Image1} alt={''} width={50} height={50} className={'object-center object-cover'}/>
-                </div>
-                <div className={`flex flex-col`}>
-                    <p>Design Thinking</p>
-                    <div>
-                        <div className={'flex gap-[5px] justify-center'}>
-                            <p className={'text-sm'}>5 Classes</p>
-                            <WorkOutlineIcon/>
+            <div className={'flex flex-col gap-[20px] py-[10px] justify-center mx-auto'}>
+                {courses.map((data,index)=> (
+                    <div key={index}
+                         className={'flex gap-[20px] border-[1px] hover:border-blue-400 hover:bg-blue-200 p-[5px]'}>
+                        <div>
+                            <Image src={data.image.src} alt={''} width={50} height={50}
+                                   className={'object-center object-cover'}/>
                         </div>
-                        <div className={'flex gap-[5px] justify-center'}>
-                            <p className={'text-sm'}>22 Learners</p>
-                            <WorkOutlineIcon/>
+                        <div className={`flex flex-col`}>
+                            <p>{data.name}</p>
+                            <div>
+                                <div className={'flex gap-[5px] justify-center'}>
+                                    <p className={'text-xs'}>5 Classes</p>
+                                    <WorkOutlineIcon/>
+                                </div>
+                                <div className={'flex gap-[5px] justify-center'}>
+                                    <p className={'text-xs'}>22 Learners</p>
+                                    <WorkOutlineIcon/>
+                                </div>
+                            </div>
+                            <div className={'flex gap-[5px] justify-center'}>
+                                <PermIdentityIcon/>
+                                <p className={'text-xs'}>0 Instructor</p>
+                            </div>
                         </div>
+                        {popupStates[index] && <PopUp/>}
                     </div>
-                    <div className={'flex gap-[5px] justify-center'}>
-                        <p className={'text-sm'}>0 Instructor</p>
-                        <WorkOutlineIcon/>
-                    </div>
-                </div>
+
+                ))
+                }
             </div>
         </div>
     )
-    const courses:Course[] = [
-        {name:'Design Thinking',image:Image1 ,modules:12},
-        {name:'Java',image:Image2 ,modules:8},
-        {name:'UX Writer',image:Image3 ,modules:9},
-        {name:'Business Management & Africa studies',image:Image4 ,modules:10},
-        {name:'Design Thinking',image:Image1 ,modules:12},
-        {name:'Java',image:Image2 ,modules:8},
-        {name:'UX Writer',image:Image3 ,modules:9},
-        {name:'Business Management & Africa studies',image:Image4 ,modules:10},
-        {name:'Java',image:Image2 ,modules:10},
+    const courses: Course[] = [
+        {name: 'Design Thinking', image: Image1, modules: 12},
+        {name: 'Java', image: Image2, modules: 8},
+        {name: 'UX Writer', image: Image3, modules: 9},
+        {name: 'Business Management & Africa studies', image: Image4, modules: 10},
+        {name: 'Design Thinking', image: Image1, modules: 12},
+        {name: 'Java', image: Image2, modules: 8},
+        {name: 'UX Writer', image: Image3, modules: 9},
+        {name: 'Business Management & Africa studies', image: Image4, modules: 10},
+        {name: 'Java', image: Image2, modules: 10},
 
     ]
-    const LargeAssignInstructor=()=>{
+    const LargeAssignInstructor = () => {
         return (
-            <div className={assignedInstructor?'hidden md:flex':'hidden'}>
-                <Dialog open={assignedInstructor}>
+            <div className={assignedInstructor ? 'hidden md:flex' : 'hidden'}>
+                <Dialog open={assignedInstructor} className={'bg-[#557790] bg-opacity-80'}
+                        sx={{color: 'inherit', opacity: 'inherit'}}>
                     <DialogTitle>
                         Assign Instructor To Cohort
-                        <IconButton style={{ float: 'right' }} onClick={() => setPopUp(false)}>
-                            <CloseIcon />
+                        <IconButton style={{float: 'right'}} onClick={() => setAssignInstructor(false)}>
+                            <CloseIcon/>
                         </IconButton>
                     </DialogTitle>
                     <DialogContent>
-                        <div
-                            className={'md:max-h-[500px] overflow-y-auto '}>
+                        <div className={'gap-[20px]'}>
                             {
                                 courses.map((course, index) => (
                                     <div key={index}
@@ -154,14 +166,14 @@ export default function Instructor() {
                                                className='object-contain object-center rounded-md'/>
                                         <section className={'flex flex-col justify-center'}>
                                             <p className={'ThickDmSansFont overflow-ellipsis md:max-w-[300px]'}>{course.name}</p>
-                                            <div className={'flex gap-[12px]'}>
+                                            <div className={styles.sectionStyles}>
                                                 <section>
                                                     <p className={'text-xs'}>5 Classes </p>
                                                     <WorkOutlineIcon/>
                                                 </section>
                                                 <section>
-                                                    <p className={'text-xs'}>5 Classes </p>
-                                                    <WorkOutlineIcon/>
+                                                    <p className={'text-xs'}>22 Learners</p>
+                                                    <GroupIcon/>
                                                 </section>
                                                 <section>
                                                     <p className={'text-xs'}>5 Classes </p>
@@ -175,7 +187,9 @@ export default function Instructor() {
                         </div>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant={'outlined'} sx={{textTransform:'none'}}>
+                        <Button variant={'outlined'} sx={{textTransform:'none'}} onClick={()=>{
+                            setAssignInstructor(false)
+                        }}>
                             Cancel
                         </Button>
                         <Button variant={'contained'} sx={{textTransform:'none'}} onClick={()=>{
@@ -193,33 +207,14 @@ export default function Instructor() {
         setAssignInstructor(true)
     }
     const PopUp = () => (
-        <div>
+        <div className={styles.moreActionsPopUp}>
             <p onClick={assignInstructor}>Assign Instructors</p>
             <p onClick={showDialog}>Remove Instructors</p>
-            <DialogComponent/>
-            <SmallAssignInstructor/>
-            <LargeAssignInstructor/>
+            {isOpen && <DialogComponent/>}
+            {assignedInstructor && <SmallAssignInstructor/>}
+            {assignedInstructor&&<LargeAssignInstructor/>}
         </div>
     )
-    // const EmptyState = () =>(
-    //
-    //         <div className={!invite ? 'flex justify-center items-center mt-[40px] md:mt-[30px] md:mr-[20vw] flex-col gap-2 md:gap-5 w-full' : 'hidden'}>
-    //             <div className={'m-[10px] md:m-[10px]'}>
-    //                 <Image src={Empty} alt={''} className={'w-[100px] md:w-[150px] md:h-auto h-[100px]'}/>
-    //             </div>
-    //             <div className={'flex justify-center items-center flex-col gap-3'}>
-    //                 <p className={'font-semibold text-sm'}>Empty Space</p>
-    //                 <p className={'text-sm md:text-xs px-[30px] md:px-0 text-center'}>
-    //                     No Instructor has been invited, let&#39;s get you started by clicking the button below
-    //                 </p>
-    //                 <Button variant='contained' onClick={() => {
-    //                     setInvite(true)
-    //                 }} sx={{fontSize: 'small', textTransform: 'none'}}>
-    //                     Invite Instructor
-    //                 </Button>
-    //             </div>
-    //         </div>
-    //     )
     const Invite= ()=>(
         <div className={!invite ?
             'gap-[15px] mt-[45px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'
@@ -313,9 +308,10 @@ export default function Instructor() {
                                     <p className={`${data.deleted? 'hidden':'text-gray-400 text-sm'}`}>{data.active? 'Active': 'Pending'}</p>
                                 </div>
                             </div>
-                            <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center'} onClick={popUp}>
+                            <div className={'active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer' +
+                                ' flex justify-center items-center'} onClick={() => togglePopup(index)}>
                                 <MoreVertIcon sx={{width:'15px', height:'40px'}}/>
-                                {popup&&(<PopUp/>)}
+                                {popupStates[index] && <PopUp/>}
                             </div>
                         </div>
                     ))
@@ -337,18 +333,11 @@ export default function Instructor() {
         </div>
     )
     return (
-        <div>
-            <div className={!assignedInstructor ?`${invitation ? 'mt-[50px] ml-[20px] md:ml-0 md:mt-0' : ''} md:mt-[30px] md:w-[100%]`:'hidden'}>
-                <div className={`${invitation ? 'hidden' : ''}`}>
-                    <Invite/>
-                </div>
-                {!invitation ? <DataMapper/> : <Invitation/>}
-                <DialogComponent/>
+        <div className={!assignedInstructor ?`${invitation ? 'mt-[50px] ml-[20px] md:ml-0 md:mt-0' : ''} md:mt-[30px] md:w-[100%]`:'hidden'}>
+            <div className={`${invitation ? 'hidden' : ''}`}>
+                <Invite/>
             </div>
-            <div className={assignedInstructor?'':'hidden'}>
-
-            </div>
+            {!invitation ? <DataMapper/> : <Invitation/>}
         </div>
-
     )
 }

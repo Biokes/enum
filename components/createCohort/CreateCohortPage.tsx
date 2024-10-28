@@ -27,7 +27,7 @@ export default function CreateCohortPage(){
             <div>
                 <Navbar props={1}/>
                 <Hero/>
-                <div className={text?' justify-center items-center h-[30px] w-full bg-green-700 ':'hidden'}>
+                <div className={text?'flex justify-center items-center h-[30px] w-full bg-green-700 ':'hidden'}>
                     <p className={'text-sm text-white'}>{text}</p>
                 </div>
                 {shouldShowCohorts ? <Cohorts /> : <ViewCohort />}

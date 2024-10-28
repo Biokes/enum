@@ -143,11 +143,11 @@
     position:absolute;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     gap: 30px;
-    @apply bg-white md:m-[-5px_55px_10px_0] md:w-[200px] rounded-md gap-x-[10px] px-[10px]
+    @apply bg-white m-[-30px_55px_10px_0] md:m-[-5px_55px_10px_0] rounded-md gap-x-[10px] px-[5px]
 }
 .moreActionsPopUp >p{
-    @apply hover:border-[1px] hover:border-[#ededed] text-xs my-[10px] cursor-pointer hover:bg-blue-100
-    hover:rounded-md p-[5px_10px];
+    @apply hover:border-[1px] hover:border-[#ededed] text-xs my-[7px] cursor-pointer hover:bg-blue-100
+    hover:rounded-md p-[5px_7px];
     border:1px solid transparent;
 }
 .dmSans{

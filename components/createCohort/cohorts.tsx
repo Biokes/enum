@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MapCohortsSaved from "@/components/createCohort/cohortMapper";
 import { setClickedCohort } from "@/redux/UserSlice";
 import Instructor from "@/components/instructor/EmptyInstructor";
-import CreateCohortModal from "@/components/curentCohort/smallScreenDialog";
+import CreateCohortModal from "@/components/curentCohort/dialog";
 
 export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);

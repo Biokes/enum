@@ -1,9 +1,8 @@
 import Image from "next/image";
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton} from "@mui/material";
-import React from "react";
-import {useState} from "react";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
+import React, {useState} from "react";
 import styles from '@/styles/index.module.css';
-import {Course, InstructorData, Organization} from "@/interfaces/interfaces";
+import {Course, InstructorData, InvitationFormProps, Organization} from "@/interfaces/interfaces";
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import avatar from '@/assets/imageAvatar.png'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
@@ -22,6 +21,7 @@ import Image3 from "@/assets/unsplash_fIq0tET6llw.png";
 import Image4 from "@/assets/unsplash_gbNuQfm9hTE.png";
 import {setHeroText} from "@/redux/UserSlice";
 import {useDispatch} from 'react-redux';
+import DeleteInstructorDialog from "@/components/instructor/deleteInstructorDialog";
 
 export default function Instructor() {
     const [invite,setInvite] = useState<boolean>(false)
@@ -62,34 +62,6 @@ export default function Instructor() {
     const showDialog= ()=>{
         setOpen(true)
     }
-    const DialogComponent=()=>(
-        <Dialog open={isOpen}
-                className={'bg-opacity-80 bg-[#557790] inset-0 z-2'}
-        >
-            <DialogTitle >
-                Delete Instructor
-                <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>
-                    <CloseIcon />
-                </IconButton>
-            </DialogTitle>
-            <DialogContent sx={{width:"100%"}}>
-                <DialogContentText sx={{width:"100%"}}>
-                    Deleting this Instructor cannot be undone,
-                    but if you really want to, proceed by clicking the delete button.
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions sx={{width:'100%'}}>
-                <Button variant={'text'}  sx={{ texTransform:'none',fontWeight:'bold',color:'black'}}
-                        onClick={() => {setOpen(false)}}>
-                    Cancel
-                </Button>
-                <Button variant={'contained'} sx={{backgroundColor:'red',text:'white',fontWeight:'bold'}}
-                        onClick={()=>{setOpen(false)}}>
-                    Delete
-                </Button>
-            </DialogActions>
-        </Dialog>
-    )
     const SmallAssignInstructor=()=>(
         <div className={assignedInstructor?'md:hidden w-[80vw] md:w-[400px]':'hidden'}>
             <p>Assign Instructor to Course</p>
@@ -205,7 +177,7 @@ export default function Instructor() {
         <div className={styles.moreActionsPopUp}>
             <p onClick={assignInstructor}>Assign Instructors</p>
             <p onClick={showDialog}>Remove Instructors</p>
-            {isOpen && <DialogComponent/>}
+            {isOpen && <DeleteInstructorDialog isOpen={isOpen} setOpen={()=>setOpen(!isOpen)}/>}
             {assignedInstructor && <SmallAssignInstructor/>}
             {assignedInstructor&&<LargeAssignInstructor/>}
         </div>
@@ -240,10 +212,10 @@ export default function Instructor() {
                 <div className={'flex flex-col px-[15px] gap-[20px] py-[15px] overflow-y-auto h-[280px]'}>
                     {
                         instructorsData.map((data,index)=>(
-                            <div key={index} className={'flex w-[100%] px-[10px] justify-between items-center'}>
+                            <div key={index} className={'flex w-[100%] px-[30px] justify-between items-center'}>
                                 <section className={'flex justify-center items-center gap-[10px]'}>
                                     <div>
-                                        <Image alt='' src={avatar} width={32} height={32}/>
+                                        <Image alt='' src={avatar} width={35} height={35}/>
                                     </div>
                                     <div>
                                         <p className={'font-semibold capitalize'}>{data.name}</p>
@@ -314,25 +286,44 @@ export default function Instructor() {
             </div>
         </div>
     )
-    const Invitation = ()=>(
-        <div className={`flex flex-col gap-[30px]`}>
-            <div>
-                <p className={`${styles.ThickDmSansFont}`}>Invite Instructors</p>
-                <input placeholder={'Email'} value={data} type={'text'}
-                       onChange={(e)=>{setData(e.target.value)}}
-                       className={'w-[80vw] md:w-[300px] h-[30px] mh:h-[50px] rounded border-[1px] border-gray-300 pl-[20px]'}/>
-            </div>
-            <Button disabled={!data} sx={{width:{
-                sm:'150px',md:'200px'
-                }}} variant={'contained'} onClick={()=>{setInvitation(false)}}>Send Invite</Button>
-        </div>
-    )
+    const InvitationForm: React.FC<InvitationFormProps> = ({ setInvitation }) => {
+        const handleSubmit = (event: React.FormEvent) => {
+            event.preventDefault();
+            setInvitation(false);
+            dispatch(setHeroText('Invite successfully sent'))
+        };
+        return (
+            <form className="flex flex-col gap-[30px] md:mt-[30px]">
+                <p className={styles.ThickDmSansFont}>Invite Instructors</p>
+                <input
+                    placeholder="Email"
+                    value={data}
+                    type="text"
+                    onChange={(e) => setData(e.target.value)}
+                    className="w-[80vw] md:w-[400px] h-[50px] mh:h-[70px] rounded border-[1px] border-gray-300 pl-[20px]"
+                />
+                <Button
+                    disabled={!data}
+                    sx={{
+                        width: {
+                            sm: '150px',
+                            md: '200px',
+                        },
+                    }}
+                    variant="contained"
+                    onClick={handleSubmit}
+                >
+                    Send Invite
+                </Button>
+            </form>
+        );
+    }
     return (
-        <div className={!assignedInstructor ?`${invitation ? 'mt-[50px] ml-[20px] md:ml-0 md:mt-0' : ''} md:mt-[30px] md:w-[100%]`:'hidden'}>
+        <div className={!assignedInstructor ? `${invitation ? 'mt-[50px] ml-[20px] md:ml-0 md:mt-0' : ''} md:mt-[30px] md:w-[100%]`:'hidden'}>
             <div className={`${invitation ? 'hidden' : ''}`}>
                 <Invite/>
             </div>
-            {!invitation ? <DataMapper/> : <Invitation/>}
+            {!invitation ? <DataMapper/> : <InvitationForm setInvitation={()=>setInvitation(false)}/>}
         </div>
     )
 }

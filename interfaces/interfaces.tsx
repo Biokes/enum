@@ -52,3 +52,6 @@ export interface InstructorData{
     dateAdded: string,
     organization:Organization
 }
+export interface InvitationFormProps {
+    setInvitation: (value: boolean) => void;
+}

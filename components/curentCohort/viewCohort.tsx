@@ -122,7 +122,8 @@ export default  function ViewCohort(){
                 <section className={'flex gap-[10px]'}>
                     <Image src={typeof currentCohort.avatar === 'string' ?
                         currentCohort.avatar : currentCohort.avatar.src}
-                    width={50} height={50} className='object-contain object-center rounded-md' alt={''}/>
+                    className='w-[30px] h-[30px] md:h-[50px] md:w-[50px]
+                                object-contain object-center rounded-md' alt={''}/>
                     <div className={'flex justify-center items-start flex-col'}>
                         <p className={'md:h-[31px] md:text-md text-black overflow-ellipsis text-bold capitalize'}
                            style={{fontFamily: 'Dm sans'}}>
@@ -180,7 +181,8 @@ export default  function ViewCohort(){
                     'rounded-md border-gray-200 md:p-[20px] md:mb-[10px] gap-[20px]'}>
                     {
                         courses.map((course, index) => (
-                            <div key={index} className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] gap-[15px] hover:border-blue-400 rounded'}>
+                            <div key={index} className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] ' +
+                                'gap-[15px] hover:border-blue-400 rounded'}>
                                 <Image src={course.image.src} alt={''} width={59} height={59}
                                        className='object-contain object-center rounded-md'/>
                                 <section className={'flex flex-col justify-center'}>
@@ -196,7 +198,7 @@ export default  function ViewCohort(){
 
     )
     const CourseOverview = () => (
-        <section className={'md:pl-[30px] flex flex-row gap-[10px] md:gap-0 md:flex-col md:justify-around'}>
+        <section className={'md:pl-[30px] flex md:flex-row gap-[10px] md:gap-0 flex-col md:justify-around'}>
             <div className={'my-[20px] w-full'}>
                 <p className={'font-bold my-[20px]'}>Course Overview</p>
                 <p className={'text-sm '}>This course examines important issues in corporate finance

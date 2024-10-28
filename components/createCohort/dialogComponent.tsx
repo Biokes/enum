@@ -1,1092 +1,208 @@
-// // // import {
-// // //     Box,
-// // //     Button,
-// // //     Dialog,
-// // //     DialogActions,
-// // //     DialogContent,
-// // //     DialogTitle,
-// // //     IconButton, MenuItem,
-// // //     TextField,
-// // //     Typography
-// // // } from "@mui/material";
-// // // import CloseIcon from "@mui/icons-material/Close";
-// // // import Image from "next/image";
-// // // import infoIcon from "@/assets/upload.png";
-// // // import info from '@/assets/info.svg';
-// // // import React, { useState, useCallback, useRef, useEffect } from "react";
-// // // import DatePicker from 'react-datepicker';
-// // // import 'react-datepicker/dist/react-datepicker.css';
-// // // import { Accept, useDropzone } from "react-dropzone";
-// // // import { Cohort } from "@/interfaces/interfaces";
-// // // import { useDispatch } from 'react-redux';
-// // // import { saveCohort } from "@/redux/cohortSlice";
-// // //
-// // // export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen: (value: (((prevState: boolean) => boolean) | boolean)) => void; }) => {
-// // //     const [nameError, setNameError] = useState<string>('');
-// // //     const [descriptionError, setDescriptionError] = useState<string>('');
-// // //     const [programError, setProgramError] = useState<string>('');
-// // //     const [startDateError, setStartDateError] = useState<string>('');
-// // //     const [endDateError, setEndDateError] = useState<string>('');
-// // //     const [startDate, setStartDate] = useState<Date | null>(null);
-// // //     const [endDate, setEndDate] = useState<Date | null>(null);
-// // //     const [imagePreview, setImagePreview] = useState<string | null>(null);
-// // //     const dispatch = useDispatch();
-// // //     const fileInputRef = useRef<HTMLInputElement | null>(null);
-// // //
-// // //     const onDrop = useCallback((acceptedFiles: File[]) => {
-// // //         if (acceptedFiles.length > 0) {
-// // //             const file = acceptedFiles[0];
-// // //             const imageUrl = URL.createObjectURL(file);
-// // //             setImagePreview(imageUrl);
-// // //             setData(prevData => ({
-// // //                 ...prevData,
-// // //                 avatar: imageUrl,
-// // //             }));
-// // //         }
-// // //     }, []);
-// // //
-// // //     const accept: Accept = { 'image/*': [] };
-// // //     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept, noClick: true });
-// // //
-// // //     const validate = (data: Cohort) => {
-// // //         let valid = true;
-// // //         setNameError('');
-// // //         setDescriptionError('');
-// // //         setProgramError('');
-// // //         setStartDateError('');
-// // //         setEndDateError('');
-// // //
-// // //         if (!data.name) {
-// // //             setNameError('Cohort name is required');
-// // //             valid = false;
-// // //         }
-// // //         if (!data.description) {
-// // //             setDescriptionError('Description is required');
-// // //             valid = false;
-// // //         }
-// // //         if (!data.program) {
-// // //             setProgramError('Program name is required');
-// // //             valid = false;
-// // //         }
-// // //         if (data.startDate && data.endDate && data.startDate > data.endDate) {
-// // //             setStartDateError('Invalid start date provided');
-// // //             valid = false;
-// // //         }
-// // //         if (data.endDate && data.startDate && data.endDate < data.startDate) {
-// // //             setEndDateError('Invalid end date provided');
-// // //             valid = false;
-// // //         }
-// // //         return valid;
-// // //     };
-// // //
-// // //     const handleCreateCohort = (event: React.FormEvent<HTMLFormElement>) => {
-// // //         event.preventDefault();
-// // //         if (validate(data)) {
-// // //             dispatch(saveCohort(data));
-// // //             setOpen(false);
-// // //         }
-// // //     };
-// // //
-// // //     const [data, setData] = useState<Cohort>({
-// // //         name: '',
-// // //         description: '',
-// // //         avatar: '',
-// // //         startDate: new Date(),
-// // //         endDate: new Date(),
-// // //         program: '',
-// // //         id: 0,
-// // //         dateCreated: new Date(),
-// // //         numberOfLearners: 0,
-// // //     });
-// // //
-// // //     const handleStartDateChange = (date: Date | null) => {
-// // //         setStartDate(date);
-// // //         setData(prevData => ({ ...prevData, startDate: date }));
-// // //         setStartDateError('');
-// // //     };
-// // //
-// // //     const handleEndDateChange = (date: Date | null) => {
-// // //         setEndDate(date);
-// // //         setData(prevData => ({ ...prevData, endDate: date }));
-// // //         setEndDateError('');
-// // //     };
-// // //
-// // //     const handleImageClick = () => {
-// // //         fileInputRef.current?.click();
-// // //     };
-// // //
-// // //     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-// // //         const files = event.target.files;
-// // //         if (files && files.length > 0) {
-// // //             onDrop(Array.from(files));
-// // //         }
-// // //     };
-// // //
-// // //     const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-// // //     const formValid = data.name && data.description && data.program && startDate && endDate &&
-// // //         !nameError && !descriptionError && !programError && !startDateError && !endDateError;
-// // //
-// // //     useEffect(() => {
-// // //         setFormSubmitted(false);
-// // //     }, [data, startDate, endDate, formSubmitted]);
-// // //     return (
-// // //         <>
-// // //             <Dialog open={isOpen} sx={{ height: '700px', width: '631px', padding: '10px 40px', margin: 'auto' }}>
-// // //                 <DialogTitle id='dialog-title'>
-// // //                     Create a cohort
-// // //                     <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>
-// // //                         <CloseIcon />
-// // //                     </IconButton>
-// // //                 </DialogTitle>
-// // //                 <form onSubmit={handleCreateCohort}>
-// // //                     <DialogContent>
-// // //                         <p className={'text-xs'}>Cohort Name</p>
-// // //                         <TextField
-// // //                             error={!!(nameError && nameError.length)}
-// // //                             helperText={nameError}
-// // //                             id='name'
-// // //                             required
-// // //                             onChange={(e) => {
-// // //                                 setData(prevData => ({...prevData, name: e.target.value}));
-// // //                                 setNameError('');
-// // //                             }}
-// // //                             variant="outlined"
-// // //                             size="small"
-// // //                             fullWidth
-// // //                             sx={{mb: 2, lineHeight: '15px'}}
-// // //                         />
-// // //                         <p className={'text-xs'}>Description</p>
-// // //                         <TextField
-// // //                             error={!!(descriptionError && descriptionError.length)}
-// // //                             helperText={descriptionError}
-// // //                             id='description'
-// // //                             required
-// // //                             onChange={(e) => {
-// // //                                 setData(prevData => ({...prevData, description: e.target.value}));
-// // //                                 setDescriptionError('');
-// // //                             }}
-// // //                             variant="outlined"
-// // //                             multiline
-// // //                             rows={3}
-// // //                             size="small"
-// // //                             fullWidth
-// // //                             sx={{mb: 2, lineHeight: '15px'}}
-// // //                         />
-// // //                         <p className={'text-xs'}>Program</p>
-// // //                         <Box sx={{ mb: 2 }}>
-// // //                             <Typography variant="body2" sx={{ mb: 1, color: '#475661' }}>Program</Typography>
-// // //                             <TextField
-// // //                                 select
-// // //                                 fullWidth
-// // //                                 value={program}
-// // //                                 onChange={(e) => setProgram(e.target.value)}
-// // //                                 variant="outlined"
-// // //                                 size="small"
-// // //                                 InputProps={{ style: { color: '#475661' } }}
-// // //                             >
-// // //                                 <MenuItem value="" disabled>
-// // //                                     Select Program
-// // //                                 </MenuItem>
-// // //                                 {[
-// // //                                     { id: 1, name: "Product Design" },
-// // //                                     { id: 2, name: "Software Engineering" },
-// // //                                     { id: 3, name: "Techpreneurship" },
-// // //                                     { id: 4, name: "Dev-ops" },
-// // //                                     { id: 5, name: "Creative Design" },
-// // //                                     { id: 6, name: "UX Writer" },
-// // //                                 ].map((program) => (
-// // //                                     <MenuItem key={program.id} value={program.name}>
-// // //                                         {program.name}
-// // //                                     </MenuItem>
-// // //                                 ))}
-// // //                             </TextField>
-// // //                         </Box>
-// // //
-// // //                         <section className="flex gap-10 py-[15px]">
-// // //                             <div>
-// // //                                 <p className={'text-xs'}>Start Date</p>
-// // //                                 <DatePicker
-// // //                                     selected={startDate}
-// // //                                     onChange={handleStartDateChange}
-// // //                                     minDate={new Date()}
-// // //                                     dateFormat="yyyy-MM-dd"
-// // //                                     placeholderText="Select start date"
-// // //                                     className={`w-full p-2 border ${startDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
-// // //                                 />
-// // //                                 {startDateError &&
-// // //                                     <p className="text-red-500 text-xs px-[10px] py-[10px]">{startDateError}</p>}
-// // //                             </div>
-// // //                             <div>
-// // //                                 <p className={'text-xs'}>End Date</p>
-// // //                                 <DatePicker
-// // //                                     selected={endDate}
-// // //                                     onChange={handleEndDateChange}
-// // //                                     minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
-// // //                                     dateFormat="yyyy-MM-dd"
-// // //                                     placeholderText="Select end date"
-// // //                                     className={`w-full p-2 border ${endDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
-// // //                                 />
-// // //                                 {endDateError && <p className="text-red-500 text-xs">{endDateError}</p>}
-// // //                             </div>
-// // //                         </section>
-// // //                         <p className={'text-xs'}>Add a cohort avatar</p>
-// // //                         {imagePreview ? (
-// // //                             <Box onClick={handleImageClick} sx={{
-// // //                                 position: 'relative',
-// // //                                 border: '2px dashed lightblue',
-// // //                                 borderRadius: '8px',
-// // //                                 textAlign: 'center',
-// // //                                 padding: '20px',
-// // //                                 cursor: 'pointer',
-// // //                                 mt: 1,
-// // //                                 backgroundColor: '#eaf5fa',
-// // //                                 height: '100px',
-// // //                                 overflow: 'hidden'
-// // //                             }}>
-// // //                                 <Image
-// // //                                     src={imagePreview}
-// // //                                     alt=""
-// // //                                     layout="fill"
-// // //                                     objectFit="cover"
-// // //                                     style={{borderRadius: '8px'}}
-// // //                                 />
-// // //                                 <input
-// // //                                     type="file"
-// // //                                     accept="image/*"
-// // //                                     ref={fileInputRef}
-// // //                                     onChange={handleFileChange}
-// // //                                     style={{display: 'none'}}
-// // //                                 />
-// // //                             </Box>
-// // //                         ) : (
-// // //                             <Box {...getRootProps()} onClick={handleImageClick} sx={{
-// // //                                 border: '2px dashed lightblue',
-// // //                                 borderRadius: '8px',
-// // //                                 textAlign: 'center',
-// // //                                 padding: '20px',
-// // //                                 cursor: 'pointer',
-// // //                                 mt: 1,
-// // //                                 backgroundColor: '#eaf5fa',
-// // //                                 display: 'flex',
-// // //                                 flexDirection: 'column',
-// // //                                 alignItems: 'center',
-// // //                                 justifyContent: 'center',
-// // //                                 height: '100px',
-// // //                             }}>
-// // //                                 <input {...getInputProps()} ref={fileInputRef} style={{display: 'none'}}/>
-// // //                                 {isDragActive ? (
-// // //                                     <Typography variant="body2" color="textSecondary">Drop the image here...</Typography>
-// // //                                 ) : (
-// // //                                     <div className={'flex flex-col justify-center items-center'}>
-// // //                                         <Image src={infoIcon} alt='' height={30} width={30}/>
-// // //                                         <section className='flex justify-center items-center gap-[5px]'>
-// // //                                             <Typography variant="body2" color="textSecondary">
-// // //                                                 drag an image
-// // //                                             </Typography>
-// // //                                             <p className={'text-sm text-blue-400'}>choose file</p>
-// // //                                         </section>
-// // //                                     </div>
-// // //                                 )}
-// // //                             </Box>
-// // //                         )}
-// // //                         <div className={'flex gap-[10px] pt-[10px]'}>
-// // //                             <Image src={info} alt={''} width={12} height={12} />
-// // //                             <p className={'text-xs text-gray-700'}>You can add this later.</p>
-// // //                         </div>
-// // //                     </DialogContent>
-// // //                     <DialogActions>
-// // //                         <Button  sx={{ texTransform:'none'}} onClick={() => {
-// // //                             setOpen(false)
-// // //                         }}>
-// // //                             Cancel
-// // //                         </Button>
-// // //                         <Button
-// // //                             type="submit"
-// // //                             disabled={!formValid}
-// // //                             variant="contained"
-// // //                             sx={{padding: '10px',fontSize:'small', texTransform:'none'}}
-// // //                         >
-// // //                             Create Cohort
-// // //                         </Button>
-// // //                     </DialogActions>
-// // //                 </form>
-// // //             </Dialog>
-// // //         </>
-// // //     );
-// // // };
-// // import {
-// //     Box,
-// //     Button,
-// //     Dialog,
-// //     DialogActions,
-// //     DialogContent,
-// //     DialogTitle,
-// //     IconButton,
-// //     MenuItem,
-// //     TextField,
-// //     Typography
-// // } from "@mui/material";
-// // import CloseIcon from "@mui/icons-material/Close";
-// // import Image from "next/image";
-// // import infoIcon from "@/assets/upload.png";
-// // // import info from '@/assets/info.svg';
-// // import React, { useState, useCallback, useRef} from "react";
-// // import DatePicker from 'react-datepicker';
-// // import 'react-datepicker/dist/react-datepicker.css';
-// // import { Accept, useDropzone } from "react-dropzone";
-// // import { Cohort } from "@/interfaces/interfaces";
-// // import { useDispatch } from 'react-redux';
-// // import { saveCohort } from "@/redux/cohortSlice";
-// //
-// // export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen: (value: boolean) => void; }) => {
-// //     const [nameError, setNameError] = useState('');
-// //     const [descriptionError, setDescriptionError] = useState('');
-// //     const [programError, setProgramError] = useState('');
-// //     const [startDateError, setStartDateError] = useState('');
-// //     const [endDateError, setEndDateError] = useState('');
-// //     const [startDate, setStartDate] = useState<Date | null>(null);
-// //     const [endDate, setEndDate] = useState<Date | null>(null);
-// //     const [imagePreview, setImagePreview] = useState<string | null>(null);
-// //     const dispatch = useDispatch();
-// //     const fileInputRef = useRef<HTMLInputElement | null>(null);
-// //
-// //     const [data, setData] = useState<Cohort>({
-// //         name: '',
-// //         description: '',
-// //         avatar: '',
-// //         startDate: new Date(),
-// //         endDate: new Date(),
-// //         program: '',
-// //         id: 0,
-// //         dateCreated: new Date(),
-// //         numberOfLearners: 0,
-// //     });
-// //
-// //     const onDrop = useCallback((acceptedFiles: File[]) => {
-// //         if (acceptedFiles.length > 0) {
-// //             const file = acceptedFiles[0];
-// //             const imageUrl = URL.createObjectURL(file);
-// //             setImagePreview(imageUrl);
-// //             setData(prevData => ({
-// //                 ...prevData,
-// //                 avatar: imageUrl,
-// //             }));
-// //         }
-// //     }, []);
-// //
-// //     const accept: Accept = { 'image/*': [] };
-// //     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept, noClick: true });
-// //
-// //     const validate = (data: Cohort) => {
-// //         let valid = true;
-// //         setNameError('');
-// //         setDescriptionError('');
-// //         setProgramError('');
-// //         setStartDateError('');
-// //         setEndDateError('');
-// //
-// //         if (!data.name) {
-// //             setNameError('Cohort name is required');
-// //             valid = false;
-// //         }
-// //         if (!data.description) {
-// //             setDescriptionError('Description is required');
-// //             valid = false;
-// //         }
-// //         if (!data.program) {
-// //             setProgramError('Program name is required');
-// //             valid = false;
-// //         }
-// //         if (data.startDate && data.endDate && data.startDate > data.endDate) {
-// //             setStartDateError('Invalid start date provided');
-// //             valid = false;
-// //         }
-// //         if (data.endDate && data.startDate && data.endDate < data.startDate) {
-// //             setEndDateError('Invalid end date provided');
-// //             valid = false;
-// //         }
-// //         return valid;
-// //     };
-// //
-// //     const handleCreateCohort = (event: React.FormEvent<HTMLFormElement>) => {
-// //         event.preventDefault();
-// //         if (validate(data)) {
-// //             dispatch(saveCohort(data));
-// //             setOpen(false);
-// //         }
-// //     };
-// //
-// //     const handleStartDateChange = (date: Date | null) => {
-// //         setStartDate(date);
-// //         setData(prevData => ({ ...prevData, startDate: date }));
-// //         setStartDateError('');
-// //     };
-// //
-// //     const handleEndDateChange = (date: Date | null) => {
-// //         setEndDate(date);
-// //         setData(prevData => ({ ...prevData, endDate: date }));
-// //         setEndDateError('');
-// //     };
-// //
-// //     const handleImageClick = () => {
-// //         fileInputRef.current?.click();
-// //     };
-// //
-// //     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-// //         const files = event.target.files;
-// //         if (files && files.length > 0) {
-// //             onDrop(Array.from(files));
-// //         }
-// //     };
-// //
-// //     const formValid = data.name && data.description && data.program && startDate && endDate &&
-// //         !nameError && !descriptionError && !programError && !startDateError && !endDateError;
-// //
-// //     return (
-// //         <Dialog open={isOpen} sx={{ height: '700px', width: '631px', padding: '10px 40px', margin: 'auto' }}>
-// //             <DialogTitle id='dialog-title'>
-// //                 Create a cohort
-// //                 <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>
-// //                     <CloseIcon />
-// //                 </IconButton>
-// //             </DialogTitle>
-// //             <form onSubmit={handleCreateCohort}>
-// //                 <DialogContent>
-// //                     <TextField
-// //                         error={!!nameError}
-// //                         helperText={nameError}
-// //                         id='name'
-// //                         required
-// //                         onChange={(e) => {
-// //                             setData(prevData => ({ ...prevData, name: e.target.value }));
-// //                             setNameError('');
-// //                         }}
-// //                         label="Cohort Name"
-// //                         variant="outlined"
-// //                         size="small"
-// //                         fullWidth
-// //                         sx={{ mb: 2 }}
-// //                     />
-// //                     <TextField
-// //                         error={!!descriptionError}
-// //                         helperText={descriptionError}
-// //                         id='description'
-// //                         required
-// //                         onChange={(e) => {
-// //                             setData(prevData => ({ ...prevData, description: e.target.value }));
-// //                             setDescriptionError('');
-// //                         }}
-// //                         label="Description"
-// //                         variant="outlined"
-// //                         multiline
-// //                         rows={3}
-// //                         size="small"
-// //                         fullWidth
-// //                         sx={{ mb: 2 }}
-// //                     />
-// //                     <Box sx={{ mb: 2 }}>
-// //                         <Typography variant="body2" sx={{ mb: 1, color: '#475661' }}>Program</Typography>
-// //                         <TextField
-// //                             select
-// //                             fullWidth
-// //                             value={data.program}
-// //                             onChange={(e) => setData(prevData => ({ ...prevData, program: e.target.value }))}
-// //                             variant="outlined"
-// //                             size="small"
-// //                         >
-// //                             <MenuItem value="" disabled>Select Program</MenuItem>
-// //                             {[
-// //                                 { id: 1, name: "Product Design" },
-// //                                 { id: 2, name: "Software Engineering" },
-// //                                 { id: 3, name: "Techpreneurship" },
-// //                                 { id: 4, name: "Dev-ops" },
-// //                                 { id: 5, name: "Creative Design" },
-// //                                 { id: 6, name: "UX Writer" },
-// //                             ].map(program => (
-// //                                 <MenuItem key={program.id} value={program.name}>{program.name}</MenuItem>
-// //                             ))}
-// //                         </TextField>
-// //                     </Box>
-// //
-// //                     <section className="flex gap-10 py-[15px]">
-// //                         <div>
-// //                             <p className={'text-xs'}>Start Date</p>
-// //                             <DatePicker
-// //                                 selected={startDate}
-// //                                 onChange={handleStartDateChange}
-// //                                 minDate={new Date()}
-// //                                 dateFormat="yyyy-MM-dd"
-// //                                 placeholderText="Select start date"
-// //                                 className={`w-full p-2 border ${startDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
-// //                             />
-// //                             {startDateError && <p className="text-red-500 text-xs">{startDateError}</p>}
-// //                         </div>
-// //                         <div>
-// //                             <p className={'text-xs'}>End Date</p>
-// //                             <DatePicker
-// //                                 selected={endDate}
-// //                                 onChange={handleEndDateChange}
-// //                                 minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
-// //                                 dateFormat="yyyy-MM-dd"
-// //                                 placeholderText="Select end date"
-// //                                 className={`w-full p-2 border ${endDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
-// //                             />
-// //                             {endDateError && <p className="text-red-500 text-xs">{endDateError}</p>}
-// //                         </div>
-// //                     </section>
-// //                     <p className={'text-xs'}>Add a cohort avatar</p>
-// //                     {imagePreview ? (
-// //                         <Box onClick={handleImageClick} sx={{
-// //                             position: 'relative',
-// //                             border: '2px dashed lightblue',
-// //                             borderRadius: '8px',
-// //                             textAlign: 'center',
-// //                             padding: '20px',
-// //                             cursor: 'pointer',
-// //                             mt: 1,
-// //                             backgroundColor: '#eaf5fa',
-// //                             height: '100px',
-// //                             overflow: 'hidden'
-// //                         }}>
-// //                             <Image
-// //                                 src={imagePreview}
-// //                                 alt=""
-// //                                 layout="fill"
-// //                                 objectFit="cover"
-// //                                 style={{ borderRadius: '8px' }}
-// //                             />
-// //                             <input
-// //                                 type="file"
-// //                                 accept="image/*"
-// //                                 ref={fileInputRef}
-// //                                 onChange={handleFileChange}
-// //                                 style={{ display: 'none' }}
-// //                             />
-// //                         </Box>
-// //                     ) : (
-// //                         <Box {...getRootProps()} onClick={handleImageClick} sx={{
-// //                             border: '2px dashed lightblue',
-// //                             borderRadius: '8px',
-// //                             textAlign: 'center',
-// //                             padding: '20px',
-// //                             cursor: 'pointer',
-// //                             mt: 1,
-// //                             backgroundColor: '#eaf5fa',
-// //                             height: '100px',
-// //                             overflow: 'hidden'
-// //                         }}>
-// //                             <input {...getInputProps()} />
-// //                             {isDragActive ? (
-// //                                 <p>Drop the files here ...</p>
-// //                             ) : (
-// //                                 <>
-// //                                     <Image src={infoIcon} alt="info" />
-// //                                     <p className='text-xs'>Drag and drop files here, or click to select files</p>
-// //                                 </>
-// //                             )}
-// //                         </Box>
-// //                     )}
-// //                 </DialogContent>
-// //                 <DialogActions sx={{ justifyContent: 'space-between' }}>
-// //                     <Button type="submit" variant="contained" disabled={!formValid}>Create</Button>
-// //                     <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
-// //                 </DialogActions>
-// //             </form>
-// //         </Dialog>
-// //     );
-// // };
-// import {
-//     Box,
-//     Button,
-//     Dialog,
-//     DialogActions,
-//     DialogContent,
-//     DialogTitle,
-//     IconButton,
-//     MenuItem,
-//     TextField,
-//     Typography
-// } from "@mui/material";
+// import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, Typography} from "@mui/material";
 // import CloseIcon from "@mui/icons-material/Close";
 // import Image from "next/image";
 // import infoIcon from "@/assets/upload.png";
-// import React, { useState, useCallback} from "react";
+// import info from '@/assets/info.svg';
+// import React, { useState, useCallback } from "react";
 // import DatePicker from 'react-datepicker';
 // import 'react-datepicker/dist/react-datepicker.css';
-// import { Accept, useDropzone } from "react-dropzone";
+// import { useDropzone } from "react-dropzone";
 // import { Cohort } from "@/interfaces/interfaces";
 // import { useDispatch } from 'react-redux';
 // import { saveCohort } from "@/redux/cohortSlice";
 //
-// export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen: (value: boolean) => void; }) => {
-//     const [nameError, setNameError] = useState('');
-//     const [descriptionError, setDescriptionError] = useState('');
-//     const [programError, setProgramError] = useState('');
-//     const [startDateError, setStartDateError] = useState('');
-//     const [endDateError, setEndDateError] = useState('');
-//     const [startDate, setStartDate] = useState<Date | null>(null);
-//     const [endDate, setEndDate] = useState<Date | null>(null);
-//     const [imagePreview, setImagePreview] = useState<string | null>(null);
-//     const dispatch = useDispatch();
-//     // const fileInputRef = useRef<HTMLInputElement | null>(null);
+// interface DialogComponentProps {
+//     isOpen: boolean;
+//     setOpen: (value: boolean) => void;
+// }
+// interface Errors {
+//     name: string;
+//     description: string;
+//     program: string;
+//     startDate: string;
+//     endDate: string;
+// }
 //
+// export const DialogComponent: React.FC<DialogComponentProps> = ({ isOpen, setOpen }) => {
 //     const [data, setData] = useState<Cohort>({
 //         name: '',
 //         description: '',
 //         avatar: '',
-//         startDate: new Date(),
-//         endDate: new Date(),
+//         startDate: null,
+//         endDate: null,
 //         program: '',
 //         id: 0,
 //         dateCreated: new Date(),
 //         numberOfLearners: 0,
 //     });
 //
+//     const [errors, setErrors] = useState<Errors>({
+//         name: '',
+//         description: '',
+//         program: '',
+//         startDate: '',
+//         endDate: ''
+//     });
+//
+//     const [imagePreview, setImagePreview] = useState<string | null>(null);
+//     const dispatch = useDispatch();
+//
+//     // Handle file function to set the image preview and update the state
+//     const handleFile = (file: File) => {
+//         const imageUrl = URL.createObjectURL(file);
+//         setImagePreview(imageUrl);
+//         setData(prevData => ({ ...prevData, avatar: imageUrl }));
+//     };
+//
 //     const onDrop = useCallback((acceptedFiles: File[]) => {
 //         if (acceptedFiles.length > 0) {
-//             const file = acceptedFiles[0];
-//             const imageUrl = URL.createObjectURL(file);
-//             setImagePreview(imageUrl);
-//             setData(prevData => ({
-//                 ...prevData,
-//                 avatar: imageUrl,
-//             }));
+//             handleFile(acceptedFiles[0]); // Use the handleFile function
 //         }
 //     }, []);
 //
-//     const accept: Accept = { 'image/*': [] };
-//     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept });
+//     const { getRootProps, getInputProps, isDragActive } = useDropzone({
+//         onDrop,
+//         accept: { 'image/*': [] },
+//         noClick: false // Allows clicking to open the file picker
+//     });
 //
-//     const validate = (data: Cohort) => {
+//     const validate = () => {
+//         const newErrors: Errors = { name: '', description: '', program: '', startDate: '', endDate: '' };
 //         let valid = true;
-//         setNameError('');
-//         setDescriptionError('');
-//         setProgramError('');
-//         setStartDateError('');
-//         setEndDateError('');
 //
 //         if (!data.name) {
-//             setNameError('Cohort name is required');
+//             newErrors.name = 'Cohort name is required';
 //             valid = false;
 //         }
 //         if (!data.description) {
-//             setDescriptionError('Description is required');
+//             newErrors.description = 'Description is required';
 //             valid = false;
 //         }
 //         if (!data.program) {
-//             setProgramError('Program name is required');
+//             newErrors.program = 'Program name is required';
 //             valid = false;
 //         }
 //         if (data.startDate && data.endDate && data.startDate > data.endDate) {
-//             setStartDateError('Invalid start date provided');
+//             newErrors.startDate = 'Invalid start date provided';
 //             valid = false;
 //         }
 //         if (data.endDate && data.startDate && data.endDate < data.startDate) {
-//             setEndDateError('Invalid end date provided');
+//             newErrors.endDate = 'Invalid end date provided';
 //             valid = false;
 //         }
+//
+//         setErrors(newErrors);
 //         return valid;
 //     };
 //
 //     const handleCreateCohort = (event: React.FormEvent<HTMLFormElement>) => {
 //         event.preventDefault();
-//         if (validate(data)) {
+//         if (validate()) {
 //             dispatch(saveCohort(data));
+//             console.log('Cohort created successfully', data);
 //             setOpen(false);
 //         }
 //     };
 //
-//     const handleStartDateChange = (date: Date | null) => {
-//         setStartDate(date);
-//         setData(prevData => ({ ...prevData, startDate: date }));
-//         setStartDateError('');
+//     const handleDateChange = (type: keyof Errors, date: Date | null) => {
+//         setData(prevData => ({ ...prevData, [type]: date }));
+//         setErrors(prevErrors => ({ ...prevErrors, [type]: '' }));
 //     };
 //
-//     const handleEndDateChange = (date: Date | null) => {
-//         setEndDate(date);
-//         setData(prevData => ({ ...prevData, endDate: date }));
-//         setEndDateError('');
-//     };
-//
-//     const formValid = data.name && data.description && data.program && startDate && endDate &&
-//         !nameError && !descriptionError && !programError && !startDateError && !endDateError;
+//     const formValid = Object.values(errors).every(error => !error) && data.name && data.description && data.program && data.startDate && data.endDate;
 //
 //     return (
-//         <Dialog open={isOpen} sx={{ height: '700px', width: '631px', padding: '10px 40px', margin: 'auto' }}>
-//             <DialogTitle id='dialog-title'>
+//         <Dialog open={isOpen}>
+//             <DialogTitle>
 //                 Create a cohort
-//                 <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>
+//                 <IconButton style={{ float: 'right' }} onClick={() => setOpen(!isOpen)}>
 //                     <CloseIcon />
 //                 </IconButton>
 //             </DialogTitle>
 //             <form onSubmit={handleCreateCohort}>
 //                 <DialogContent>
-//                     <TextField
-//                         error={!!nameError}
-//                         helperText={nameError}
-//                         id='name'
-//                         required
-//                         onChange={(e) => {
-//                             setData(prevData => ({ ...prevData, name: e.target.value }));
-//                             setNameError('');
-//                         }}
-//                         label="Cohort Name"
-//                         variant="outlined"
-//                         size="small"
-//                         fullWidth
-//                         sx={{ mb: 2 }}
-//                     />
-//                     <TextField
-//                         error={!!descriptionError}
-//                         helperText={descriptionError}
-//                         id='description'
-//                         required
-//                         onChange={(e) => {
-//                             setData(prevData => ({ ...prevData, description: e.target.value }));
-//                             setDescriptionError('');
-//                         }}
-//                         label="Description"
-//                         variant="outlined"
-//                         multiline
-//                         rows={3}
-//                         size="small"
-//                         fullWidth
-//                         sx={{ mb: 2 }}
-//                     />
-//                     <Box sx={{ mb: 2 }}>
-//                         <Typography variant="body2" sx={{ mb: 1, color: '#475661' }}>Program</Typography>
-//                         <TextField
-//                             select
-//                             fullWidth
-//                             value={data.program}
-//                             onChange={(e) => setData(prevData => ({ ...prevData, program: e.target.value }))}
-//                             variant="outlined"
-//                             size="small"
-//                         >
-//                             <MenuItem value="" disabled>Select Program</MenuItem>
-//                             {[
-//                                 { id: 1, name: "Product Design" },
-//                                 { id: 2, name: "Software Engineering" },
-//                                 { id: 3, name: "Techpreneurship" },
-//                                 { id: 4, name: "Dev-ops" },
-//                                 { id: 5, name: "Creative Design" },
-//                                 { id: 6, name: "UX Writer" },
-//                             ].map(program => (
-//                                 <MenuItem key={program.id} value={program.name}>{program.name}</MenuItem>
-//                             ))}
-//                         </TextField>
-//                     </Box>
-//
+//                     {['Cohort Name', 'Description', 'Program'].map((label, index) => (
+//                         <div key={index}>
+//                             <TextField
+//                                 label={label}
+//                                 error={!!errors[label.toLowerCase().replace(' ', '') as keyof Errors]}
+//                                 helperText={errors[label.toLowerCase().replace(' ', '') as keyof Errors]}
+//                                 required
+//                                 onChange={(e) => setData(prevData => ({ ...prevData, [label.toLowerCase().replace(' ', '')]: e.target.value }))}
+//                                 variant="outlined"
+//                                 size="small"
+//                                 fullWidth
+//                                 sx={{ mb: 2 }}
+//                             />
+//                         </div>
+//                     ))}
 //                     <section className="flex gap-10 py-[15px]">
 //                         <div>
-//                             <p className={'text-xs'}>Start Date</p>
+//                             <p>Start Date</p>
 //                             <DatePicker
-//                                 selected={startDate}
-//                                 onChange={handleStartDateChange}
+//                                 selected={data.startDate}
+//                                 onChange={(date) => handleDateChange('startDate', date)}
 //                                 minDate={new Date()}
 //                                 dateFormat="yyyy-MM-dd"
 //                                 placeholderText="Select start date"
-//                                 className={`w-full p-2 border ${startDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
 //                             />
-//                             {startDateError && <p className="text-red-500 text-xs">{startDateError}</p>}
+//                             {errors.startDate && <p className="text-red-500 text-xs">{errors.startDate}</p>}
 //                         </div>
 //                         <div>
-//                             <p className={'text-xs'}>End Date</p>
+//                             <p>End Date</p>
 //                             <DatePicker
-//                                 selected={endDate}
-//                                 onChange={handleEndDateChange}
+//                                 selected={data.endDate}
+//                                 onChange={(date) => handleDateChange('endDate', date)}
 //                                 minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
 //                                 dateFormat="yyyy-MM-dd"
 //                                 placeholderText="Select end date"
-//                                 className={`w-full p-2 border ${endDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
 //                             />
-//                             {endDateError && <p className="text-red-500 text-xs">{endDateError}</p>}
+//                             {errors.endDate && <p className="text-red-500 text-xs">{errors.endDate}</p>}
 //                         </div>
 //                     </section>
-//                     <p className={'text-xs'}>Add a cohort avatar</p>
-//                     <Box {...getRootProps()} sx={{
-//                         border: '2px dashed lightblue',
-//                         borderRadius: '8px',
-//                         textAlign: 'center',
-//                         padding: '20px',
-//                         cursor: 'pointer',
-//                         mt: 1,
-//                         backgroundColor: '#eaf5fa',
-//                         height: '100px',
-//                         overflow: 'hidden'
-//                     }}>
-//                         <input {...getInputProps()} />
+//                     <p>Add a cohort avatar</p>
+//                     <Box
+//                         sx={{
+//                             border: '2px dashed lightblue',
+//                             borderRadius: '8px',
+//                             textAlign: 'center',
+//                             padding: '20px',
+//                             cursor: 'pointer',
+//                             mt: 1,
+//                             backgroundColor: '#eaf5fa',
+//                             height: '100px',
+//                             display: 'flex',
+//                             flexDirection: 'column',
+//                             alignItems: 'center',
+//                             justifyContent: 'center'
+//                         }} {...getRootProps()}
+//                     >
 //                         {imagePreview ? (
-//                             <Image
-//                                 src={imagePreview}
-//                                 alt="Avatar Preview"
-//                                 layout="fill"
-//                                 className={'object-center object-contain'}
-//                                 style={{ borderRadius: '8px' }}
-//                             />
-//                         ) : isDragActive ? (
-//                             <p>Drop the files here ...</p>
+//                             <Image src={imagePreview} alt="Avatar Preview" height={50} width={50} style={{ borderRadius: '8px' }} />
 //                         ) : (
 //                             <>
-//                                 <Image src={infoIcon} alt="info" />
-//                                 <p className='text-xs'>Drag and drop files here, or click to select files</p>
+//                                 <input {...getInputProps()} />
+//                                 {isDragActive ? (
+//                                     <Typography>Drop the image here...</Typography>
+//                                 ) : (
+//                                     <div>
+//                                         <Image src={infoIcon} alt='Upload Icon' height={50} width={50} />
+//                                         <Typography>Drag an image or click to choose a file</Typography>
+//                                     </div>
+//                                 )}
 //                             </>
 //                         )}
 //                     </Box>
+//                     <div className="flex gap-[10px] pt-[10px]">
+//                         <Image src={info} alt='Info Icon' width={12} height={12} />
+//                         <p>You can add this later.</p>
+//                     </div>
 //                 </DialogContent>
-//                 <DialogActions sx={{ justifyContent: 'space-between' }}>
-//                     <Button type="submit" variant="contained" disabled={!formValid}>Create</Button>
+//                 <DialogActions>
 //                     <Button onClick={() => setOpen(false)}>Cancel</Button>
+//                     <Button type="submit" disabled={!formValid} variant="contained">Create</Button>
 //                 </DialogActions>
 //             </form>
 //         </Dialog>
 //     );
 // };
-import {
-    Box,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-    MenuItem,
-    TextField,
-    Typography
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
-import infoIcon from "@/assets/upload.png";
-import React, { useState, useCallback} from "react";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Accept, useDropzone } from "react-dropzone";
-import { Cohort } from "@/interfaces/interfaces";
-import { useDispatch } from 'react-redux';
-import { saveCohort } from "@/redux/cohortSlice";
-
-export const DialogComponent = ({ isOpen, setOpen }: { isOpen: boolean; setOpen: (value: boolean) => void; }) => {
-    const [nameError, setNameError] = useState('');
-    const [descriptionError, setDescriptionError] = useState('');
-    const [programError, setProgramError] = useState('');
-    const [startDateError, setStartDateError] = useState('');
-    const [endDateError, setEndDateError] = useState('');
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const dispatch = useDispatch();
-    // const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const [data, setData] = useState<Cohort>({
-        name: '',
-        description: '',
-        avatar: '',
-        startDate: new Date(),
-        endDate: new Date(),
-        program: '',
-        id: 0,
-        dateCreated: new Date(),
-        numberOfLearners: 0,
-    });
-
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        if (acceptedFiles.length > 0) {
-            const file = acceptedFiles[0];
-            const imageUrl = URL.createObjectURL(file);
-            setImagePreview(imageUrl);
-            setData(prevData => ({
-                ...prevData,
-                avatar: imageUrl,
-            }));
-        }
-    }, []);
-
-    const accept: Accept = { 'image/*': [] };
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept });
-
-    const validate = (data: Cohort) => {
-        let valid = true;
-        setNameError('');
-        setDescriptionError('');
-        setProgramError('');
-        setStartDateError('');
-        setEndDateError('');
-
-        if (!data.name) {
-            setNameError('Cohort name is required');
-            valid = false;
-        }
-        if (!data.description) {
-            setDescriptionError('Description is required');
-            valid = false;
-        }
-        if (!data.program) {
-            setProgramError('Program name is required');
-            valid = false;
-        }
-        if (data.startDate && data.endDate && data.startDate > data.endDate) {
-            setStartDateError('Invalid start date provided');
-            valid = false;
-        }
-        if (data.endDate && data.startDate && data.endDate < data.startDate) {
-            setEndDateError('Invalid end date provided');
-            valid = false;
-        }
-        return valid;
-    };
-
-    const handleCreateCohort = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (validate(data)) {
-            dispatch(saveCohort(data));
-            setOpen(false);
-        }
-    };
-
-    const handleStartDateChange = (date: Date | null) => {
-        setStartDate(date);
-        setData(prevData => ({ ...prevData, startDate: date }));
-        setStartDateError('');
-    };
-
-    const handleEndDateChange = (date: Date | null) => {
-        setEndDate(date);
-        setData(prevData => ({ ...prevData, endDate: date }));
-        setEndDateError('');
-    };
-
-    const formValid = data.name && data.description && data.program && startDate && endDate &&
-        !nameError && !descriptionError && !programError && !startDateError && !endDateError;
-
-    return (
-        <Dialog open={isOpen} sx={{ height: '700px', width: '631px', padding: '10px 40px', margin: 'auto' }}>
-            <DialogTitle id='dialog-title'>
-                Create a cohort
-                <IconButton style={{ float: 'right' }} onClick={() => setOpen(false)}>
-                    <CloseIcon />
-                </IconButton>
-            </DialogTitle>
-            <form onSubmit={handleCreateCohort}>
-                <DialogContent>
-                    <TextField
-                        error={!!nameError}
-                        helperText={nameError}
-                        id='name'
-                        required
-                        onChange={(e) => {
-                            setData(prevData => ({ ...prevData, name: e.target.value }));
-                            setNameError('');
-                        }}
-                        label="Cohort Name"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        sx={{ mb: 2 }}
-                    />
-                    <TextField
-                        error={!!descriptionError}
-                        helperText={descriptionError}
-                        id='description'
-                        required
-                        onChange={(e) => {
-                            setData(prevData => ({ ...prevData, description: e.target.value }));
-                            setDescriptionError('');
-                        }}
-                        label="Description"
-                        variant="outlined"
-                        multiline
-                        rows={3}
-                        size="small"
-                        fullWidth
-                        sx={{ mb: 2 }}
-                    />
-                    <Box sx={{ mb: 2 }}>
-                        <Typography variant="body2" sx={{ mb: 1, color: '#475661' }}>Program</Typography>
-                        <TextField
-                            select
-                            fullWidth
-                            value={data.program}
-                            onChange={(e) => setData(prevData => ({ ...prevData, program: e.target.value }))}
-                            variant="outlined"
-                            size="small"
-                        >
-                            <MenuItem value="" disabled>Select Program</MenuItem>
-                            {[
-                                { id: 1, name: "Product Design" },
-                                { id: 2, name: "Software Engineering" },
-                                { id: 3, name: "Techpreneurship" },
-                                { id: 4, name: "Dev-ops" },
-                                { id: 5, name: "Creative Design" },
-                                { id: 6, name: "UX Writer" },
-                            ].map(program => (
-                                <MenuItem key={program.id} value={program.name}>{program.name}</MenuItem>
-                            ))}
-                        </TextField>
-                    </Box>
-
-                    <section className="flex gap-10 py-[15px]">
-                        <div>
-                            <p className={'text-xs'}>Start Date</p>
-                            <DatePicker
-                                selected={startDate}
-                                onChange={handleStartDateChange}
-                                minDate={new Date()}
-                                dateFormat="yyyy-MM-dd"
-                                placeholderText="Select start date"
-                                className={`w-full p-2 border ${startDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
-                            />
-                            {startDateError && <p className="text-red-500 text-xs">{startDateError}</p>}
-                        </div>
-                        <div>
-                            <p className={'text-xs'}>End Date</p>
-                            <DatePicker
-                                selected={endDate}
-                                onChange={handleEndDateChange}
-                                minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
-                                dateFormat="yyyy-MM-dd"
-                                placeholderText="Select end date"
-                                className={`w-full p-2 border ${endDateError ? 'border-red-500' : 'border-gray-300'} rounded`}
-                            />
-                            {endDateError && <p className="text-red-500 text-xs">{endDateError}</p>}
-                        </div>
-                    </section>
-                    <p className={'text-xs'}>Add a cohort avatar</p>
-                    <Box {...getRootProps()} sx={{
-                        border: '2px dashed lightblue',
-                        borderRadius: '8px',
-                        textAlign: 'center',
-                        padding: '20px',
-                        cursor: 'pointer',
-                        mt: 1,
-                        backgroundColor: '#eaf5fa',
-                        height: '100px',
-                        overflow: 'hidden'
-                    }}>
-                        <input {...getInputProps()} />
-                        {imagePreview ? (
-                            <Image
-                                src={imagePreview}
-                                alt="Avatar Preview"
-                                layout="fill"
-                                className={'object-center object-contain overflow-hidden'}
-                                style={{ borderRadius: '8px' }}
-                            />
-                        ) : isDragActive ? (
-                            <p>Drop the files here ...</p>
-                        ) : (
-                            <>
-                                <Image src={infoIcon} alt="info" />
-                                <p className='text-xs'>Drag and drop files here, or click to select files</p>
-                            </>
-                        )}
-                    </Box>
-
-                    <DialogActions>
-                        <Button type="submit" disabled={!formValid}>Create Cohort</Button>
-                        <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    </DialogActions>
-                </DialogContent>
-            </form>
-        </Dialog>
-    );
-};

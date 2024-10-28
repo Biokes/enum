@@ -25,7 +25,6 @@ import {useDispatch} from 'react-redux';
 
 export default function Instructor() {
     const [invite,setInvite] = useState<boolean>(false)
-    const [popupStates, setPopupStates] = useState<boolean[]>(Array(instructorsData.length).fill(false));
     const [invitation, setInvitation] = useState<boolean>(false)
     const [data,setData] = useState('');
     const [popup, setPopUp] = useState(false)
@@ -55,6 +54,7 @@ export default function Instructor() {
         {name:'jane mike',email: 'james',instructor:0,active:true,deleted:false,course:'Java & Springboot',dateAdded:'12 Aug, 2021',organization:beansOrg},
         {name:'tola segun',email: 'james',instructor:0,active:true,deleted:false,course:'Django fundamentals',dateAdded:'14 Aug, 2021',organization:henleyOrg}
     ]
+    const [popupStates, setPopupStates] = useState<boolean[]>(Array(instructorsData.length).fill(false));
     const popUp= ()=>{
         setPopUp(true)
         setInvite(invite)

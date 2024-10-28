@@ -1,21 +1,21 @@
 'use client';
-import {Cohort, CohortGroup} from "@/interfaces/interfaces";
+import React, { useEffect, useState, useRef } from 'react';
+import { Cohort, CohortGroup } from "@/interfaces/interfaces";
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import Image from 'next/image';
 import styles from '@/styles/index.module.css';
-import {Button, FormControl, MenuItem, Select, SelectChangeEvent, useMediaQuery} from "@mui/material";
+import { Button, FormControl, MenuItem, Select, SelectChangeEvent, useMediaQuery } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import React, {useEffect, useState, useRef} from "react";
 import Empty from '@/assets/empty.png';
-import {RootState} from "@/redux/store";
+import { RootState } from "@/redux/store";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import {DialogComponent} from "@/components/createCohort/dialogComponent";
-import {useSelector, useDispatch} from "react-redux";
+import { DialogComponent } from "@/components/createCohort/dialogComponent";
+import { useSelector, useDispatch } from "react-redux";
 import MapCohortsSaved from "@/components/createCohort/cohortMapper";
-import {setClickedCohort} from "@/redux/UserSlice";
+import { setClickedCohort } from "@/redux/UserSlice";
 import Instructor from "@/components/instructor/EmptyInstructor";
 
 export default function Cohorts() {
@@ -63,11 +63,11 @@ export default function Cohorts() {
                 </div>
             </div>
         );
-    };
+    }
 
     const moreActions =()=>{
         setPopUp(!popUp)
-    };
+    }
 
     const PopUp=()=>{
         return (
@@ -109,8 +109,7 @@ export default function Cohorts() {
         </div>
 
     )
-    const MapCohorts = () =>
-        (
+    const MapCohorts = () => (
             <div className={styles.mapCohort}>
                 <InputAndActionsBar/>
                 <div>
@@ -149,12 +148,9 @@ export default function Cohorts() {
         </div>
     )
 
-    const Dialog_Component = () => {
-        return (
+    const Dialog_Component = () => (
             <DialogComponent isOpen={isOpen} setOpen={setOpen}/>
-        );
-    }
-
+        )
     return (
         <div className={styles.cohortsDiv}>
             <div className={styles.groupPack}>
@@ -182,9 +178,6 @@ export default function Cohorts() {
             <div className={'hidden md:flex'}>
                 <Dialog_Component/>
             </div>
-            <div className={isOpen ? 'md:hidden':'hidden'}>
-
-            </div>
         </div>
-    );
+    )
 }

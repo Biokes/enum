@@ -219,7 +219,7 @@ export default  function ViewCohort(){
 
     )
     const Modules =()=>(
-        <div className={'flex '}>
+        <div className={'flex'}>
             <section className={styles.modules}>
                 <p>Module 1</p>
                 <p>Extra module</p>
@@ -234,7 +234,7 @@ export default  function ViewCohort(){
                 <p>Module 10</p>
             </section>
             <section className={styles.modulesSection2}>
-                <div className={'flex justify-between items-center px-[20px]'}>
+                <div className={`flex justify-between items-center px-[20px]`}>
                     <p className={'hover:text-blue-300 text-sm uppercase'}>Session 1</p>
                     <RemoveIcon sx={{'& hover':{color: '#008eef'}}}/>
                 </div>

@@ -1,10 +1,12 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
+
 interface DeleteInstructorDialogProps {
     isOpen: boolean;
     setOpen: (value: boolean) => void;
 }
+
 const DeleteInstructorDialog: React.FC<DeleteInstructorDialogProps> = ({ isOpen, setOpen }) => {
     return (
         <Dialog open={isOpen}

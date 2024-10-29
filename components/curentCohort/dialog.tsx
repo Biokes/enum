@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { saveCohort } from "@/redux/cohortSlice";
 import { Cohort } from "@/interfaces/interfaces";
 import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
 import { useDropzone } from 'react-dropzone';
 
 interface ModalProps {

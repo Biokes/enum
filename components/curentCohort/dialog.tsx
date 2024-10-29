@@ -10,6 +10,7 @@ import { Cohort } from "@/interfaces/interfaces";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDropzone } from 'react-dropzone';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 interface ModalProps {
     isOpen: boolean;
@@ -116,7 +117,10 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                                 variant="outlined"
                                 size="small"
                                 value={cohortName}
-                                onChange={(e) => setCohortName(e.target.value)}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setCohortName(e.target.value)
+                                }}
                                 InputProps={{ style: { color: '#475661' } }}
                             />
                         </Box>
@@ -131,7 +135,10 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                                 variant="outlined"
                                 size="small"
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setDescription(e.target.value)
+                                }}
                                 InputProps={{ style: { color: '#475661' } }}
                             />
                         </Box>
@@ -168,30 +175,31 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                         <Box sx={{ mb: 2, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                             <div>
                                 <p className={'text-xs'}>Start Date</p>
-                                <DatePicker
-                                    selected={startDate}
-                                    onChange={(date) => setStartDate(date)}
-                                    minDate={new Date()}
-                                    dateFormat="yyyy-MM-dd"
-                                    placeholderText="Select start date"
-                                    className={`w-full p-2 border border-gray-300 rounded`}
-                                />
+                                <div className="relative">
+                                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="23 Dec 2021"
+                                                dateFormat="dd MMM yyyy" className="w-full p-2 border rounded text-sm outline-none focus:ring-2
+                                                 focus:ring-[#008eef] focus:border-[#008eef]"/>
+                                    <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                      <CalendarTodayIcon className="h-[18px] w-[18px] text-[#475661]"/>
+                                    </span>
+                                </div>
                             </div>
                             <div>
                                 <p className={'text-xs'}>End Date</p>
-                                <DatePicker
-                                    selected={endDate}
-                                    onChange={(date) => setEndDate(date)}
-                                    minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
-                                    dateFormat="yyyy-MM-dd"
-                                    placeholderText="Select end date"
-                                    className={`w-full p-2 border border-gray-300 rounded`}
-                                />
+                                <div className="relative">
+                                    <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}
+                                                minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
+                                                dateFormat="dd MM yyyy" placeholderText="23 Dec 2023"
+                                                className="w-full p-2 border rounded text-sm outline-none focus:ring-2 focus:ring-[#008eef] focus:border-[#008eef]"/>
+                                    <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                      <CalendarTodayIcon className="h-[18px] w-[18px] text-[#475661]"/>
+                                    </span>
+                                </div>
                             </div>
                         </Box>
 
-                        <Box sx={{ mb: 2 }}>
-                            <Typography variant="body2" sx={{ mb: 1, color: '#475661' }}>Add a cohort avatar</Typography>
+                        <Box sx={{mb: 2}}>
+                            <Typography variant="body2" sx={{mb: 1, color: '#475661'}}>Add a cohort avatar</Typography>
                             <Box
                                 {...getRootProps()}
                                 sx={{

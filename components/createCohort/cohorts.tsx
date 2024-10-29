@@ -20,8 +20,7 @@ import CreateCohortModal from "@/components/curentCohort/dialog";
 
 export default function Cohorts() {
     const [isOpen, setOpen] = useState<boolean>(false);
-    const selector = useSelector((state:RootState)=> state)
-    const cohortsSaved: Cohort[] = selector.cohorts
+    const cohortsSaved: Cohort[] = useSelector((state:RootState)=> state.cohorts)
     const [popUp,setPopUp]= useState(false);
     const dispatch = useDispatch()
     const [selectedIndex, setSelectedIndex] = useState<number>(0);

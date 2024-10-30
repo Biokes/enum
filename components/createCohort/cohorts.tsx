@@ -46,14 +46,13 @@ export default function Cohorts() {
     },[isOpen, cohortsSaved]);
     const EmptyCohort = () => {
         return (
-            <div className={'flex justify-center items-center mt-[100px] ' +
-                'md:mt-[100px] md:mr-[15%] flex-col gap-2 md:gap-5 w-full'}>
+            <div className={'flex justify-center items-center mt-[100px] md:mt-[100px] md:mr-[15%] flex-col gap-2 md:gap-5 w-full'}>
                 <div className={'m-[10px] md:m-[10px]'}>
                     <Image src={Empty} alt={''} className={'w-[100px] h-auto md:w-[200px]'} />
                 </div>
                 <div className={'flex justify-center items-center flex-col gap-3'}>
-                    <p className={'font-semibold text-sm'}>Empty Space</p>
-                    <p className={'text-sm md:text-xs px-[30px] md:px-0 text-center'}>
+                    <p className={'font-semibold text-sm text-black'}>Empty Space</p>
+                    <p className={'text-sm md:text-xs px-[30px] md:px-0 text-center text-black'}>
                         No cohort has been created yet, let&#39;s get started by clicking the button below
                     </p>
                     <Button variant='contained' onClick={() => setOpen(true)} sx={{fontSize: 'small',textTransform:'none'}}>Create
@@ -118,10 +117,14 @@ export default function Cohorts() {
         )
 
     const groups: CohortGroup[] = [
-        {image: <PeopleAltIcon  className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }} />, text: 'Cohorts', component: cohortsSaved.length === 0 ? <EmptyCohort/> : <MapCohorts/>},
-        {image: <MenuBookIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>, text: 'Programs', component: <EmptyCohort/>},
-        {image: <WorkOutlineIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>, text: 'Instructors', component: <Instructor/>},
-        {image: <PermIdentityIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>, text: 'Learners', component: <EmptyCohort/>}
+        {image: <PeopleAltIcon  className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }} />,
+            text: 'Cohorts', component: cohortsSaved.length === 0 ? <EmptyCohort/> : <MapCohorts/>},
+        {image: <MenuBookIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>,
+            text: 'Programs', component: <EmptyCohort/>},
+        {image: <WorkOutlineIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>,
+            text: 'Instructors', component: <Instructor/>},
+        {image: <PermIdentityIcon className="group-hover:text-blue-500 mt-[-2px] md:mt-[-10px]" sx={{ color: 'inherit' }}/>,
+            text: 'Learners', component: <EmptyCohort/>}
     ];
 
     const SmallScreenComponent = () => (
@@ -134,8 +137,7 @@ export default function Cohorts() {
                     {groups.map((item, index) => (
                         <MenuItem key={index} value={index} sx={{
                             display: 'flex', justifyContent: 'start',
-                            alignItems: 'center', paddingInline: '10px',
-                        }}>
+                            alignItems: 'center', paddingInline: '10px'}}>
                             <div className={'flex gap-[10px] mt-[-20px]'}>
                                 <div className={`mt-[-5px] ${selectedIndex === index ? styles.svg : ''}`}>{item.image}</div>
                                 <p>{item.text}</p>

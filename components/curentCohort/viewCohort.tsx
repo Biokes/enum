@@ -122,6 +122,7 @@ export default  function ViewCohort(){
                 <section className={'flex gap-[10px]'}>
                     <Image src={typeof currentCohort.avatar === 'string' ?
                         currentCohort.avatar : currentCohort.avatar.src}
+
                     className='w-[30px] h-[30px] md:h-[50px] md:w-[50px]
                                 object-contain object-center rounded-md' alt={''}/>
                     <div className={'flex justify-center items-start flex-col'}>

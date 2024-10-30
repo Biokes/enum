@@ -187,7 +187,7 @@ export default function Instructor() {
         const newValue = [...props.array]
         return (
             <div className={newValue[props.index]? styles.moreActionsPopUp :'hidden'}>
-                <p onClick={assignInstructor}>Assign Instructors</p>
+                <p onClick={() => setAssignInstructor((prev) => !prev)}>Assign Instructors</p>
                 <p onClick={showDialog}>Remove Instructors</p>
                 <DeleteInstructorDialog isOpen={isOpen} setOpen={()=>setOpen(!isOpen)}/>
                 <SmallAssignInstructor/>

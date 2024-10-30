@@ -66,7 +66,7 @@ export default  function ViewCohort(){
         }
     };
     const Instructors =()=>(
-        <div className={'h-[356px] flex flex-col justify-evenly pr-[10px]'}>
+        <div className={'lg:h-[356px] flex flex-col justify-evenly pr-[10px]'}>
             <p className={`text-bold text-lg ${styles.dmSans} my-[10px]`}>2 Instructors</p>
             <div className={'flex flex-col justify-evenly items-center gap-[10px]'}>
                 <section className={'flex flex-col border rounded-md px-[10px] py-[5px] gap-[10px] justify-center mr-[2px]'}>
@@ -75,7 +75,7 @@ export default  function ViewCohort(){
                                className='object-cover object-center rounded-lg'/>
                         <section className={'flex flex-col justify-center'}>
                             <p className={`${styles.dmSans} text-lg font-bold`}>Olamide Adebisi, Ph.D. </p>
-                            <p className={smallTextStyles}>Henley Business School • Head Professor </p>
+                            <p className={`${smallTextStyles} hidden md:flex`}>Henley Business School • Head Professor </p>
                         </section>
                     </section>
                     <div className={`font-thin dmSans h-[60px] text-sm`}>
@@ -91,10 +91,10 @@ export default  function ViewCohort(){
                                className='object-cover object-center rounded'/>
                         <section className={'flex flex-col justify-center'}>
                             <p className={`${styles.dmSans} text-lg font-bold`}>Morire Johnson Alausa</p>
-                            <p className={smallTextStyles}>Henley Business School • Chief Designer</p>
+                            <p className={`${smallTextStyles} hidden md:flex`}>Henley Business School • Chief Designer</p>
                         </section>
                     </section>
-                    <div className={`dmSans h-[70px] text-xs`}>
+                    <div className={`dmSans md:h-[70px] text-xs`}>
                         Morire taught Donald Trump in Kindergarten. She has 25
                         years experience teaching presidents design related courses.
                         She has a PhD in Education management and is a member of
@@ -206,7 +206,7 @@ export default  function ViewCohort(){
         <section className={'md:pl-[30px] flex gap-[10px] md:gap-0 flex-col justify-around'}>
             <div className={'my-[20px] w-full'}>
                 <p className={'font-bold my-[20px]'}>Course Overview</p>
-                <p className={'text-sm '}>This course examines important issues in corporate finance
+                <p className={'text-sm'}>This course examines important issues in corporate finance
                     from the perspectives of financial managers who make important
                     investment decisions and financing decisions. This course
                     incorporates an element of financial modelling in teaching

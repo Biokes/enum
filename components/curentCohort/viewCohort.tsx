@@ -51,7 +51,7 @@ export default  function ViewCohort(){
         dispatch(setClickedCohortIndex(-1))
     }
     const PopUp = () => (
-        <div className={`${styles.moreActionsPopUp} ${styles}`} ref={popupRef}>
+        <div className={`${styles.moreActionsPopUp} w-[140px] ${style}`} ref={popupRef}>
             <p onClick={()=>{setStyles('hidden')}}>Manage polls</p>
             <p>view Learners</p>
             <p>Schedule an Event </p>
@@ -104,7 +104,7 @@ export default  function ViewCohort(){
         setPopUp(!popUp)
     }
     const InnerPopUp=()=> (
-        <div className={`${styles.moreActionsPopUp} ${style===''?'hidden':'flex'}`} ref={popupRef}>
+        <div className={`${styles.moreActionsPopUp} w-[140px] ${style===''?'hidden':'flex'}`} ref={popupRef}>
             <p>Publish Poll</p>
             <p>Schedule a quiz</p>
             <p>Schedule an Event </p>

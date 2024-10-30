@@ -168,25 +168,26 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                         <Box sx={{ mb: 2, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                             <div>
                                 <p className={'text-xs'}>Start Date</p>
-                                <div className="relative">
+                                <div className="relative flex">
                                     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="23 Dec 2021"
-                                                minDate={new Date()}
-                                                dateFormat="dd MMM yyyy" className="w-full p-2 border rounded text-sm outline-none focus:ring-2
-                                                 focus:ring-[#008eef] focus:border-[#008eef]"/>
-                                    <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                      <CalendarTodayIcon className="h-[18px] w-[18px] text-[#475661]"/>
+                                                minDate={new Date()} dateFormat="dd MMM yyyy"
+                                                className="w-full p-2 border rounded text-sm outline-none focus:ring-2 focus:ring-[#008eef]
+                                                focus:border-[#008eef]"/>
+                                    <span className="absolute flex justify-center pointer-events-none">
+                                        <CalendarTodayIcon className="h-[18px] w-[18px] ml-[160px] mt-[10px] text-[#475661]"/>
                                     </span>
                                 </div>
                             </div>
                             <div>
                                 <p className={'text-xs'}>End Date</p>
-                                <div className="relative">
+                                <div className="relative flex">
                                     <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}
                                                 minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
                                                 dateFormat="dd MM yyyy" placeholderText="23 Dec 2023"
-                                                className="w-full p-2 border rounded text-sm outline-none focus:ring-2 focus:ring-[#008eef] focus:border-[#008eef]"/>
-                                    <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                        <CalendarTodayIcon className="h-[18px] w-[18px] text-[#475661]"/>
+                                                className="w-full p-2 border rounded text-sm outline-none focus:ring-2 focus:ring-[#008eef]
+                                                focus:border-[#008eef]"/>
+                                    <span className="absolute flex justify-center pointer-events-none">
+                                        <CalendarTodayIcon className="h-[18px] w-[18px] ml-[160px] mt-[10px] text-[#475661]"/>
                                     </span>
                                 </div>
                             </div>
@@ -233,15 +234,19 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                                     </>
                                 )}
                             </Box>
-                            <div className="flex">
+                            <div className="flex items-center px-[3px]">
                                 <ErrorOutlineOutlinedIcon sx={{ fontSize: 20, color: '#475661' }} />
-                                {formError && <p className="text-xs text-red-500">{formError}</p>}
+                                {formError ?<p className="text-xs text-red-500">{formError}</p>:
+                                    <p className={'text-xs'}>You can add this later</p>}
                             </div>
                         </Box>
 
                         <DialogActions sx={{ mt: 2 }}>
                             <Button variant="outlined" onClick={onClose}>Cancel</Button>
-                            <Button variant="contained" type="submit">Create Cohort</Button>
+                            <Button variant="contained" type="submit"
+                                    disabled={!cohortName || !description || !program || !startDate || !endDate || !selectedFile}>
+                                Create Cohort
+                            </Button>
                         </DialogActions>
                     </form>
                 </Box>

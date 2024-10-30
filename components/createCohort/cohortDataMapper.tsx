@@ -8,13 +8,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 
-export default function MapData(instructorsData: InstructorData[], popUp: (value: {
-    state: boolean[];
-    index: number
-}) => void, popupStates: boolean[], PopUp: (props: {
-    array: boolean[];
-    index: number
-}) => React.JSX.Element, togglePopup: (index: number) => void) {
+export default function MapData(instructorsData: InstructorData[], popUp: (value: { state: boolean[]; index: number }) => void,
+                                popupStates: boolean[], PopUp: (props: { array: boolean[]; index: number }) => React.JSX.Element, togglePopup: (index: number) => void) {
     return (
         <div className={'md:h-[310px] gap-[20px] mt-[30px] '}>
             <div className={'hidden md:flex md:flex-col'}>

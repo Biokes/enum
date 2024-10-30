@@ -104,17 +104,17 @@
     @apply flex gap-[10px] flex-col w-[100%] md:gap-y-[5px] lg:h-[300px] relative
 }
 .mapCohortDivInner1{
-    @apply justify-between w-full hidden md:flex
+    @apply justify-between w-full flex md:flex-row flex-col mt-[60px] md:mt-0 gap-[10px] md:gap-0
 }
 .mapCohortDivSection1{
-    @apply border-[1px] border-[#323131] rounded-md md:h-[44px] md:w-[35%] flex items-center pr-[5px]
+    @apply border-[1px] border-[#323131] rounded-md h-[55px] md:h-[44px] w-[70%] md:w-[35%] mt-[10px] md:mt-0 flex items-center pr-[5px] order-2 md:order-1 ml-[20px] md:mr-0
 }
 .mapCohortsCreated{
-    @apply gap-[20px] my-[20px] md:mt-0 flex flex-col overflow-y-auto p-[10px] md:max-h-[380px];
+    @apply gap-[20px] my-[20px] md:my-[20px] md:mt-0 flex flex-col overflow-y-auto p-[10px] md:max-h-[380px];
 
 }
 .mappedCohortsContainer{
-    @apply flex justify-between rounded-xl items-center px-[10px] md:mx-[5px] h-[95px] md:px-[5px]
+    @apply flex justify-between rounded-xl items-center px-[10px] md:mx-[5px] h-[95px] md:px-[15px]
     md:my-[2px] shadow-md focus:border-[#557794] hover:border-[#557794] border-[1px];
 }
 .cohortName{
@@ -124,7 +124,7 @@
     line-height: 22px;
     max-width: 250px;
     text-overflow: ellipsis;
-    @apply md:text-lg md:font-bold
+    @apply md:text-lg md:font-bold text-lg
 }
 .dateCreated{
     font-weight: 400;
@@ -143,7 +143,7 @@
     position:absolute;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     gap: 30px;
-    @apply bg-white m-[-40px_95px_10px_0] md:m-[-5px_55px_10px_0] rounded-md gap-x-[10px] px-[5px] w-[140px]
+    @apply bg-white m-[-40px_95px_10px_0] md:m-[-5px_55px_10px_0] rounded-md gap-x-[10px] px-[5px]
 }
 .moreActionsPopUp >p{
     @apply hover:border-[1px] hover:border-[#ededed] text-xs my-[7px] cursor-pointer hover:bg-blue-100

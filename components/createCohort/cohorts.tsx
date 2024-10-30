@@ -68,28 +68,31 @@ export default function Cohorts() {
     }
 
     const PopUp=()=>{
+        const p_style: string=  `hover:border-[1px] hover:border-[#ededed] text-xs my-[7px] cursor-pointer
+                                 hover:bg-blue-100 hover:rounded-md p-[5px_7px]`;
         return (
-            <div className={styles.moreActionsPopUp} ref={popupRef}>
-                <p>Publish a Poll</p>
-                <p>Schedule an Event</p>
-                <p>Make an announcement</p>
+            <div className={`shadow-md absolute bg-white m-[-40px_95px_0_0] md:-mt-[15px] md:ml-[15%] md:my-0
+             rounded-md gap-x-[10px] px-[5px] w-[160px]`} ref={popupRef}>
+                <p className={`${p_style}`}>Publish a Poll</p>
+                <p className={p_style}>Schedule an Event</p>
+                <p className={p_style}>Make an announcement</p>
             </div>
         )
     };
     const InputAndActionsBar=()=> (
-        <div className={`${cohortsSaved.length === 0 ? 'hidden': styles.mapCohortDivInner1}`}>
+        <div className={`${cohortsSaved.length === 0 ? 'hidden': styles.mapCohortDivInner1} grid-rows-2 md:grid-rows-1 mt-[-10px]`}>
             <section className={styles.mapCohortDivSection1}>
                 <SearchIcon style={{width: '32px', height: '32px', border: 'none'}}/>
-                <input type="text" style={{outline: 'none', width: '70%', height: '30px'}}/>
+                <input type="text" className={'w-[100%] md:w-[70%] h-[100%] md:h-[30px] outline-0 '}/>
             </section>
-            <section>
+            <section className={'flex justify-around md:justify-between order-1 md:order-2'}>
                 <Button variant={'contained'} sx={{
                     background: '#008EEF',
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 'thin',
                     fontSize: 'small',
-                    width: '155px',
+                    width: {xs:'40%',md:'155px'},
                     height: '40px',
                     marginRight: '10px'
                 }} onClick={() => setOpen(true)}>
@@ -97,12 +100,13 @@ export default function Cohorts() {
                 </Button>
                 <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
                         sx={{
-                            color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',
+                            color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',width: {xs:'40%',md:'155px'},
                             fontWeight: 'thin', fontSize: 'small', textTransform: 'none', position: 'relative'
                         }}>
                     more actions
                 </Button>
-                {popUp && (<PopUp/>)}
+                {popUp && (
+                    <PopUp/>)}
             </section>
         </div>
 
@@ -110,9 +114,7 @@ export default function Cohorts() {
     const MapCohorts = () => (
             <div className={styles.mapCohort}>
                 <InputAndActionsBar/>
-                <div>
-                    <MapCohortsSaved/>
-                </div>
+                <MapCohortsSaved/>
             </div>
         )
 
@@ -149,6 +151,8 @@ export default function Cohorts() {
         </div>
     )
     const close=()=> setOpen(false)
+
+
     return (
         <div className={styles.cohortsDiv}>
             <div className={styles.groupPack}>
@@ -167,6 +171,7 @@ export default function Cohorts() {
                     </div>
                 )}
             </div>
+
             <section className={'w-full px-[20px] flex md:flex-col justify-between h-[100%]'}>
                 <p className={` font-semibold hidden md:flex my-[10px] pt-[10px] mb-[30px]`}>{groups[selectedIndex].text}</p>
                 <div className={`w-[100%] h-[60%] flex ${cohortsSaved.length ===0? 'md:m-[-7%_0_3%_0]': '' }`}>

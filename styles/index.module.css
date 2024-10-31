@@ -246,3 +246,6 @@
 .sectionStyles section{
     @apply flex gap-[3px] justify-center
 }
+.popupKebab{
+    @apply active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center
+}

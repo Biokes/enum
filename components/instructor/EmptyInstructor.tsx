@@ -18,9 +18,8 @@ import Image4 from "@/assets/unsplash_gbNuQfm9hTE.png";
 import {setHeroText} from "@/redux/UserSlice";
 import {useDispatch} from 'react-redux';
 import DeleteInstructorDialog from "@/components/instructor/deleteInstructorDialog";
-// import MapData from "@/components/createCohort/cohortDataMapper";
-// import MapData from "@/components/createCohort/cohortDataMapper";
 import InvitationComponent from "@/components/createCohort/invitationComponent";
+import MapData from "@/components/createCohort/cohortDataMapper";
 
 export default function Instructor() {
     const [isInvited, setIsInvited] = useState<boolean>(false)
@@ -44,12 +43,14 @@ export default function Instructor() {
         {name:'jane mike',email: 'james',instructor:0,active:true,deleted:false,course:'Java & Springboot',dateAdded:'12 Aug, 2021',organization:beansOrg},
         {name:'tola segun',email: 'james',instructor:0,active:true,deleted:false,course:'Django fundamentals',dateAdded:'14 Aug, 2021',organization:henleyOrg}
     ]
-    const [popupStates, setPopupStates]=useState<boolean[]>(Array(instructorsData.length).fill(false));
+    const [popupIndex, setPopupIndex] = useState<number | null>(null);
+
+    // const [popupStates, setPopupStates]=useState<boolean[]>(Array(instructorsData.length).fill(false));
 
     const handleClickOutside = (event: MouseEvent) => {
         if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
             setAssignInstructor(!assignInstructor);
-            setPopupStates(popupStates)
+            setPopupIndex(null);
         }
     };
     const showDialog= ()=>{
@@ -91,7 +92,7 @@ export default function Instructor() {
                                 <p className={'text-xs'}>0 Instructor</p>
                             </div>
                         </div>
-                        <PopUp array={popupStates} index={index}/>
+                        <PopUp index={index}/>
                     </div>
 
                 ))
@@ -173,18 +174,15 @@ export default function Instructor() {
     const assignInstructor = () => {
         setAssignInstructor(!assignInstructor)
     }
-    const PopUp = (props:{array:boolean[],index:number}) => {
-        const newValue = [...props.array]
-        return (
-            <div className={newValue[props.index]? styles.moreActionsPopUp :'hidden'}>
-                <p onClick={assignInstructor}>Assign Instructors</p>
-                <p onClick={showDialog}>Remove Instructors</p>
-                <DeleteInstructorDialog isOpen={isOpen} setOpen={()=>setOpen(!isOpen)}/>
-                <SmallAssignInstructor/>
-                <LargeAssignInstructor/>
-            </div>
-        )
-    }
+    const PopUp = ({ index }: { index: number }) => (
+        <div className={popupIndex === index ? styles.moreActionsPopUp : 'hidden'}>
+            <p onClick={assignInstructor}>Assign Instructors</p>
+            <p onClick={showDialog}>Remove Instructors</p>
+            <DeleteInstructorDialog isOpen={isOpen} setOpen={() => setOpen(!isOpen)} />
+            <SmallAssignInstructor/>
+            <LargeAssignInstructor/>
+        </div>
+    );
     const Invite= ()=>(
         <div className={!isInvited ? 'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1' :'hidden'}>
             <div className={'flex flex-col gap-[15px] md:grid md:grid-cols-2 md:grid-rows-1 md:order-2'}>
@@ -203,8 +201,6 @@ export default function Instructor() {
             </div>
         </div>
     )
-    // const DataMapper =()=>(MapData(instructorsData, popUp, popupStates, PopUp, togglePopup))
-
     return (
         <div className={!assignedInstructor ?
         // ${isInvited ?
@@ -223,7 +219,9 @@ export default function Instructor() {
                 <>
                     <InvitationComponent initialState={isInvited} initialStateClosure={setIsInvited}/>
                 </>:
-                <></>
+                <>
+                    <MapData instructorsData={instructorsData} PopUp={PopUp}/>
+                </>
                 }
         </div>
     )

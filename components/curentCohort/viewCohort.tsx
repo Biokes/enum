@@ -3,7 +3,7 @@ import {useSelector,useDispatch} from "react-redux";
 import {RootState} from "@/redux/store";
 import {Cohort, Course,CohortRightProps} from "@/interfaces/interfaces";
 import Image from 'next/image'
-import {Button} from "@mui/material";
+import {Button, useMediaQuery} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, {ReactNode, useEffect, useRef, useState} from "react";
 import styles from "@/styles/index.module.css";
@@ -26,15 +26,19 @@ import HelpCircle from '@/assets/help-circle.png';
 import Heart from '@/assets/heart.png';
 import Reply from '@/assets/message-circle.png'
 import {setClickedCohortIndex} from "@/redux/UserSlice";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default  function ViewCohort(){
     const smallTextStyles = 'text-xs font-thin dmSans';
     const dispatch = useDispatch()
     const currentCohort: Cohort = useSelector((rootState: RootState) => rootState.user.clickedCohort);
     const [popUp, setPopUp] = useState<boolean>(false);
-    const [searchTerm, setSearchTerm] = useState('');
+    // const [searchTerm, setSearchTerm] = useState('');
     const [style, setStyles] = useState<string>('')
     const popupRef = useRef<HTMLDivElement>(null);
+    const [isClickedCohort,setClickedCohort] = useState(false)
+    const [clickedPack, setClickedPack ]= useState('')
+    const isSmallScreen = useMediaQuery('(max-width:768px)')
 
     useEffect(() =>{
         const handleClickOutside = (event: MouseEvent) => {
@@ -78,7 +82,7 @@ export default  function ViewCohort(){
                             <p className={`${smallTextStyles} hidden md:flex`}>Henley Business School • Head Professor </p>
                         </section>
                     </section>
-                    <div className={`font-thin dmSans h-[60px] text-sm`}>
+                    <div className={`text-lg font-thin dmSans h-[100px] md:h-[60px] md:text-sm`}>
                         Olamide taught Donald Trump in Kindergarten. She has 25 years
                         experience teaching presidents design related courses.
                         She has a PhD in Education management and is a member of
@@ -94,7 +98,7 @@ export default  function ViewCohort(){
                             <p className={`${smallTextStyles} hidden md:flex`}>Henley Business School • Chief Designer</p>
                         </section>
                     </section>
-                    <div className={`dmSans md:h-[70px] text-xs`}>
+                    <div className={`text-lg font-thin dmSans h-[120px] md:h-[60px] md:text-xs`}>
                         Morire taught Donald Trump in Kindergarten. She has 25
                         years experience teaching presidents design related courses.
                         She has a PhD in Education management and is a member of
@@ -121,16 +125,15 @@ export default  function ViewCohort(){
     )
     const Top= ()=> (
         <div className={'flex flex-col md:mb-[10px]'}>
-            <div className={'flex gap-[10px] md:h-[24px] md:ml-[60px] my-[10px] ml-[5%]'} onClick={handleClick}>
-                <ArrowBackIcon sx={{width:'15px',height:'15px',marginTop:'5px'}}/>
+            <div className={'hidden md:flex gap-[10px] md:h-[24px] md:ml-[60px] my-[10px] ml-[5%]'} onClick={handleClick}>
+                <ArrowBackIcon sx={{width:'15px',height:'15px',marginTop:'5px', display:{xs :'none', md:'flex'}}}/>
                 <p>Back</p>
             </div>
-            <div className={'h-[100px] flex md:h-[80px] justify-between items-center md:px-[60px] px-[20px]'}>
-                <section className={'flex gap-[10px]'}>
-                    <div className='w-[30px] h-[30px] md:h-[50px] md:w-[50px]'>
-                        <Image src={getImage(currentCohort)} width={30} height={30}
-                               className='w-[30px] h-[30px] md:h-[50px] md:w-[50px] object-contain object-center rounded-md' alt={''}/>
-                    </div>
+            <div
+                className={'h-[100px] flex flex-col md:flex-row md:h-[80px] justify-between items-center md:px-[60px] px-[20px]'}>
+                <section className={'hidden md:flex gap-[10px]'}>
+                    <Image src={getImage(currentCohort)} alt={''} width={59} height={59}
+                           className='object-contain object-center rounded-md'/>
                     <div className={'flex justify-center items-start flex-col'}>
                         <p className={'md:h-[31px] md:text-md text-black overflow-ellipsis text-bold capitalize'}
                            style={{fontFamily: 'Dm sans'}}>
@@ -139,9 +142,11 @@ export default  function ViewCohort(){
                         <p className={'overflow-hidden text-ellipsis whitespace-nowrap w-[100px]'}>{currentCohort.program}</p>
                     </div>
                 </section>
-                <div className={'flex'}>
-                    <Button sx={{textTransform: 'none', fontWeight: 'thin',marginRight:'10px',
-                        fontSize: 'small', background:'#008EEF', color:'#ffffff'}} variant={'contained'}>
+                <div className={'flex gap-[40vw] mt-[30px] md:mt-0 md:gap-0'}>
+                    <Button sx={{
+                        textTransform: 'none', fontWeight: 'thin', marginRight: '10px',
+                        fontSize: 'small', background: '#008EEF', color: '#ffffff'
+                    }} variant={'contained'}>
                         Add Learners
                     </Button>
                     <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
@@ -159,11 +164,11 @@ export default  function ViewCohort(){
         </div>
     )
     const [component, setComponent] = useState<ReactNode>(<Instructors/>)
-    const courses:Course[] = [
-        {name:'Design Thinking',image:Image1 ,modules:12},
-        {name:'Java',image:Image2 ,modules:8},
-        {name:'UX Writer',image:Image3 ,modules:9},
-        {name:'Business Management & Africa studies',image:Image4 ,modules:10},
+    const courses: Course[] = [
+        {name: 'Design Thinking', image: Image1, modules: 12},
+        {name: 'Java', image: Image2, modules: 8},
+        {name: 'UX Writer', image: Image3, modules: 9},
+        {name: 'Business Management & Africa studies',image:Image4 ,modules:10},
         {name:'Design Thinking',image:Image1 ,modules:12},
         {name:'Java',image:Image2 ,modules:8},
         {name:'UX Writer',image:Image3 ,modules:9},
@@ -171,27 +176,29 @@ export default  function ViewCohort(){
         {name:'Java',image:Image2 ,modules:10},
 
     ]
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);
-    };
     const Left=()=>(
-        <div className={'gap-[20px] flex flex-col items-center'}>
+        <div className={`${!isClickedCohort && isSmallScreen ? 'flex flex-col':'hidden'} md:flex gap-[20px] flex flex-col items-center`}>
             <input
                 placeholder="Search..."
-                value={searchTerm}
-                onChange={handleSearchChange}
                 className="w-[90%] h-[40px] pl-[20px] text-base rounded border border-gray-300 mt-[10px]"
             />
-            <div className={'md:border md:border-gray-300 md:rounded w-full md:w-[450px] mx-[20px] flex flex-col'}>
+            <div className={'md:border md:border-gray-300 md:rounded w-full md:w-[450px] px-[30px] flex flex-col'}>
                 <p className={'capitalize text-semibold p-[10px_0_5px_20px]'}>9 courses</p>
-                <div className={'md:max-h-[500px] lg:max-h-[300px] overflow-y-auto border-1 rounded-md border-gray-200 md:p-[20px] md:mb-[10px] gap-[20px]'}>
+                <div className={'flex flex-col md:max-h-[500px] lg:max-h-[300px] md:overflow-y-auto border-1 rounded-md ' +
+                    'md:border-gray-200 md:p-[20px] md:mb-[10px] gap-x-[20px]'}>
                     {
                         courses.map((course, index) => (
-                            <div key={index} className={'border-[1px] flex md:gap-[20px] shadow-sm p-[10px] gap-[15px] hover:border-blue-400 rounded'}>
+                            <div key={index} className={'border-[1px] my-[5px] flex md:my-[5px] shadow-sm p-[10px]' +
+                                ' rounded hover:border-[#008eef] hover:cursor-pointer'} onClick={()=>{
+                                    if(isSmallScreen) {
+                                        setClickedCohort(!isClickedCohort)
+                                        setClickedPack(course.name)
+                                    }
+                            }}>
                                 <Image src={course.image.src} alt={''} width={59} height={59}
                                        className='object-contain object-center rounded-md'/>
-                                <section className={'flex flex-col justify-center'}>
-                                    <p className={'ThickDmSansFont overflow-ellipsis md:max-w-[300px]'}>{course.name}</p>
+                                <section className={'flex flex-col justify-center ml-[7px]'}>
+                                    <p className={'ThickDmSansFont truncate overflow-ellipsis max-w-[150px] md:max-w-[220px]'}>{course.name}</p>
                                     <p className={'text-sm font-semibold'}>{course.modules} modules</p>
                                 </section>
                             </div>
@@ -203,19 +210,19 @@ export default  function ViewCohort(){
 
     )
     const CourseOverview = () => (
-        <section className={'md:pl-[30px] flex gap-[10px] md:gap-0 flex-col justify-around'}>
+        <section className={'md:pl-[30px] flex gap-[10px] md:gap-0 flex-col justify-around ]'}>
             <div className={'my-[20px] w-full'}>
                 <p className={'font-bold my-[20px]'}>Course Overview</p>
-                <p className={'text-sm'}>This course examines important issues in corporate finance
+                <p className={'text-lg md:text-sm'}>This course examines important issues in corporate finance
                     from the perspectives of financial managers who make important
                     investment decisions and financing decisions. This course
                     incorporates an element of financial modelling in teaching
                     and assessments.
                 </p>
             </div>
-            <div className={styles.learningOutcome}>
+            <div className={`h-auto ${styles.learningOutcome}`}>
                 <p className={'font-bold my-[10px]'}>Learning Outcome</p>
-                <p className={'font-thin'}>What you are expected to know after this course</p>
+                <p className={'text-lg md:text-sm md:font-thin p-[5px]'}>What you are expected to know after this course</p>
                 <li>Understand various forms of market imperfections and their implications for financial managers</li>
                 <li>Understand various forms of market imperfections and their implications for financial managers</li>
                 <li>Generate a valuation range for a project or a company</li>
@@ -223,7 +230,6 @@ export default  function ViewCohort(){
                 <li>Use Excel to conduct a simple DCF analysis, regression analysis and sensitivity analysis</li>
             </div>
         </section>
-
     )
     const Modules =()=>(
         <div className={'flex'}>
@@ -415,7 +421,7 @@ export default  function ViewCohort(){
     ]
     const [current, setCurrent] = useState<number>(0);
     const Right = () => (
-        <section className={'border border-gray-300 rounded-md md:w-[600px] lg:w-[800px]'}>
+        <section  className={`${isSmallScreen && !isClickedCohort ? 'hidden' : 'flex flex-col'} md:flex md:flex-col border border-gray-300 rounded-md md:w-[600px] lg:w-[800px]`}>
             <div className={styles.listDiv}>
                     {RightSubDivisions.map((data, index) => (
                     <p key={index} onClick={() => {
@@ -436,6 +442,21 @@ export default  function ViewCohort(){
     return (
         <div>
             <Top/>
+            <div className={'flex md:hidden w-full gap-[15px] pl-[7%]'}>
+                <p className={'capitalize dmSans hover:cursor-pointer'}>Cohorts</p>
+                <KeyboardArrowRightIcon className={'w-[20px] h-[20px]'}/>
+                <p className={`${!isClickedCohort? 'text-[#008eef]': 'text-black'} capitalize hover:cursor-pointer`}
+                onClick={()=> {
+                    if (isClickedCohort) {
+                        setClickedCohort(!isClickedCohort)
+                    }
+                }}>
+                    {currentCohort.name}
+                </p>
+                <KeyboardArrowRightIcon className={isClickedCohort?'w-[20px] h-[20px]':'hidden'}/>
+                <p className={isClickedCohort?'text-[#008eef] capitalize hover:cursor-pointer':'hidden'}>{clickedPack}</p>
+
+            </div>
             <section className={'md:flex justify-center md:px-[30px] mb-[20px]'}>
                 <Left/>
                 <Right/>

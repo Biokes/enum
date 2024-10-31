@@ -1,5 +1,5 @@
 import {InstructorData} from "@/interfaces/interfaces";
-import React from "react";
+import React, {useCallback, useState} from "react";
 import styles from "@/styles/index.module.css";
 import Image from "next/image";
 import avatar from "@/assets/imageAvatar.png";
@@ -8,8 +8,21 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 
-export default function MapData(instructorsData: InstructorData[], popUp: (value: { state: boolean[]; index: number }) => void,
-                                popupStates: boolean[], PopUp: (props: { array: boolean[]; index: number }) => React.JSX.Element, togglePopup: (index: number) => void) {
+export default function MapData(instructorsData: InstructorData[], popupStates: boolean[],
+                                PopUp: (props: { array: boolean[]; index: number }) => React.JSX.Element){
+    const [invite,setInvite] = useState<boolean>(false)
+    const popUp= (value:{state:boolean[],index:number})=>{
+        const newState = [...value.state];
+        newState[value.index] = !newState[value.index];
+    }
+    const togglePopup = useCallback((index: number) => {
+        setInvite(invite)
+        const newState = [...popupStates];
+        newState[index] = !newState[index];
+        return newState;
+
+    },[invite, popupStates]);
+
     return (
         <div className={'md:h-[310px] gap-[20px] mt-[30px] '}>
             <div className={'hidden md:flex md:flex-col'}>

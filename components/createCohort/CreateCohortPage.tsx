@@ -5,11 +5,13 @@ import Cohorts from "@/components/createCohort/cohorts";
 import Footer from "@/components/createCohort/footer";
 import ViewCohort from "@/components/curentCohort/viewCohort";
 import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {RootState} from "@/redux/store";
+import {setHeroText} from "@/redux/UserSlice";
 
 export default function CreateCohortPage(){
     const clickedCohortIndex= useSelector((state:RootState)=> state.user.clickedCohortIndex)
+    const dispatch = useDispatch()
     const heroText = useSelector((state:RootState)=>state.user.heroText)
     const [text, setText] = useState<string>('')
     const [index, setIndex] = useState<number>(clickedCohortIndex);
@@ -17,6 +19,7 @@ export default function CreateCohortPage(){
         setText(heroText)
         setIndex(clickedCohortIndex)
         setTimeout(() => {
+            dispatch(setHeroText(''))
             setText('');
         }, 5000);
     },[clickedCohortIndex,heroText])

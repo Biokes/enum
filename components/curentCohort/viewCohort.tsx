@@ -65,7 +65,8 @@ export default  function ViewCohort(){
     const getImage = (cohort: Cohort) => {
         if (typeof cohort.avatar === "string") {
             return cohort.avatar;
-        } else {
+        }
+        else {
             return cohort.avatar.src;
         }
     };
@@ -132,14 +133,14 @@ export default  function ViewCohort(){
             <div
                 className={'h-[100px] flex flex-col md:flex-row md:h-[80px] justify-between items-center md:px-[60px] px-[20px]'}>
                 <section className={'hidden md:flex gap-[10px]'}>
-                    <Image src={getImage(currentCohort)} alt={''} width={59} height={59}
-                           className='object-contain object-center rounded-md'/>
+                    <Image src={getImage(currentCohort)} alt={''} width={40} height={40}
+                           className='object-contain object-center rounded-md overflow-hidden'/>
                     <div className={'flex justify-center items-start flex-col'}>
                         <p className={'md:h-[31px] md:text-md text-black overflow-ellipsis text-bold capitalize'}
                            style={{fontFamily: 'Dm sans'}}>
                             {currentCohort.name}
                         </p>
-                        <p className={'overflow-hidden text-ellipsis whitespace-nowrap w-[100px]'}>{currentCohort.program}</p>
+                        <p className={'overflow-hidden font-bold text-ellipsis whitespace-nowrap w-[100px]'}>{currentCohort.program}</p>
                     </div>
                 </section>
                 <div className={'flex gap-[40vw] mt-[30px] md:mt-0 md:gap-0'}>

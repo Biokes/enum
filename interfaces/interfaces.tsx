@@ -54,6 +54,10 @@ export interface InstructorData{
     dateAdded: string,
     organization:Organization
 }
+export interface PopUpProps{
+    isOpen: boolean
+    onClose:()=>void
+}
 // export interface InvitationFormProps {
 //     setInvitation: (value: boolean) => void;
 // }

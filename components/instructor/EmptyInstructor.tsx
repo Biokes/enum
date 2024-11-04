@@ -1,8 +1,8 @@
 import Image from "next/image";
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField} from "@mui/material";
 import React, {useEffect, useRef, useState} from "react";
 import styles from '@/styles/index.module.css';
-import {Course, InstructorData, Organization} from "@/interfaces/interfaces";
+import {Course, InstructorData, Organization, PopUpProps} from "@/interfaces/interfaces";
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import GroupIcon from '@mui/icons-material/Group';
 import beans from '@/assets/beans.png'
@@ -98,9 +98,8 @@ export default function Instructor() {
                                 <p className={'text-xs'}>0 Instructor</p>
                             </div>
                         </div>
-                        <PopUp index={index}/>
+                        {/*<PopUp isOpen={} />*/}
                     </div>
-
                 ))
                 }
             </div>
@@ -184,19 +183,29 @@ export default function Instructor() {
         setAssignInstructor(!assignInstructor)
     }
 
-    const PopUp = ({ index }: { index: number }) => (
-        <div className={popupIndex === index ? styles.moreActionsPopUp : 'hidden'} ref={popUpRef}>
-            <p onClick={assignInstructor}>Assign Instructors</p>
-            <p onClick={showDialog}>Remove Instructors</p>
-            <DeleteInstructorDialog isOpen={isOpen} setOpen={()=>setOpen(!isOpen)}/>
-            <SmallAssignInstructor/>
-            <LargeAssignInstructor/>
-        </div>
-    );
+    const PopUp = (props:{isOpen:boolean})=>{
+        if(props.isOpen) {
+            return (
+                <div className={popupIndex? styles.moreActionsPopUp : 'hidden'} ref={popUpRef}>
+                    <p onClick={assignInstructor}>Assign Instructors</p>
+                    <p onClick={showDialog}>Remove Instructors</p>
+                    <DeleteInstructorDialog isOpen={isOpen} setOpen={() => setOpen(!isOpen)}/>
+                    <SmallAssignInstructor/>
+                    <LargeAssignInstructor/>
+                </div>
+            )
+        }
+        return (
+            <>
+            </>
+        )
+    };
+    const closeKebab =()=>{
+
+    }
 
     const Invite= ()=>(
-        <div className={!isInvited ?
-         'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'
+        <div className={!isInvited ? 'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'
          :'hidden'}>
             <div className={'flex flex-col gap-[15px] md:grid md:grid-cols-2 md:grid-rows-1 md:order-2'}>
                 <div className={'md:order-2'}>
@@ -205,13 +214,7 @@ export default function Instructor() {
                     </Button>
                 </div>
                 <form onChange={(e)=>{e.preventDefault()}}>
-                    <input placeholder={'search'} className={`border-[1px] p-[10px] w-[80vw] md:w-[100%] h-[40px] rounded-md md:order-1 md:h-[40px] hover:outline-none`} 
-                    // value={searchContent}
-                    //  onChange={(e)=>{
-                    //     setSearchContent(e.target.value)
-                    //     dispatch(setSearch(e.target.value))
-                    //     }}
-                        />
+                    <TextField placeholder={'search'} className={styles.inputTag}/>
                 </form>
             </div>
             <div className={'gap-[10px] md:order-1 md:flex md:items-center'}>

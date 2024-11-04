@@ -1,4 +1,4 @@
-import { InstructorData } from "@/interfaces/interfaces";
+import {InstructorData, PopUpProps} from "@/interfaces/interfaces";
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/index.module.css";
 import Image from "next/image";
@@ -10,20 +10,12 @@ import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 
-type PopUpProps = {
-    index: number;
-    onClose: () => void;
-};
 
 export default function MapData({instructorsData, PopUp}: { instructorsData: InstructorData[]; PopUp: (props: PopUpProps) => React.JSX.Element; }) {
 
-    const [popUpIndices, setPopUpIndices] = useState<boolean[]>(new Array(instructorsData.length).fill(false));
+    const [openKebabIndex, setOpenKebabIndex] = useState<number | null>(null);
     const togglePopup = (index: number) => {
-        setPopUpIndices((prevIndices) => {
-            const newIndices = [...prevIndices];
-            newIndices[index] = !newIndices[index];
-            return newIndices;
-        });
+        setOpenKebabIndex(openKebabIndex === index ? null : index);
     };
     const nameSearched = useSelector((state:RootState)=> state.user.searchContent)
     const [name, setName]=useState('')
@@ -75,8 +67,8 @@ export default function MapData({instructorsData, PopUp}: { instructorsData: Ins
                                 >
                                     <MoreVertIcon sx={{ width: "15px", height: "40px" }} />
                                 </div>
+                                <PopUp isOpen={index === openKebabIndex}  onClose={()=>{setOpenKebabIndex(null)}}/>
                             </section>
-                            {popUpIndices[index] && <PopUp index={index} onClose={() => {}} />}
                         </div>
                     ))}
                 </div>
@@ -104,15 +96,12 @@ export default function MapData({instructorsData, PopUp}: { instructorsData: Ins
                                 <p className={`${data.deleted ? "hidden" : "text-gray-400 text-sm"}`}>{data.active ? "Active" : "Pending"}</p>
                             </div>
                         </div>
-                        <div
-                            className={styles.popupKebab}
-                            // onClick={() => togglePopup(index)}
-                        >
-                            <MoreVertIcon sx={{ width: "15px", height: "40px" }} />
+                        <div>
+                            <div className={styles.popupKebab} onClick={() => togglePopup(index)}>
+                                <MoreVertIcon sx={{width: "15px", height: "40px"}}/>
+                            </div>
+                            <PopUp isOpen={index===openKebabIndex} onClose={() =>setOpenKebabIndex(null) }/>
                         </div>
-                        { popUpIndices[index] && <PopUp index={index} onClose={() => {
-                            togglePopup(index)
-                        }} />}  
                     </div>
                 ))}
             </div>

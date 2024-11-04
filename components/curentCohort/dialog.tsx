@@ -170,7 +170,7 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                                 <p className={'text-xs'}>Start Date</p>
                                 <div className="relative flex">
                                     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="23 Dec 2021"
-                                                minDate={new Date()} dateFormat="dd MMM yyyy"
+                                                minDate={new Date()} dateFormat="dd-MM-yyyy"
                                                 className="w-full p-2 border rounded text-sm outline-none focus:ring-2 focus:ring-[#008eef]
                                                 focus:border-[#008eef]"/>
                                     <span className="absolute flex justify-center pointer-events-none">
@@ -183,7 +183,7 @@ const CreateCohortModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                                 <div className="relative flex">
                                     <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}
                                                 minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
-                                                dateFormat="dd MM yyyy" placeholderText="23 Dec 2023"
+                                                dateFormat="dd-MM-yyyy" placeholderText="23 Dec 2023"
                                                 className="w-full p-2 border rounded text-sm outline-none focus:ring-2 focus:ring-[#008eef]
                                                 focus:border-[#008eef]"/>
                                     <span className="absolute flex justify-center pointer-events-none">

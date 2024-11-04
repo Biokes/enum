@@ -22,7 +22,7 @@ export default function CreateCohortPage(){
             dispatch(setHeroText(''))
             setText('');
         }, 5000);
-    },[clickedCohortIndex,heroText])
+    },[clickedCohortIndex, dispatch, heroText])
     const createdCohortsCount :number = useSelector((state:RootState)=>state.cohorts.length)
     const shouldShowCohorts = index === -1 || createdCohortsCount === 0;
     return (

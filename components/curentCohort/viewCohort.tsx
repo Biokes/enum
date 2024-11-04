@@ -33,7 +33,6 @@ export default  function ViewCohort(){
     const dispatch = useDispatch()
     const currentCohort: Cohort = useSelector((rootState: RootState) => rootState.user.clickedCohort);
     const [popUp, setPopUp] = useState<boolean>(false);
-    // const [searchTerm, setSearchTerm] = useState('');
     const [style, setStyles] = useState<string>('')
     const popupRef = useRef<HTMLDivElement>(null);
     const [isClickedCohort,setClickedCohort] = useState(false)
@@ -59,7 +58,7 @@ export default  function ViewCohort(){
             <p onClick={()=>{setStyles('hidden')}}>Manage polls</p>
             <p>view Learners</p>
             <p>Schedule an Event </p>
-            <p>Make an Announcement</p>
+            <p className={'w-[100%] overflow-hidden'}>Make an Announcement</p>
         </div>
     );
     const getImage = (cohort: Cohort) => {
@@ -83,7 +82,7 @@ export default  function ViewCohort(){
                             <p className={`${smallTextStyles} hidden md:flex`}>Henley Business School • Head Professor </p>
                         </section>
                     </section>
-                    <div className={`text-lg font-thin dmSans h-[100px] md:h-[60px] md:text-sm`}>
+                    <div className={`text-sm text-black font-thin dmSans h-[100px] md:h-[60px] md:text-sm`}>
                         Olamide taught Donald Trump in Kindergarten. She has 25 years
                         experience teaching presidents design related courses.
                         She has a PhD in Education management and is a member of
@@ -99,7 +98,7 @@ export default  function ViewCohort(){
                             <p className={`${smallTextStyles} hidden md:flex`}>Henley Business School • Chief Designer</p>
                         </section>
                     </section>
-                    <div className={`text-lg font-thin dmSans h-[120px] md:h-[60px] md:text-xs`}>
+                    <div className={`text-sm text-black font-thin dmSans h-auto md:h-[60px] md:text-xs`}>
                         Morire taught Donald Trump in Kindergarten. She has 25
                         years experience teaching presidents design related courses.
                         She has a PhD in Education management and is a member of
@@ -116,7 +115,7 @@ export default  function ViewCohort(){
         setPopUp(!popUp)
     }
     const InnerPopUp=()=> (
-        <div className={`${styles.moreActionsPopUp} w-[140px] ${style===''?'hidden':'flex'}`} ref={popupRef}>
+        <div className={`${styles.moreActionsPopUp} w-auto ${style===''?'hidden':'flex'}`} ref={popupRef}>
             <p>Publish Poll</p>
             <p>Schedule a quiz</p>
             <p>Schedule an Event </p>
@@ -150,14 +149,16 @@ export default  function ViewCohort(){
                     }} variant={'contained'}>
                         Add Learners
                     </Button>
-                    <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
-                            sx={{
-                                color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',
-                                fontWeight: 'thin', fontSize: 'small', textTransform: 'none', position: 'relative'
-                            }}>
-                        more actions
-                    </Button>
-                    {popUp && (<PopUp/>)}
+                    <div>
+                        <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
+                                sx={{
+                                    color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',
+                                    fontWeight: 'thin', fontSize: 'small', textTransform: 'none', position: 'relative'
+                                }}>
+                            more actions
+                        </Button>
+                        {popUp && (<PopUp/>)}
+                    </div>
                     {popUp && (<InnerPopUp/>)}
                 </div>
             </div>
@@ -189,8 +190,8 @@ export default  function ViewCohort(){
                     'md:border-gray-200 md:p-[20px] md:mb-[10px] gap-x-[20px]'}>
                     {
                         courses.map((course, index) => (
-                            <div key={index} className={'border-[1px] my-[5px] flex md:my-[5px] shadow-sm p-[10px]' +
-                                ' rounded hover:border-[#008eef] hover:cursor-pointer'} onClick={()=>{
+                            <div key={index} className={'border-[1px] my-[5px] flex md:my-[5px] shadow-sm p-[10px] rounded hover:border-[#008eef] hover:cursor-pointer'} 
+                            onClick={()=>{
                                     if(isSmallScreen) {
                                         setClickedCohort(!isClickedCohort)
                                         setClickedPack(course.name)
@@ -214,7 +215,7 @@ export default  function ViewCohort(){
         <section className={'md:pl-[30px] flex gap-[10px] md:gap-0 flex-col justify-around ]'}>
             <div className={'my-[20px] w-full'}>
                 <p className={'font-bold my-[20px]'}>Course Overview</p>
-                <p className={'text-lg md:text-sm'}>This course examines important issues in corporate finance
+                <p className={'text-sm text-black md:text-sm'}>This course examines important issues in corporate finance
                     from the perspectives of financial managers who make important
                     investment decisions and financing decisions. This course
                     incorporates an element of financial modelling in teaching
@@ -223,7 +224,7 @@ export default  function ViewCohort(){
             </div>
             <div className={`h-auto ${styles.learningOutcome}`}>
                 <p className={'font-bold my-[10px]'}>Learning Outcome</p>
-                <p className={'text-lg md:text-sm md:font-thin p-[5px]'}>What you are expected to know after this course</p>
+                <p className={'text-[16px] text-gray-900 md:text-sm md:font-thin p-[5px]'}>What you are expected to know after this course</p>
                 <li>Understand various forms of market imperfections and their implications for financial managers</li>
                 <li>Understand various forms of market imperfections and their implications for financial managers</li>
                 <li>Generate a valuation range for a project or a company</li>
@@ -254,7 +255,7 @@ export default  function ViewCohort(){
                 </div>
                 <div className={styles.articles}>
                     <section>
-                        <div>
+                        <div className={'group'}>
                             <p>Introduction to module</p>
                             <article>
                                 <AccessTimeIcon sx={{'& hover': {color: '#008eef'}}}/>
@@ -264,7 +265,7 @@ export default  function ViewCohort(){
                         <VideocamIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </section>
                     <section>
-                        <div>
+                        <div className={'group'}>
                             <p>Learning content 1</p>
                             <article>
                                 <AccessTimeIcon sx={{'& hover': {color:'#008eef'}}}/>
@@ -274,7 +275,7 @@ export default  function ViewCohort(){
                         <FeedIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </section>
                     <section>
-                        <div>
+                        <div className={'group'}>
                             <p>Learning content 2</p>
                             <article>
                                 <AccessTimeIcon sx={{'& hover': {color:'#008eef'}}}/>
@@ -283,19 +284,19 @@ export default  function ViewCohort(){
                         </div>
                         <MicNoneIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </section>
-                    <div>
-                        <p className={'dateCreated'}>Section 2</p>
+                    <div className={'group'}>
+                        <p className={'dateCreated group-hover:text-blue-500'}>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </div>
                     <div>
-                        <p className={'dateCreated'}>Section 2</p>
+                        <p className={'dateCreated group'}>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </div>
-                    <div className={'dateCreated'}>
+                    <div className={'dateCreated group'}>
                         <p>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </div>
-                    <div className={'dateCreated'}>
+                    <div className={'dateCreated group'}>
                         <p>Section 2</p>
                         <AddIcon sx={{'& hover': {color:'#008eef'}}}/>
                     </div>
@@ -304,7 +305,7 @@ export default  function ViewCohort(){
         </div>
     )
     const Forum =()=>(
-        <section className={'h-[365px] py-[10px_20px] gap-[20px]'}>
+        <section className={'h-auto md:h-[365px] py-[10px_20px] gap-[20px]'}>
             <div className={'flex gap-[20px] p-[10px]'}>
                 <Button variant={'outlined'} sx={{
                     borderColor: '#008EEF',
@@ -341,7 +342,7 @@ export default  function ViewCohort(){
                     border: '1px solid #151515'
                 }}>Questions </Button>
             </div>
-            <div className={'flex flex-col md:h-[310px] gap-[10px] md:overflow-y-auto '}>
+            <div className={'flex flex-col h-auto md:h-[310px] gap-[10px] md:overflow-y-auto '}>
                 <section className={'gap-[10px] mt-[5px] flex flex-col justify-between'}>
                     <div className={'flex items-center gap-[10px] pt-[5px]'}>
                         <Image src={Image7} alt={''} height={40} width={40}
@@ -443,19 +444,19 @@ export default  function ViewCohort(){
     return (
         <div>
             <Top/>
-            <div className={'flex md:hidden w-full gap-[15px] pl-[7%]'}>
-                <p className={'capitalize dmSans hover:cursor-pointer'}>Cohorts</p>
-                <KeyboardArrowRightIcon className={'w-[20px] h-[20px]'}/>
-                <p className={`${!isClickedCohort? 'text-[#008eef]': 'text-black'} capitalize hover:cursor-pointer`}
+            <div className={'flex md:hidden w-full pl-[7%]'}>
+                <p className={'capitalize dmSans hover:cursor-pointer mr-[10px]'}>Cohorts</p>
+                <KeyboardArrowRightIcon className={'w-[20px] h-[20px] mr-[10px]'}/>
+                <div className={`${!isClickedCohort? 'text-[#008eef]': 'text-black'} capitalize w-[200px] overflow-hidden hover:cursor-pointer mr-[10px]`}
                 onClick={()=> {
                     if (isClickedCohort) {
                         setClickedCohort(!isClickedCohort)
                     }
                 }}>
-                    {currentCohort.name}
-                </p>
+                    <p className={'width-[70%] overflow-hidden'}>{currentCohort.name}</p>   
+                </div>
                 <KeyboardArrowRightIcon className={isClickedCohort?'w-[20px] h-[20px]':'hidden'}/>
-                <p className={isClickedCohort?'text-[#008eef] capitalize hover:cursor-pointer':'hidden'}>{clickedPack}</p>
+                <p className={isClickedCohort?'text-[#008eef] mr-[10px]capitalize hover:cursor-pointer':'hidden'}>{clickedPack}</p>
 
             </div>
             <section className={'md:flex justify-center md:px-[30px] mb-[20px]'}>

@@ -1,5 +1,5 @@
 import { InstructorData } from "@/interfaces/interfaces";
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/index.module.css";
 import Image from "next/image";
 import avatar from "@/assets/imageAvatar.png";
@@ -7,25 +7,29 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import {useSelector} from "react-redux";
+import {RootState} from "@/redux/store";
 
 type PopUpProps = {
     index: number;
     onClose: () => void;
 };
 
-export default function MapData({
-                                    instructorsData,
-                                    PopUp
-                                }: {
-    instructorsData: InstructorData[];
-    PopUp: (props: PopUpProps) => React.JSX.Element;
-}) {
-    const [activePopupIndex, setActivePopupIndex] = useState<number | null>(null);
+export default function MapData({instructorsData, PopUp}: { instructorsData: InstructorData[]; PopUp: (props: PopUpProps) => React.JSX.Element; }) {
 
-    const togglePopup = useCallback((index: number) => {
-        setActivePopupIndex((prev) => (prev === index ? null : index));
-    }, []);
-
+    const [popUpIndices, setPopUpIndices] = useState<boolean[]>(new Array(instructorsData.length).fill(false));
+    const togglePopup = (index: number) => {
+        setPopUpIndices((prevIndices) => {
+            const newIndices = [...prevIndices];
+            newIndices[index] = !newIndices[index];
+            return newIndices;
+        });
+    };
+    const nameSearched = useSelector((state:RootState)=> state.user.searchContent)
+    const [name, setName]=useState('')
+    useEffect(()=>{
+        setName(nameSearched.trim())
+    },[nameSearched])
     return (
         <div className={"md:h-[310px] gap-[20px] mt-[30px]"}>
             <div className={"hidden md:flex md:flex-col"}>
@@ -72,14 +76,14 @@ export default function MapData({
                                     <MoreVertIcon sx={{ width: "15px", height: "40px" }} />
                                 </div>
                             </section>
-                            {activePopupIndex === index && <PopUp index={index} onClose={() => setActivePopupIndex(null)} />}
+                            {popUpIndices[index] && <PopUp index={index} onClose={() => {}} />}
                         </div>
                     ))}
                 </div>
             </div>
             <div className={"md:hidden"}>
                 {instructorsData.map((data, index) => (
-                    <div key={index} className={"h-[100px] w-[100%] flex justify-between"}>
+                    <div key={index} className={nameSearched.toLowerCase().includes(name.toLowerCase()) ? "h-[100px] w-[100%] flex justify-between": 'hidden'}>
                         <div className={"flex gap-[10px]"}>
                             <div>
                                 <Image alt="" src={avatar} width={32} height={32} />
@@ -102,11 +106,13 @@ export default function MapData({
                         </div>
                         <div
                             className={styles.popupKebab}
-                            onClick={() => togglePopup(index)}
+                            // onClick={() => togglePopup(index)}
                         >
                             <MoreVertIcon sx={{ width: "15px", height: "40px" }} />
                         </div>
-                        {activePopupIndex === index && <PopUp index={index} onClose={() => setActivePopupIndex(null)} />}
+                        { popUpIndices[index] && <PopUp index={index} onClose={() => {
+                            togglePopup(index)
+                        }} />}  
                     </div>
                 ))}
             </div>

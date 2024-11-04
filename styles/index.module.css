@@ -173,20 +173,22 @@
     border-image: linear-gradient( to right, #bababa, #bababa) 0 0 1 0;
     border-width: 1px;
 }
+
+
 .articles section article p{
-    @apply text-xs font-thin
+    @apply text-xs font-thin group-hover:text-[#008EEF]
 }
 .articles section div p{
-    @apply font-thin capitalize
+    @apply font-thin capitalize group-hover:text-[#008EEF]
 }
 .articles section div{
-    @apply flex flex-col justify-center items-start gap-[10px]
+    @apply flex flex-col justify-center items-start gap-[10px] group-hover:text-[#008EEF]
 }
 .articles section article{
-    @apply flex gap-[5px]
+    @apply flex gap-[5px] group-hover:text-[#008EEF]
 }
 .articles>div{
-    @apply h-[50px] flex justify-between items-center;
+    @apply h-[50px] flex justify-between items-center group-hover:text-[#008EEF];
     border-image: linear-gradient( to right, #bababa, #bababa) 0 0 1 0;
     border-width: 1px;
 }
@@ -194,7 +196,7 @@
     @apply text-blue-400
 }
 .questionPack{
-    @apply border-[1px] rounded p-[7px] h-[150px] gap-[5px] flex flex-col justify-between
+    @apply border-[1px] rounded p-[7px] h-auto md:h-[150px] gap-[5px] flex flex-col justify-between
 }
 .forumFooter{
     border-image: linear-gradient( to right, #bababa, #bababa) 0 0  1 0;
@@ -215,7 +217,7 @@
     @apply flex gap-[5px] items-center
 }
 .forumHeader p{
-    @apply h-[16px] font-bold text-blue-950 text-center
+    @applyD h-[16px] font-bold text-blue-950 text-center
 }
 .comment{
     @apply font-thin text-sm

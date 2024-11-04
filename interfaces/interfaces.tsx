@@ -36,7 +36,9 @@ export interface UserDetails{
     username: string,
     clickedCohortIndex:number,
     clickedCohort:Cohort,
-    heroText: string
+    heroText: string,
+    popUpIndex:number,
+    searchContent:string
 }
 export interface Organization{
     image:StaticImageData,

@@ -20,7 +20,7 @@ export default function Footer(){
                 <MenuBookIcon/>
                 <p>Resources</p>
             </div>
-            <div>
+            <div >
                 <CalendarTodayIcon/>
                 <p>Schedule</p>
             </div>

@@ -9,9 +9,7 @@ interface DeleteInstructorDialogProps {
 
 const DeleteInstructorDialog: React.FC<DeleteInstructorDialogProps> = ({ isOpen, setOpen }) => {
     return (
-        <Dialog open={isOpen}
-                className={'bg-opacity-80 bg-[#557790] inset-0 z-2'}
-        >
+        <Dialog open={isOpen} className={'bg-opacity-80 bg-[#557790] inset-0 z-2'}>
             <DialogTitle>
                 Delete Instructor
                 <IconButton style={{float: 'right'}} onClick={() => setOpen(false)}>

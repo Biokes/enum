@@ -20,7 +20,9 @@ import {useDispatch} from 'react-redux';
 import DeleteInstructorDialog from "@/components/instructor/deleteInstructorDialog";
 import InvitationComponent from "@/components/createCohort/invitationComponent";
 import MapData from "@/components/createCohort/cohortDataMapper";
-
+import { RootState } from "@/redux/store";
+import {useSelector} from 'react-redux';
+// import {setSearchContent as setSearch} from '@/redux/UserSlice'
 export default function Instructor() {
     const [isInvited, setIsInvited] = useState<boolean>(false)
     const [assignedInstructor,setAssignInstructor] = useState(false)
@@ -31,6 +33,7 @@ export default function Instructor() {
     const [isOpen, setOpen] = useState(false)
     const popUpRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch()
+
     const instructorsData: InstructorData[] = [
         {name:'jame nwankwo',email: 'james',instructor:0,active:true,deleted:false,course:'Design thinking',dateAdded:'12 Aug, 2021',organization:henleyOrg},
         {name:'great ndabia',email: 'james',instructor:0,active:true,deleted:false ,course:'Design thinking',dateAdded:'13 Aug, 2021',organization:beansOrg},
@@ -43,25 +46,29 @@ export default function Instructor() {
         {name:'jane mike',email: 'james',instructor:0,active:true,deleted:false,course:'Java & Springboot',dateAdded:'12 Aug, 2021',organization:beansOrg},
         {name:'tola segun',email: 'james',instructor:0,active:true,deleted:false,course:'Django fundamentals',dateAdded:'14 Aug, 2021',organization:henleyOrg}
     ]
-    const [popupIndex, setPopupIndex] = useState<number | null>(null);
 
-    // const [popupStates, setPopupStates]=useState<boolean[]>(Array(instructorsData.length).fill(false));
-
+    const poppedIndex = useSelector((state:RootState)=>state.user.popUpIndex)
+    const [popupIndex, setPopupIndex] = useState<number>(poppedIndex);
+    // const [searchContent, setSearchContent] = useState<string>('')
     const handleClickOutside = (event: MouseEvent) => {
         if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
             setAssignInstructor(!assignInstructor);
-            setPopupIndex(null);
+            setPopupIndex(poppedIndex);
         }
     };
+
     const showDialog= ()=>{
         setOpen(true)
     }
+
     useEffect(() => {
+        setPopupIndex(popupIndex)
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    });
+    },[]);
+
     const SmallAssignInstructor=()=>(
         <div className={assignedInstructor? 'md:hidden w-[80vw] md:w-[400px]':'hidden'}>
             <p>Assign Instructor to Course</p>
@@ -100,6 +107,7 @@ export default function Instructor() {
             </div>
         </div>
     )
+
     const courses: Course[] = [
         {name: 'Design Thinking', image: Image1, modules: 12},
         {name: 'Java', image: Image2, modules: 8},
@@ -112,6 +120,7 @@ export default function Instructor() {
         {name: 'Java', image: Image2, modules: 10},
 
     ]
+
     const LargeAssignInstructor = () => {
         return (
             <div className={assignedInstructor ? 'hidden md:flex' : 'hidden'}>
@@ -156,7 +165,7 @@ export default function Instructor() {
                     <DialogActions>
                         <Button variant={'outlined'} sx={{textTransform:'none'}} onClick={()=>{
                             setAssignInstructor(false)
-                            setIsInvited(isInvited)// make compilation
+                            setIsInvited(isInvited)
                         }}>
                             Cancel
                         </Button>
@@ -171,29 +180,40 @@ export default function Instructor() {
             </div>
         )
     }
+
     const assignInstructor = () => {
         setAssignInstructor(!assignInstructor)
     }
+
     const PopUp = ({ index }: { index: number }) => (
-        <div className={popupIndex === index ? styles.moreActionsPopUp : 'hidden'}>
+        <div className={popupIndex === index ? styles.moreActionsPopUp : 'hidden'} ref={popUpRef}>
             <p onClick={assignInstructor}>Assign Instructors</p>
             <p onClick={showDialog}>Remove Instructors</p>
-            <DeleteInstructorDialog isOpen={isOpen} setOpen={() => setOpen(!isOpen)} />
+            <DeleteInstructorDialog isOpen={isOpen} setOpen={()=>setOpen(!isOpen)}/>
             <SmallAssignInstructor/>
             <LargeAssignInstructor/>
         </div>
     );
+
     const Invite= ()=>(
-        <div className={!isInvited ? 'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1' :'hidden'}>
+        <div className={!isInvited ?
+         'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'
+         :'hidden'}>
             <div className={'flex flex-col gap-[15px] md:grid md:grid-cols-2 md:grid-rows-1 md:order-2'}>
                 <div className={'md:order-2'}>
-                    <Button variant='contained' sx={{textTransform:'none'}}
-                            onClick={()=>{setIsInvited(true)}}
-                    >
-                        Invite instructors</Button>
+                    <Button variant='contained' sx={{textTransform:'none'}} onClick={()=>{setIsInvited(true)}}>
+                        Invite instructors
+                    </Button>
                 </div>
-                <input placeholder={'search'}
-                className={'border-[1px] p-[10px] w-[80vw] md:w-[100%] h-[40px] rounded-md md:order-1 md:h-[40px]'}/>
+                <form onChange={(e)=>{e.preventDefault()}}>
+                    <input placeholder={'search'} className={`border-[1px] p-[10px] w-[80vw] md:w-[100%] h-[40px] rounded-md md:order-1 md:h-[40px] hover:outline-none`} 
+                    // value={searchContent}
+                    //  onChange={(e)=>{
+                    //     setSearchContent(e.target.value)
+                    //     dispatch(setSearch(e.target.value))
+                    //     }}
+                        />
+                </form>
             </div>
             <div className={'gap-[10px] md:order-1 md:flex md:items-center'}>
                 <p className={`${styles.dmSans} font-bold text-lg md:hidden`}>Instructors</p>
@@ -201,29 +221,21 @@ export default function Instructor() {
             </div>
         </div>
     )
+
     return (
-        <div className={!assignedInstructor ?
-        // ${isInvited ?
-        //     'mt-[50px] ml-[20px] md:ml-0 md:mt-0'
-        //      : ''
-        // }
-         'md:mt-[30px] md:w-[100%]':'md:mt-[30px] md:w-[100%]'}>
-            <div className={!isInvited?'flex':'hidden'
-                // `${isInvited ?
-                //     'hidden'
-                // : ''}`
-            }>
+        <div className={!assignedInstructor ? 'md:mt-[30px] md:w-[100%]' : 'md:mt-[30px] md:w-[100%]'}>
+            <div className={!isInvited?'flex':'hidden'}>
                 <Invite/>
             </div>
             {isInvited?
                 <>
                     <InvitationComponent initialState={isInvited} initialStateClosure={setIsInvited}/>
-                </>:
+                </>
+                :
                 <>
                     <MapData instructorsData={instructorsData} PopUp={PopUp}/>
                 </>
-                }
+            }
         </div>
     )
-
 }

@@ -15,7 +15,9 @@ const initialState:UserDetails ={
         dateCreated:new Date(),
         numberOfLearners:25
     },
-    heroText:''
+    heroText:'',
+    popUpIndex:-1,
+    searchContent:''
 }
 export const UserSlice = createSlice({
     name:'user',
@@ -32,8 +34,14 @@ export const UserSlice = createSlice({
         },
         setHeroText(state, action:PayloadAction<string>){
             state.heroText = action.payload
+        },
+        setPoppedIndex(state, action:PayloadAction<number>){
+            state.popUpIndex= action.payload
+        },
+        setSearchContent(state, action:PayloadAction<string>){
+            state.searchContent = action.payload
         }
     }
 })
-export const {setUsername,setHeroText,setClickedCohortIndex,setClickedCohort} = UserSlice.actions;
+export const {setUsername,setHeroText,setClickedCohortIndex,setClickedCohort,setPoppedIndex,setSearchContent} = UserSlice.actions;
 export default UserSlice.reducer;

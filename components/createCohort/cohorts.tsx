@@ -68,11 +68,9 @@ export default function Cohorts() {
     }
 
     const PopUp=()=>{
-        const p_style: string=  `hover:border-[1px] hover:border-[#ededed] text-xs my-[7px] cursor-pointer
-                                 hover:bg-blue-100 hover:rounded-md p-[5px_7px]`;
+        const p_style: string=  `hover:border-[1px] hover:border-[#ededed] text-xs my-[7px] cursor-pointer hover:bg-blue-100 hover:rounded-md p-[5px_7px]`;
         return (
-            <div className={`shadow-md absolute bg-white m-[-40px_95px_0_0] md:-mt-[15px] md:ml-[15%] md:my-0
-             rounded-md gap-x-[10px] px-[5px] w-[160px]`} ref={popupRef}>
+            <div className={`shadow-md absolute bg-white md:my-0 rounded-md gap-x-[10px] px-[5px] w-[160px]`} ref={popupRef}>
                 <p className={`${p_style}`}>Publish a Poll</p>
                 <p className={p_style}>Schedule an Event</p>
                 <p className={p_style}>Make an announcement</p>
@@ -83,30 +81,35 @@ export default function Cohorts() {
         <div className={`${cohortsSaved.length === 0 ? 'hidden': styles.mapCohortDivInner1} grid-rows-2 md:grid-rows-1 mt-[-10px]`}>
             <section className={styles.mapCohortDivSection1}>
                 <SearchIcon style={{width: '32px', height: '32px', border: 'none'}}/>
-                <input type="text" className={'w-[100%] md:w-[70%] h-[100%] md:h-[30px] outline-0 '}/>
+                <input type="text" className={'w-[100%] md:w-[70%] h-[100%] md:h-[30px] outline-none active:outline-none'}/>
             </section>
-            <section className={'flex justify-around md:justify-between order-1 md:order-2'}>
+            <section className={'flex px-[2%] md:px-0 justify-between order-1 md:order-2'}>
                 <Button variant={'contained'} sx={{
                     background: '#008EEF',
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 'thin',
-                    fontSize: 'small',
-                    width: {xs:'40%',md:'155px'},
+                    fontSize:'0.75rem',
+                    width: {xs:'auto',md:'155px'}   ,
                     height: '40px',
                     marginRight: '10px'
                 }} onClick={() => setOpen(true)}>
                     Create a cohort
                 </Button>
-                <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
-                        sx={{
-                            color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',width: {xs:'40%',md:'155px'},
-                            fontWeight: 'thin', fontSize: 'small', textTransform: 'none', position: 'relative'
-                        }}>
-                    more actions
-                </Button>
-                {popUp && (
-                    <PopUp/>)}
+                <div>
+                    <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
+                            sx={{
+                                color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',width: {xs:'auto',md:'155px'},
+                                fontWeight: 'thin', fontSize:'0.75rem', textTransform:'none', position: 'relative'
+                            }}>
+                        more actions
+                    </Button>
+                    <div className={'flex justify-end -my-[20px_0] mx-[90%_0] md:mx-[-15px_0] md:ml-[15%]'}>
+                        {popUp && (<PopUp/>)}
+                    </div>
+                </div>
+                
+              
             </section>
         </div>
 
@@ -131,9 +134,8 @@ export default function Cohorts() {
 
     const SmallScreenComponent = () => (
         <div className={'flex flex-col md:hidden ml-[1%] mt-[-30px]'}>
-            <div className={'h-[50px]'}></div>
             <p className={'text-xs w-full ml-[5px]'}>Switch between tabs</p>
-            <FormControl sx={{width: '85vw'}}>
+            <FormControl sx={{width: '85vw', height:'auto'}}>
                 <Select labelId="my-select-label" value={selectedIndex} onChange={handleSelectChange}
                         displayEmpty sx={{width: '100%'}}>
                     {groups.map((item, index) => (

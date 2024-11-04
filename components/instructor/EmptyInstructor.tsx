@@ -22,7 +22,7 @@ import InvitationComponent from "@/components/createCohort/invitationComponent";
 import MapData from "@/components/createCohort/cohortDataMapper";
 import { RootState } from "@/redux/store";
 import {useSelector} from 'react-redux';
-// import {setSearchContent as setSearch} from '@/redux/UserSlice'
+
 export default function Instructor() {
     const [isInvited, setIsInvited] = useState<boolean>(false)
     const [assignedInstructor,setAssignInstructor] = useState(false)
@@ -49,7 +49,6 @@ export default function Instructor() {
 
     const poppedIndex = useSelector((state:RootState)=>state.user.popUpIndex)
     const [popupIndex, setPopupIndex] = useState<number>(poppedIndex);
-    // const [searchContent, setSearchContent] = useState<string>('')
     const handleClickOutside = (event: MouseEvent) => {
         if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
             setAssignInstructor(!assignInstructor);

@@ -146,7 +146,7 @@
     @apply bg-white m-[-40px_95px_10px_0] md:m-[-5px_55px_10px_0] rounded-md gap-x-[10px] px-[5px]
 }
 .moreActionsPopUp >p{
-    @apply hover:border-[1px] hover:border-[#ededed] text-xs my-[7px] cursor-pointer hover:bg-blue-100
+    @apply hover:border-[1px] hover:border-[#ededed] text-[10px] md:text-xs my-[7px] cursor-pointer hover:bg-blue-100
     hover:rounded-md p-[5px_7px];
     border:1px solid transparent;
 }
@@ -217,7 +217,7 @@
     @apply flex gap-[5px] items-center
 }
 .forumHeader p{
-    @applyD h-[16px] font-bold text-blue-950 text-center
+    @apply h-[16px] font-bold text-blue-950 text-center
 }
 .comment{
     @apply font-thin text-sm

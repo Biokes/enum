@@ -1,5 +1,5 @@
 import {InstructorData, PopUpProps} from "@/interfaces/interfaces";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "@/styles/index.module.css";
 import Image from "next/image";
 import avatar from "@/assets/imageAvatar.png";
@@ -19,8 +19,19 @@ export default function MapData({instructorsData, PopUp}: { instructorsData: Ins
     };
     const nameSearched = useSelector((state:RootState)=> state.user.searchContent)
     const [name, setName]=useState('')
+    const popUpRef = useRef<HTMLDivElement>(null);
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
+            setOpenKebabIndex(null);
+        }
+    };
     useEffect(()=>{
         setName(nameSearched.trim())
+        setOpenKebabIndex(null)
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     },[nameSearched])
     return (
         <div className={"md:h-[310px] gap-[20px] mt-[30px]"}>
@@ -103,7 +114,8 @@ export default function MapData({instructorsData, PopUp}: { instructorsData: Ins
                             <PopUp isOpen={index===openKebabIndex} onClose={() =>setOpenKebabIndex(null) }/>
                         </div>
                     </div>
-                ))}
+                ))
+                }
             </div>
         </div>
     );

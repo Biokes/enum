@@ -20,8 +20,6 @@ import {useDispatch} from 'react-redux';
 import DeleteInstructorDialog from "@/components/instructor/deleteInstructorDialog";
 import InvitationComponent from "@/components/createCohort/invitationComponent";
 import MapData from "@/components/createCohort/cohortDataMapper";
-import { RootState } from "@/redux/store";
-import {useSelector} from 'react-redux';
 
 export default function Instructor() {
     const [isInvited, setIsInvited] = useState<boolean>(false)
@@ -47,12 +45,11 @@ export default function Instructor() {
         {name:'tola segun',email: 'james',instructor:0,active:true,deleted:false,course:'Django fundamentals',dateAdded:'14 Aug, 2021',organization:henleyOrg}
     ]
 
-    const poppedIndex = useSelector((state:RootState)=>state.user.popUpIndex)
-    const [popupIndex, setPopupIndex] = useState<number>(poppedIndex);
+    const [popupIndex, setPopupIndex] = useState<number| null>(null);
     const handleClickOutside = (event: MouseEvent) => {
         if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
             setAssignInstructor(!assignInstructor);
-            setPopupIndex(poppedIndex);
+            setPopupIndex(null);
         }
     };
 
@@ -61,7 +58,7 @@ export default function Instructor() {
     }
 
     useEffect(() => {
-        setPopupIndex(popupIndex)
+        setPopupIndex(null)
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -98,7 +95,7 @@ export default function Instructor() {
                                 <p className={'text-xs'}>0 Instructor</p>
                             </div>
                         </div>
-                        {/*<PopUp isOpen={} />*/}
+                        <PopUp isOpen={index===popupIndex} />
                     </div>
                 ))
                 }
@@ -186,7 +183,7 @@ export default function Instructor() {
     const PopUp = (props:{isOpen:boolean})=>{
         if(props.isOpen) {
             return (
-                <div className={popupIndex? styles.moreActionsPopUp : 'hidden'} ref={popUpRef}>
+                <div className={popupIndex? `w-[300px] ${styles.moreActionsPopUp}` : 'hidden'} ref={popUpRef}>
                     <p onClick={assignInstructor}>Assign Instructors</p>
                     <p onClick={showDialog}>Remove Instructors</p>
                     <DeleteInstructorDialog isOpen={isOpen} setOpen={() => setOpen(!isOpen)}/>
@@ -200,9 +197,6 @@ export default function Instructor() {
             </>
         )
     };
-    // const closeKebab =()=>{
-    //
-    // }
 
     const Invite= ()=>(
         <div className={!isInvited ? 'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'

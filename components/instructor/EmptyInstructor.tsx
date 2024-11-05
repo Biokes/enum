@@ -2,7 +2,7 @@ import Image from "next/image";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField} from "@mui/material";
 import React, {useEffect, useRef, useState} from "react";
 import styles from '@/styles/index.module.css';
-import {Course, InstructorData, Organization, PopUpProps} from "@/interfaces/interfaces";
+import {Course, InstructorData, Organization} from "@/interfaces/interfaces";
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import GroupIcon from '@mui/icons-material/Group';
 import beans from '@/assets/beans.png'
@@ -200,9 +200,9 @@ export default function Instructor() {
             </>
         )
     };
-    const closeKebab =()=>{
-
-    }
+    // const closeKebab =()=>{
+    //
+    // }
 
     const Invite= ()=>(
         <div className={!isInvited ? 'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'

@@ -107,7 +107,8 @@
     @apply justify-between w-full flex md:flex-row flex-col mt-[60px] md:mt-0 gap-[10px] md:gap-0
 }
 .mapCohortDivSection1{
-    @apply border-[1px] border-[#323131] rounded-md h-[55px] md:h-[44px] w-[70%] md:w-[35%] mt-[10px] md:mt-0 flex items-center pr-[5px] order-2 md:order-1 ml-[20px] md:mr-0
+    @apply border-[1px] border-[#323131] rounded-md h-[45px] md:h-[44px] w-[70%] md:w-[35%] mt-[10px] md:mt-0 flex items-center pr-[5px] order-2 md:order-1 ml-[20px] md:mr-0
+    focus:border-blue-400
 }
 .mapCohortsCreated{
     @apply gap-[20px] my-[20px] md:my-[20px] md:mt-0 flex flex-col overflow-y-auto p-[10px] md:max-h-[380px];
@@ -217,7 +218,7 @@
     @apply flex gap-[5px] items-center
 }
 .forumHeader p{
-    @apply h-[16px] font-bold text-blue-950 text-center
+    @apply h-[16px] text-sm md:text-[17px] font-bold text-blue-950 text-center
 }
 .comment{
     @apply font-thin text-sm
@@ -252,5 +253,5 @@
     @apply active:bg-gray-200 h-[30px] w-[30px] rounded-xl cursor-pointer flex justify-center items-center
 }
 .inputTag{
-    @apply border-[1px] p-[10px] w-[80vw] md:w-[100%] h-[40px] rounded-md md:order-1 md:h-[40px] hover:outline-none
+    @apply border-[1px] p-[10px] w-[80vw] md:w-[100%] h-[30px] rounded-md md:order-1 md:h-[40px] hover:outline-none
 }

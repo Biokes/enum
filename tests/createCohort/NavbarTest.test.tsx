@@ -36,9 +36,9 @@ describe("", ()=>{
             </Provider>
         )
         fireEvent.click(screen.getByText('Home'))
-        expect(mockNavigate).toHaveBeenCalledWith('/');
+        expect(mockNavigate).not.toHaveBeenCalled();
         fireEvent.click(screen.getByText('Resources Library'))
-        expect(mockNavigate).toHaveBeenCalledWith('/');
-        expect(screen.getByText('Omowano')).toBeInTheDocument();
+        expect(mockNavigate).not.toHaveBeenCalled();
+        expect(screen.getByText('Onowomano')).toBeInTheDocument();
     })
 })

@@ -45,6 +45,7 @@ export default  function ViewCohort(){
                 setPopUp(false);
             }
         };
+        setStyles('')
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -58,7 +59,7 @@ export default  function ViewCohort(){
             <p onClick={()=>{setStyles('hidden')}}>Manage polls</p>
             <p>view Learners</p>
             <p>Schedule an Event </p>
-            <p className={'w-[100%] overflow-hidden'}>Make an Announcement</p>
+            <p className={'w-[100%] text-nowrap'}>Make an Announcement</p>
         </div>
     );
     const getImage = (cohort: Cohort) => {
@@ -142,24 +143,24 @@ export default  function ViewCohort(){
                         <p className={'overflow-hidden font-bold text-ellipsis whitespace-nowrap w-[100px]'}>{currentCohort.program}</p>
                     </div>
                 </section>
-                <div className={'flex gap-[40vw] mt-[30px] md:mt-0 md:gap-0'}>
+                <div className={'flex gap-[40vw] mt-[5%] md:mt-0 md:gap-0 px-[25px] md:px-0'}>
                     <Button sx={{
-                        textTransform: 'none', fontWeight: 'thin', marginRight: '10px',
-                        fontSize: 'small', background: '#008EEF', color: '#ffffff'
+                        textTransform: 'none', fontWeight: 'thin', marginRight: '10px',padding:{xs:'5px 5px',md:'5px 3px'},
+                        fontSize: 'small',whiteSpace:'nowrap', background: '#008EEF', color: '#ffffff'
                     }} variant={'contained'}>
                         Add Learners
                     </Button>
                     <div>
                         <Button endIcon={<MoreVertIcon/>} variant={'outlined'} onClick={moreActions}
                                 sx={{
-                                    color: '#008EEF', background: '#ffffff', height: '40px', overflow: 'none',
+                                    color: '#008EEF', background: '#ffffff', height: '40px',whiteSpace:'nowrap',
                                     fontWeight: 'thin', fontSize: 'small', textTransform: 'none', position: 'relative'
                                 }}>
                             more actions
                         </Button>
                         {popUp && (<PopUp/>)}
+                        { style === 'hidden' && (<InnerPopUp/>)}
                     </div>
-                    {popUp && (<InnerPopUp/>)}
                 </div>
             </div>
 

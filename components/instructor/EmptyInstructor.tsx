@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton,} from "@mui/material";
 import React, {useEffect, useRef, useState} from "react";
 import styles from '@/styles/index.module.css';
 import {Course, InstructorData, Organization} from "@/interfaces/interfaces";
@@ -15,7 +15,7 @@ import Image1 from "@/assets/unsplash_4_hFxTsmaO4.png";
 import Image2 from "@/assets/unsplash_BbSBf5uv50A.png";
 import Image3 from "@/assets/unsplash_fIq0tET6llw.png";
 import Image4 from "@/assets/unsplash_gbNuQfm9hTE.png";
-import {setHeroText} from "@/redux/UserSlice";
+import {setHeroText,setSearchContent} from "@/redux/UserSlice";
 import {useDispatch} from 'react-redux';
 import DeleteInstructorDialog from "@/components/instructor/deleteInstructorDialog";
 import InvitationComponent from "@/components/createCohort/invitationComponent";
@@ -30,8 +30,9 @@ export default function Instructor() {
     const andelaOrg:Organization = {image: blueRidge, orgName:'Andela'}
     const [isOpen, setOpen] = useState(false)
     const popUpRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch()
-
+    const [userInput, setUserInput] = useState<string>('')
     const instructorsData: InstructorData[] = [
         {name:'jame nwankwo',email: 'james',instructor:0,active:true,deleted:false,course:'Design thinking',dateAdded:'12 Aug, 2021',organization:henleyOrg},
         {name:'great ndabia',email: 'james',instructor:0,active:true,deleted:false ,course:'Design thinking',dateAdded:'13 Aug, 2021',organization:beansOrg},
@@ -52,18 +53,26 @@ export default function Instructor() {
             setPopupIndex(null);
         }
     };
-
+    const toggleAssignInstructor=()=>{
+        setAssignInstructor((prev)=>!prev)
+    }
     const showDialog= ()=>{
         setOpen(true)
     }
 
     useEffect(() => {
         setPopupIndex(null)
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
+        if (isInvited && inputRef.current) {
+            inputRef.current.focus();
+        }
+        if (popupIndex !== null) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }        return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    },[]);
+    },[handleClickOutside, isInvited, popupIndex]);
 
     const SmallAssignInstructor=()=>(
         <div className={assignedInstructor? 'md:hidden w-[80vw] md:w-[400px]':'hidden'}>
@@ -123,7 +132,7 @@ export default function Instructor() {
                         sx={{color: 'inherit', opacity: 'inherit'}}>
                     <DialogTitle>
                         Assign Instructor To Cohort
-                        <IconButton style={{float: 'right'}} onClick={() => setAssignInstructor(false)}>
+                        <IconButton style={{float: 'right'}} onClick={toggleAssignInstructor}>
                             <CloseIcon/>
                         </IconButton>
                     </DialogTitle>
@@ -186,7 +195,9 @@ export default function Instructor() {
                 <div className={popupIndex? `w-[300px] ${styles.moreActionsPopUp}` : 'hidden'} ref={popUpRef}>
                     <p onClick={assignInstructor}>Assign Instructors</p>
                     <p onClick={showDialog}>Remove Instructors</p>
-                    <DeleteInstructorDialog isOpen={isOpen} setOpen={() => setOpen(!isOpen)}/>
+                    <div className={isOpen?'fixed inset-0 bg-opacity-10 z-4':''}>
+                        <DeleteInstructorDialog isOpen={isOpen} setOpen={() => setOpen(!isOpen)}/>
+                    </div>
                     <SmallAssignInstructor/>
                     <LargeAssignInstructor/>
                 </div>
@@ -199,7 +210,8 @@ export default function Instructor() {
     };
 
     const Invite= ()=>(
-        <div className={!isInvited ? 'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'
+        <div className={!isInvited ?
+            'gap-[15px] mt-[50px] md:mt-[10px] my-[20px] justify-start mx-[20px] md:mx-0 md:grid md:grid-cols-2 md:grid-rows-1'
          :'hidden'}>
             <div className={'flex flex-col gap-[15px] md:grid md:grid-cols-2 md:grid-rows-1 md:order-2'}>
                 <div className={'md:order-2'}>
@@ -207,8 +219,12 @@ export default function Instructor() {
                         Invite instructors
                     </Button>
                 </div>
-                <form onChange={(e)=>{e.preventDefault()}}>
-                    <TextField placeholder={'search'} className={styles.inputTag}/>
+                <form onChange={(e)=>{e.preventDefault()}} className={'md:order-1'}>
+                    <input placeholder={'search...'} className={styles.inputTag} value={userInput} onChange={(e)=>{
+                        const value = e.target.value;
+                        setUserInput(value);
+                        dispatch(setSearchContent(value));
+                    }}/>
                 </form>
             </div>
             <div className={'gap-[10px] md:order-1 md:flex md:items-center'}>

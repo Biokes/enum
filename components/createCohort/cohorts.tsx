@@ -80,8 +80,8 @@ export default function Cohorts() {
     const InputAndActionsBar=()=> (
         <div className={`${cohortsSaved.length === 0 ? 'hidden': styles.mapCohortDivInner1} grid-rows-2 md:grid-rows-1 mt-[-10px]`}>
             <section className={styles.mapCohortDivSection1}>
-                <SearchIcon style={{width: '32px', height: '32px', border: 'none'}}/>
-                <input type="text" className={'w-[100%] md:w-[70%] h-[100%] md:h-[30px] outline-none active:outline-none'}/>
+                <SearchIcon sx={{width: {xs:'20px',md:'32px'}, height: {xs:'20px',md:'32px'}, border: 'none'}}/>
+                <input type="text" className={'w-[100%] md:w-[70%] h-[20px] md:h-[30px] outline-none active:outline-none'}/>
             </section>
             <section className={'flex px-[2%] md:px-0 justify-between order-1 md:order-2'}>
                 <Button variant={'contained'} sx={{
@@ -108,8 +108,6 @@ export default function Cohorts() {
                         {popUp && (<PopUp/>)}
                     </div>
                 </div>
-                
-              
             </section>
         </div>
 
